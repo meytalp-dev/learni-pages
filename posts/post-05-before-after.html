@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>לרני — לפני ואחרי</title>
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@400;600;700;800&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="post.css">
+<style>
+  .blob.b1 { width: 540px; height: 540px; background: #ec4899; opacity: .1; top: -130px; right: -110px; }
+  .blob.b2 { width: 560px; height: 560px; background: #7dd4ac; opacity: .2; bottom: -140px; left: -120px; }
+  .title { position: absolute; top: 140px; right: 90px; left: 90px; z-index: 10; font-size: 58px; }
+  .halves { position: absolute; top: 330px; right: 90px; left: 90px; z-index: 10; display: flex; flex-direction: column; gap: 34px; }
+  .half {
+    background: rgba(255,255,255,.8);
+    border-radius: 26px;
+    box-shadow: 0 10px 34px rgba(30,58,95,.1);
+    padding: 34px 40px;
+  }
+  .half.before { border-right: 8px solid #ec4899; transform: rotate(-1deg); }
+  .half.after { border-right: 8px solid #7dd4ac; transform: rotate(.8deg); }
+  .lbl { font-family: 'Playpen Sans Hebrew', cursive; font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .before .lbl { color: #be185d; }
+  .after .lbl { color: #3a8a64; }
+  .half p { font-size: 32px; font-weight: 600; color: #1e3a5f; line-height: 1.55; }
+  .verdict {
+    position: absolute; bottom: 150px; right: 90px; z-index: 10;
+    font-size: 28px; font-weight: 600; color: #4a6a8a;
+  }
+</style>
+</head>
+<body>
+<div class="post">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <span class="pill">שדרוג פרומפט</span>
+
+  <div class="title">אותו כלי. תוצאה אחרת לגמרי. 👇</div>
+
+  <div class="halves">
+    <div class="half before">
+      <div class="lbl">לפני</div>
+      <p>"תכין לי שאלון"</p>
+    </div>
+    <div class="half after">
+      <div class="lbl">אחרי</div>
+      <p>"בנה שאלון של 10 שאלות אמריקאיות על ___, עם 4 מסיחים לכל שאלה והסבר קצר לתשובה הנכונה"</p>
+    </div>
+  </div>
+
+  <div class="verdict">ההבדל? בספריית הפרומפטים באתר יש עוד 50 כאלה, מוכנים להעתקה ←</div>
+
+  <div class="footer">
+    <svg class="circles" viewBox="0 0 40 40"><circle cx="15" cy="20" r="12" fill="#7babd4" opacity=".7"/><circle cx="25" cy="20" r="12" fill="#7dd4ac" opacity=".7"/></svg>
+    <span class="name">Learni</span>
+    <span class="url">learni.ai</span>
+  </div>
+</div>
+</body>
+</html>

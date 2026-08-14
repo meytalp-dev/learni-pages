@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>לרני — מחוללים</title>
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@400;600;700;800&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="post.css">
+<style>
+  .blob.b1 { width: 620px; height: 620px; background: #f97316; opacity: .1; top: -150px; left: -130px; }
+  .blob.b2 { width: 540px; height: 540px; background: #7babd4; opacity: .18; bottom: -130px; right: -110px; }
+  .sticky-note { top: 130px; left: 90px; transform: rotate(-8deg); }
+  .body { position: absolute; top: 270px; right: 90px; left: 90px; z-index: 10; }
+  .count { font-family: 'Playpen Sans Hebrew', cursive; font-size: 120px; font-weight: 800; color: #f97316; line-height: 1; }
+  .count small { font-size: 44px; color: #1e3a5f; font-weight: 700; }
+  .title { font-size: 56px; margin-top: 16px; max-width: 850px; }
+  .chips { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 16px; max-width: 880px; }
+  .chip {
+    background: rgba(255,255,255,.78);
+    border-radius: 50px; padding: 12px 28px;
+    font-size: 27px; font-weight: 600; color: #1e3a5f;
+    box-shadow: 0 6px 20px rgba(30,58,95,.09);
+  }
+  .chip.more { background: #1e3a5f; color: #fff; }
+</style>
+</head>
+<body>
+<div class="post">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="watermark">10</div>
+  <span class="pill">חדש באתר לרני</span>
+  <div class="sticky-note">שמרו 📌</div>
+
+  <div class="body">
+    <div class="count">10<small> מחוללים חינמיים</small></div>
+    <div class="title">שעובדים בשבילכם — בלי הרשמה ובלי ידע טכני</div>
+    <div class="chips">
+      <span class="chip">🎮 משחקי למידה</span>
+      <span class="chip">📝 שאלונים</span>
+      <span class="chip">🎬 רקעי זום</span>
+      <span class="chip">🎉 פעילויות פתיחה</span>
+      <span class="chip">💬 סטיקרים לוואטסאפ</span>
+      <span class="chip more">+ עוד 5 באתר ←</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <svg class="circles" viewBox="0 0 40 40"><circle cx="15" cy="20" r="12" fill="#7babd4" opacity=".7"/><circle cx="25" cy="20" r="12" fill="#7dd4ac" opacity=".7"/></svg>
+    <span class="name">Learni</span>
+    <span class="url">learni.ai</span>
+  </div>
+</div>
+</body>
+</html>

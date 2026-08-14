@@ -1,0 +1,97 @@
+/* שפת הכרטיסיות הצפות של לרני — בסיס לפוסטים 1080×1080 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px; height: 1080px; overflow: hidden;
+  font-family: 'Assistant', sans-serif;
+}
+.post {
+  width: 1080px; height: 1080px;
+  position: relative; overflow: hidden;
+  background: #faf8f5;
+  direction: rtl;
+}
+.hand { font-family: 'Playpen Sans Hebrew', cursive; }
+
+.blob { position: absolute; border-radius: 50%; filter: blur(100px); }
+
+.pill {
+  position: absolute; top: 52px; right: 52px; z-index: 10;
+  background: rgba(30,58,95,.08);
+  border: 1px solid rgba(30,58,95,.1);
+  border-radius: 50px; padding: 10px 28px;
+  font-size: 24px; font-weight: 700; color: #1e3a5f;
+}
+
+.footer {
+  position: absolute; bottom: 44px; right: 52px; left: 52px; z-index: 10;
+  display: flex; align-items: center; gap: 14px;
+}
+.footer .circles { width: 44px; height: 44px; flex-shrink: 0; }
+.footer .name {
+  font-family: 'Playpen Sans Hebrew', cursive;
+  font-size: 30px; font-weight: 700; color: #1e3a5f;
+}
+.footer .url {
+  margin-right: auto; direction: ltr;
+  font-size: 24px; font-weight: 500; color: #1e3a5f; opacity: .5;
+}
+
+.title {
+  font-family: 'Playpen Sans Hebrew', cursive;
+  font-weight: 800; color: #1e3a5f; line-height: 1.4;
+}
+
+.fcard {
+  background: rgba(255,255,255,.78);
+  border-radius: 24px;
+  box-shadow: 0 10px 34px rgba(30,58,95,.11);
+  border-right: 7px solid #7babd4;
+  padding: 30px 34px;
+  display: flex; align-items: center; gap: 24px;
+  font-size: 31px; font-weight: 600; color: #1e3a5f;
+  line-height: 1.45;
+}
+.fcard .num {
+  flex-shrink: 0; width: 60px; height: 60px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playpen Sans Hebrew', cursive;
+  font-size: 30px; font-weight: 700; color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+
+.sticky-note {
+  position: absolute; z-index: 20;
+  background: #fef3c7; color: #92400e;
+  font-family: 'Playpen Sans Hebrew', cursive;
+  font-weight: 700; font-size: 30px;
+  padding: 16px 26px; border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(30,58,95,.18);
+}
+
+.wow {
+  position: absolute; z-index: 20;
+  width: 190px; aspect-ratio: 1; border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #fdba74);
+  color: #fff;
+  font-family: 'Playpen Sans Hebrew', cursive;
+  font-weight: 800; font-size: 34px;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  transform: rotate(-12deg);
+  box-shadow: 0 10px 32px rgba(249,115,22,.35);
+  line-height: 1.25;
+}
+
+.watermark {
+  position: absolute; inset: 0; z-index: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playpen Sans Hebrew', cursive;
+  font-weight: 800; font-size: 620px; color: #1e3a5f; opacity: .04;
+  user-select: none;
+}
+
+.cta-chip {
+  display: inline-block;
+  background: #1e3a5f; color: #fff;
+  font-size: 27px; font-weight: 700;
+  padding: 14px 34px; border-radius: 50px;
+}

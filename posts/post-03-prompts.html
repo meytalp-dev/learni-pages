@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>לרני — ספריית פרומפטים</title>
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@400;600;700;800&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="post.css">
+<style>
+  .blob.b1 { width: 600px; height: 600px; background: #b8a9d4; opacity: .18; top: -140px; left: -120px; }
+  .blob.b2 { width: 520px; height: 520px; background: #7dd4ac; opacity: .18; bottom: -120px; right: -100px; }
+  .title { position: absolute; top: 150px; right: 90px; left: 90px; z-index: 10; font-size: 58px; }
+  .stack { position: absolute; top: 380px; right: 90px; left: 90px; z-index: 10; display: flex; flex-direction: column; gap: 30px; }
+  .fcard.c1 { transform: rotate(-1.8deg); border-color: #7dd4ac; margin-left: 70px; }
+  .fcard.c1 .num { background: linear-gradient(135deg, #7dd4ac, #5bc494); }
+  .fcard.c2 { transform: rotate(1.1deg); border-color: #7babd4; margin-right: 70px; }
+  .fcard.c2 .num { background: linear-gradient(135deg, #7babd4, #5a93c4); }
+  .fcard.c3 { transform: rotate(-.9deg); border-color: #b8a9d4; margin-left: 35px; }
+  .fcard.c3 .num { background: linear-gradient(135deg, #b8a9d4, #9a88c0); }
+  .sticky-note { bottom: 150px; left: 90px; transform: rotate(7deg); }
+</style>
+</head>
+<body>
+<div class="post">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <span class="pill">מספריית הפרומפטים</span>
+
+  <div class="title">3 פרומפטים שיחסכו לכם שעה מחר בבוקר</div>
+
+  <div class="stack">
+    <div class="fcard c1"><span class="num">1</span>"סכם לי את המסמך הזה לשלוש נקודות — לישיבת הנהלה"</div>
+    <div class="fcard c2"><span class="num">2</span>"בנה לי שיעור / סדנה של 45 דקות על ___, עם פתיחה ותרגול"</div>
+    <div class="fcard c3"><span class="num">3</span>"נסח תשובה מקצועית ומנומסת למייל הזה — בלי להתנצל יותר מדי"</div>
+  </div>
+
+  <div class="sticky-note">עוד 50+ בספרייה 📌</div>
+
+  <div class="footer">
+    <svg class="circles" viewBox="0 0 40 40"><circle cx="15" cy="20" r="12" fill="#7babd4" opacity=".7"/><circle cx="25" cy="20" r="12" fill="#7dd4ac" opacity=".7"/></svg>
+    <span class="name">Learni</span>
+    <span class="url">learni.ai</span>
+  </div>
+</div>
+</body>
+</html>

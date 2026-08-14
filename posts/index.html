@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מרכז הפוסטים של לרני</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@600;700;800&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='15' cy='20' r='12' fill='%237babd4' opacity='.8'/%3E%3Ccircle cx='25' cy='20' r='12' fill='%237dd4ac' opacity='.8'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --cream: #faf8f5; --surface: #fff; --navy: #1e3a5f; --soft: #4a6a8a; --muted: #94a3b8;
+    --blue: #7babd4; --green: #7dd4ac; --lavender: #b8a9d4; --coral: #f97316; --pink: #ec4899;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--cream); color: var(--navy); font-family: 'Assistant', 'Segoe UI', sans-serif; line-height: 1.6; }
+  .hand { font-family: 'Playpen Sans Hebrew', cursive; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  header { text-align: center; margin-bottom: 36px; }
+  header h1 { font-family: 'Playpen Sans Hebrew', cursive; font-size: clamp(1.8rem, 4.5vw, 2.5rem); font-weight: 800; margin: 8px 0 8px; }
+  header h1 span { color: var(--blue); }
+  header p { color: var(--soft); max-width: 52ch; margin: 0 auto; }
+
+  .howto {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;
+    margin-bottom: 44px;
+  }
+  .step {
+    background: var(--surface); border-radius: 18px; padding: 16px 18px;
+    box-shadow: 0 6px 24px rgba(30,58,95,.07);
+    font-size: .92rem; color: var(--soft);
+  }
+  .step b { display: block; color: var(--navy); font-size: 1rem; margin-bottom: 2px; }
+  .step .n { font-family: 'Playpen Sans Hebrew', cursive; color: var(--coral); font-weight: 800; }
+  .step a { color: var(--blue); font-weight: 700; }
+
+  .post-card {
+    background: var(--surface); border-radius: 24px;
+    box-shadow: 0 10px 36px rgba(30,58,95,.09);
+    margin-bottom: 40px; overflow: hidden;
+    display: grid; grid-template-columns: 340px 1fr;
+  }
+  @media (max-width: 800px) { .post-card { grid-template-columns: 1fr; } }
+
+  .preview { background: #f0ede8; padding: 20px; display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center; }
+  .preview img { width: 100%; max-width: 300px; border-radius: 14px; box-shadow: 0 8px 24px rgba(30,58,95,.15); }
+  .btn {
+    display: inline-block; border: 0; cursor: pointer; text-decoration: none; text-align: center;
+    background: var(--navy); color: #fff; font-family: 'Assistant', sans-serif;
+    font-size: .9rem; font-weight: 700; padding: 9px 20px; border-radius: 999px;
+  }
+  .btn.ghost { background: rgba(30,58,95,.08); color: var(--navy); }
+
+  .content { padding: 22px 26px; }
+  .content .top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .content h2 { font-family: 'Playpen Sans Hebrew', cursive; font-size: 1.25rem; font-weight: 700; margin: 0; }
+  .when { font-size: .85rem; color: var(--coral); font-weight: 700; }
+  .content .goal { font-size: .9rem; color: var(--soft); margin: 0 0 14px; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tab {
+    border: 0; cursor: pointer; font-family: 'Assistant', sans-serif;
+    background: rgba(30,58,95,.07); color: var(--navy);
+    font-size: .86rem; font-weight: 700; padding: 6px 16px; border-radius: 999px;
+  }
+  .tab.active { background: var(--navy); color: #fff; }
+
+  .caption-box { position: relative; }
+  .caption {
+    background: var(--cream); border-radius: 14px; padding: 14px 16px;
+    font-size: .92rem; color: var(--navy); white-space: pre-wrap;
+    max-height: 220px; overflow-y: auto;
+    border-inline-start: 4px solid var(--blue);
+  }
+  .copy-btn {
+    position: absolute; top: 10px; inset-inline-end: 10px;
+    border: 0; cursor: pointer; font-family: 'Assistant', sans-serif;
+    background: #fff; color: var(--navy); font-weight: 700; font-size: .8rem;
+    padding: 5px 14px; border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(30,58,95,.15);
+  }
+  .copy-btn.done { background: var(--green); color: #fff; }
+
+  .track { display: flex; gap: 16px; align-items: center; margin-top: 14px; flex-wrap: wrap; font-size: .88rem; color: var(--soft); }
+  .track label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-weight: 600; }
+  .track input[type="checkbox"] { width: 17px; height: 17px; accent-color: #3a8a64; cursor: pointer; }
+
+  footer { text-align: center; color: var(--muted); font-size: .85rem; border-top: 1px solid rgba(30,58,95,.1); padding-top: 22px; }
+  footer a { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg width="46" height="46" viewBox="0 0 40 40"><circle cx="15" cy="20" r="12" fill="#7babd4" opacity=".75"/><circle cx="25" cy="20" r="12" fill="#7dd4ac" opacity=".75"/></svg>
+    <h1>מרכז הפוסטים של <span>לרני</span></h1>
+    <p>הכול מוכן: תמונה להורדה, טקסט מותאם לכל פלטפורמה, ותאריך מוצע. שתי דקות לפוסט.</p>
+  </header>
+
+  <div class="howto">
+    <div class="step"><b><span class="n">1</span> · מורידים תמונה</b>כפתור "הורדת PNG" מתחת לכל פוסט</div>
+    <div class="step"><b><span class="n">2</span> · מעתיקים טקסט</b>בוחרים פלטפורמה ולוחצים "העתקה"</div>
+    <div class="step"><b><span class="n">3</span> · מתזמנים</b>פייסבוק + אינסטגרם יחד ב־<a href="https://business.facebook.com/latest/planner" target="_blank" rel="noopener">Meta Business Suite</a>; בלינקדאין — כפתור השעון ליד "פרסום"</div>
+    <div class="step"><b><span class="n">4</span> · מסמנים ✓</b>הסימונים נשמרים בדפדפן — כך רואים מה כבר פורסם</div>
+  </div>
+
+  <div id="posts"></div>
+
+  <footer>
+    מרכז הפוסטים של לרני · <a href="../social-kit/">ערכת העיצוב</a> · התמונות בשפת הכרטיסיות הצפות
+  </footer>
+</div>
+
+<script>
+const SITE = 'https://meytalp-dev.github.io/ort-training/';
+const POSTS = [
+  {
+    id: 'p1',
+    img: 'img/post-01-notebooklm.png',
+    title: 'NotebookLM — מסמך נכנס, פודקאסט יוצא',
+    when: 'ראשון 17.8 · 20:00',
+    goal: 'פתיחת הסדרה: הכלי עם אפקט ה"וואו" הכי גדול.',
+    fb: `העליתי מסמך של 40 עמודים. שתי דקות אחר כך היה לי פודקאסט של שני מנחים שמסבירים אותו. ברצינות. 🎧
+
+NotebookLM של Google הוא כלי חינמי שהופך כל מסמך לסיכום ממוקד, אינפוגרפיקה, מצגת — ואפילו פודקאסט.
+
+עובד מצוין על מערכי שיעור, אבל בדיוק באותה מידה על דוח להנהלה, תוכנית עסקית או חומרי הדרכה לצוות.
+
+ההדרכה המלאה, בעברית ובחינם, באתר לרני 👇
+${SITE}`,
+    ig: `מסמך נכנס. פודקאסט יוצא 🎧✨
+
+NotebookLM של Google — חינמי לגמרי, בלי ידע טכני, ומרגיש כמו קסם.
+מערך שיעור, דוח, תוכנית עבודה — הכול הופך לסיכום, אינפוגרפיקה או פודקאסט.
+
+ההדרכה המלאה בעברית — לינק בביו 👆
+
+#בינהמלאכותית #כליAI #מורים #ניהול #יזמות #שיווק #לרני`,
+    li: `כמה זמן לוקח אצלכם להפוך מסמך ארוך למשהו שאפשר להציג?
+
+ב-NotebookLM של Google התהליך נראה כך: מעלים מסמך, ותוך דקות מקבלים סיכום ממוקד, אינפוגרפיקה, מצגת או פודקאסט. בחינם.
+
+אני עובדת עם הכלי הזה בהדרכות מורים, אבל הוא רלוונטי לכל מי שמתמודד עם מסמכים ארוכים — מנהלים לפני ישיבה, יזמים שמכינים חומר למשקיעים, צוותי הדרכה ושיווק.
+
+הכנתי הדרכה מלאה בעברית, פתוחה לכולם:
+${SITE}`
+  },
+  {
+    id: 'p2',
+    img: 'img/post-02-gemini.png',
+    title: 'Gemini — מצגת שלמה ב־5 דקות',
+    when: 'שלישי 19.8 · 20:00',
+    goal: 'ערך מיידי ומדיד — חיסכון בזמן שכולם מרגישים.',
+    fb: `כמה זמן לקח לכם להכין את המצגת האחרונה? 🙃
+
+עם Gemini זה נראה אחרת: מנסחים בקשה טובה, ותוך 5 דקות יש מצגת שלמה — כולל שקפים מסודרים ותמונות.
+
+בהדרכה באתר: איך מנסחים את הבקשה נכון, איך מקבלים מבנה הגיוני, ואיך משדרגים את התוצאה — צעד אחר צעד.
+
+עובד למערך שיעור, לישיבת צוות וגם לפיץ' ללקוח.
+
+ההדרכה המלאה, חינם 👇
+${SITE}`,
+    ig: `מצגת שלמה ב־5 דקות. כולל תמונות. ⏱️✨
+
+ההדרכה המלאה על Gemini — צעד אחר צעד, בעברית, חינם.
+לינק בביו 👆
+
+שלחו למישהו שעדיין נלחם ב-PowerPoint 😉
+
+#Gemini #מצגות #בינהמלאכותית #מורים #ניהול #יזמות #לרני`,
+    li: `הכנת מצגת היא אחת המשימות שגוזלות הכי הרבה זמן — ממורים, ממנהלים ומכל מי שמציג רעיון.
+
+בהדרכה החדשה באתר לרני אני מראה איך Gemini מקצר את התהליך ל-5 דקות: ניסוח הבקשה, קבלת מבנה שקפים הגיוני, הוספת תמונות ותרגול — עד תוצר מוכן להצגה.
+
+ההדרכה בעברית ופתוחה לכולם:
+${SITE}`
+  },
+  {
+    id: 'p3',
+    img: 'img/post-03-prompts.png',
+    title: 'ספריית הפרומפטים — 3 שחוסכים שעה',
+    when: 'חמישי 21.8 · 12:00',
+    goal: 'פוסט ששומרים ומשתפים — מציג את ספריית הפרומפטים.',
+    fb: `3 פרומפטים שיחסכו לכם שעה מחר בבוקר 👇
+
+1️⃣ "סכם לי את המסמך הזה לשלוש נקודות — לישיבת הנהלה"
+2️⃣ "בנה לי שיעור / סדנה של 45 דקות על ___, עם פתיחה ותרגול"
+3️⃣ "נסח תשובה מקצועית ומנומסת למייל הזה — בלי להתנצל יותר מדי" 😄
+
+אלה רק 3 מתוך 50+ בספריית הפרומפטים החדשה באתר לרני — מסודרים לפי נושא, עם כפתור העתקה. יש גם מחולל שבונה לכם פרומפט מותאם אישית.
+
+הספרייה פתוחה וחינמית 👇
+${SITE}`,
+    ig: `שמרו את הפוסט הזה 📌
+
+3 פרומפטים שיחסכו לכם שעה מחר בבוקר — למורים, למנהלים, ולכל מי שיש לו אינבוקס מתפוצץ.
+
+בספרייה באתר יש עוד 50+, עם כפתור העתקה.
+לינק בביו 👆
+
+#פרומפטים #ChatGPT #בינהמלאכותית #פרודוקטיביות #מורים #ניהול #לרני`,
+    li: `ההבדל בין תשובה גנרית לתוצר מוכן לשימוש הוא כמעט תמיד הפרומפט.
+
+באתר לרני עלתה ספריית פרומפטים חדשה: 50+ פרומפטים בדוקים, מסודרים לפי צורך — הוראה, ניהול, תקשורת מקצועית — עם כפתור העתקה ומחולל לבניית פרומפט מותאם.
+
+שלושה מהאהובים עליי:
+• "סכם לי את המסמך הזה לשלוש נקודות — לישיבת הנהלה"
+• "בנה לי סדנה של 45 דקות על ___, עם פתיחה ותרגול"
+• "נסח תשובה מקצועית למייל הזה"
+
+הספרייה פתוחה לכולם: ${SITE}`
+  },
+  {
+    id: 'p4',
+    img: 'img/post-04-generators.png',
+    title: '10 המחוללים החינמיים',
+    when: 'ראשון 24.8 · 20:00',
+    goal: 'הצגת המחוללים — ערך מעשי רגע לפני פתיחת השנה.',
+    fb: `10 מחוללים חינמיים שעובדים בשבילכם — בלי הרשמה ובלי ידע טכני 🎁
+
+באתר לרני מחכים לכם: מחולל משחקי למידה, מחולל שאלונים, פעילויות פתיחה, רקעי זום מעוצבים, סטיקרים לוואטסאפ, לוח ימי הולדת ועוד.
+
+בוחרים, ממלאים שדה או שניים — ומקבלים תוצר מוכן.
+
+מושלם לפתיחת השנה, לגיבוש צוות או סתם כדי להפתיע בישיבה הבאה 😉
+
+כל המחוללים כאן 👇
+${SITE}`,
+    ig: `10 מחוללים חינמיים באתר לרני 🎁
+
+🎮 משחקי למידה
+📝 שאלונים
+🎉 פעילויות פתיחה
+🎬 רקעי זום
+💬 סטיקרים לוואטסאפ
+ועוד 5...
+
+בלי הרשמה. בלי ידע טכני. פשוט נכנסים ויוצרים.
+לינק בביו 👆
+
+#כליםחינמיים #מורים #פתיחתשנה #בינהמלאכותית #לרני`,
+    li: `לפעמים הדרך הכי טובה להכניס AI לארגון היא כלי קטן שפותר בעיה אמיתית בשתי דקות.
+
+באתר לרני יש עכשיו 10 מחוללים חינמיים — משחקי למידה, שאלונים, פעילויות פתיחה לצוותים, רקעי זום ממותגים ועוד. בלי הרשמה, בלי התקנה.
+
+בניתי אותם למורים, אבל מנהלי צוותים ומנחי סדנאות ימצאו שם לא מעט.
+
+${SITE}`
+  },
+  {
+    id: 'p5',
+    img: 'img/post-05-before-after.png',
+    title: 'לפני/אחרי — שדרוג פרומפט',
+    when: 'שלישי 26.8 · 20:00',
+    goal: 'פורמט עוצר גלילה שמחזיר לספריית הפרומפטים.',
+    fb: `"תכין לי שאלון" — ותקבלו משהו גנרי שתצטרכו לשכתב.
+
+"בנה שאלון של 10 שאלות אמריקאיות על ___, עם 4 מסיחים לכל שאלה והסבר קצר לתשובה הנכונה" — ותקבלו תוצר מוכן לשימוש. ✅
+
+אותו כלי. אותה דקה. ההבדל כולו בפרומפט.
+
+בספריית הפרומפטים באתר לרני יש 50+ פרומפטים בנויים כמו שצריך — לחינוך, לניהול, לשיווק — מוכנים להעתקה 👇
+${SITE}`,
+    ig: `אותו כלי. תוצאה אחרת לגמרי. 👇
+
+ההבדל בין "תכין לי שאלון" לפרומפט מפורט = ההבדל בין טיוטה גנרית לתוצר מוכן.
+
+עוד 50+ פרומפטים בנויים נכון — בספרייה באתר.
+לינק בביו 👆
+
+שתפו עם מישהו שעדיין כותב פרומפטים של מילה וחצי 😄
+
+#פרומפטים #AI #טיפים #מורים #ניהול #שיווק #לרני`,
+    li: `רוב האכזבות מכלי AI הן לא בעיה של הכלי — הן בעיה של הבקשה.
+
+"תכין לי שאלון" מחזיר טיוטה גנרית. "בנה שאלון של 10 שאלות אמריקאיות על ___, עם 4 מסיחים והסבר לתשובה הנכונה" מחזיר תוצר עבודה.
+
+העיקרון הזה זהה בחינוך, בניהול ובשיווק: ככל שהבקשה מגדירה תוצר, קהל ומבנה — התוצאה קרובה יותר לשימוש מיידי.
+
+ספריית פרומפטים בנויים נכון, פתוחה לכולם: ${SITE}`
+  }
+];
+
+const PLATFORMS = [ {key:'fb', label:'פייסבוק'}, {key:'ig', label:'אינסטגרם'}, {key:'li', label:'לינקדאין'} ];
+
+const container = document.getElementById('posts');
+POSTS.forEach(function(p) {
+  const card = document.createElement('div');
+  card.className = 'post-card';
+  const tabsHtml = PLATFORMS.map(function(pl, i) {
+    return '<button class="tab' + (i === 0 ? ' active' : '') + '" data-key="' + pl.key + '">' + pl.label + '</button>';
+  }).join('');
+  const checksHtml = PLATFORMS.map(function(pl) {
+    return '<label><input type="checkbox" data-store="' + p.id + '-' + pl.key + '"> פורסם ב' + pl.label + '</label>';
+  }).join('');
+  card.innerHTML =
+    '<div class="preview">' +
+      '<img src="' + p.img + '" alt="' + p.title + '">' +
+      '<a class="btn" href="' + p.img + '" download>⬇ הורדת PNG</a>' +
+      '<a class="btn ghost" href="' + p.img.replace('img/', '').replace('.png', '.html') + '" target="_blank" rel="noopener">פתיחת המקור לעריכה</a>' +
+    '</div>' +
+    '<div class="content">' +
+      '<div class="top"><h2>' + p.title + '</h2><span class="when">📅 ' + p.when + '</span></div>' +
+      '<p class="goal">' + p.goal + '</p>' +
+      '<div class="tabs">' + tabsHtml + '</div>' +
+      '<div class="caption-box">' +
+        '<button class="copy-btn">העתקה</button>' +
+        '<div class="caption"></div>' +
+      '</div>' +
+      '<div class="track">' + checksHtml + '</div>' +
+    '</div>';
+
+  const caption = card.querySelector('.caption');
+  const copyBtn = card.querySelector('.copy-btn');
+  let current = 'fb';
+  function render() { caption.textContent = p[current]; }
+  render();
+
+  card.querySelectorAll('.tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      card.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      current = tab.dataset.key;
+      render();
+      copyBtn.textContent = 'העתקה';
+      copyBtn.classList.remove('done');
+    });
+  });
+
+  copyBtn.addEventListener('click', function() {
+    navigator.clipboard.writeText(p[current]).then(function() {
+      copyBtn.textContent = '✓ הועתק';
+      copyBtn.classList.add('done');
+      setTimeout(function() { copyBtn.textContent = 'העתקה'; copyBtn.classList.remove('done'); }, 2200);
+    });
+  });
+
+  card.querySelectorAll('input[type="checkbox"]').forEach(function(cb) {
+    const key = 'learni-posts-' + cb.dataset.store;
+    cb.checked = localStorage.getItem(key) === '1';
+    cb.addEventListener('change', function() {
+      localStorage.setItem(key, cb.checked ? '1' : '0');
+    });
+  });
+
+  container.appendChild(card);
+});
+</script>
+</body>
+</html>
