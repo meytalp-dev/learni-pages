@@ -1,4 +1,5 @@
 {
+  "_note": "מקור הטקסטים לפרסום — הסקריפט scripts/publish-post.mjs קורא מכאן",
   "site": "https://meytalp-dev.github.io/ort-training/",
   "imageBase": "https://meytalp-dev.github.io/learni-pages/posts/img/",
   "posts": [
