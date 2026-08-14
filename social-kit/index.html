@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ערכת הסושיאל של לרני</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z' fill='%239b7ed8'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f7f8fc;
+    --surface: #ffffff;
+    --text: #1e293b;
+    --text-soft: #64748b;
+    --line: #e4e8f0;
+    --primary: #00b4d8;
+    --primary-dark: #0096b7;
+    --accent: #e84393;
+    --mint: #00cec9;
+    --gold: #fdcb6e;
+    --lavender: #9b7ed8;
+    --navy: #1e3a5f;
+    --chip-bg: #eef6fb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161f;
+      --surface: #1a2230;
+      --text: #e8edf5;
+      --text-soft: #9aa8bc;
+      --line: #2a3547;
+      --chip-bg: #22304a;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Heebo', 'Segoe UI', 'Arial Hebrew', sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* ---------- header ---------- */
+  header { text-align: center; margin-bottom: 56px; }
+  .star-lg { width: 52px; height: 52px; margin-bottom: 12px; }
+  header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    margin: 0 0 10px;
+    text-wrap: balance;
+  }
+  header h1 .hl { color: var(--primary); }
+  header p { color: var(--text-soft); max-width: 46ch; margin: 0 auto; font-size: 1.05rem; }
+
+  /* ---------- sections ---------- */
+  section { margin-bottom: 64px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    color: var(--primary-dark);
+    background: var(--chip-bg);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 10px;
+  }
+  section > h2 { font-size: 1.6rem; font-weight: 800; margin: 0 0 8px; }
+  .lead { color: var(--text-soft); max-width: 62ch; margin: 0 0 28px; }
+
+  /* ---------- principles ---------- */
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .principle {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px 20px;
+  }
+  .principle .p-mark { font-size: 1.5rem; margin-bottom: 6px; }
+  .principle h3 { margin: 0 0 6px; font-size: 1.05rem; font-weight: 800; }
+  .principle p { margin: 0; color: var(--text-soft); font-size: .93rem; }
+
+  /* ---------- palette ---------- */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+  .swatch { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+  .swatch .chip { height: 84px; }
+  .swatch .meta { padding: 10px 14px; }
+  .swatch .meta b { display: block; font-size: .92rem; }
+  .swatch .meta span { font-size: .8rem; color: var(--text-soft); font-family: Consolas, monospace; }
+  .swatch .meta i { display: block; font-style: normal; font-size: .8rem; color: var(--text-soft); margin-top: 2px; }
+
+  .coding { margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .code-row {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 12px 16px; font-size: .92rem;
+  }
+  .dot { width: 14px; height: 14px; border-radius: 50%; flex: none; }
+
+  /* ---------- typography ---------- */
+  .type-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 28px; }
+  .type-demo-xl { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; line-height: 1.15; margin: 0 0 4px; }
+  .type-demo-xl .hl { color: var(--accent); }
+  .type-demo-sub { color: var(--text-soft); margin: 0 0 20px; }
+  .type-rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px 24px; padding: 0; margin: 0; list-style: none; }
+  .type-rules li { font-size: .92rem; color: var(--text-soft); padding-inline-start: 20px; position: relative; }
+  .type-rules li::before { content: "★"; position: absolute; inset-inline-start: 0; color: var(--gold); font-size: .8rem; top: 3px; }
+
+  /* ---------- mockups ---------- */
+  .posts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+  .post-item h3 { font-size: 1.05rem; font-weight: 800; margin: 14px 0 4px; }
+  .post-item .use { font-size: .88rem; color: var(--text-soft); margin: 0; }
+
+  .board {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(30, 58, 95, .14);
+    display: flex;
+    flex-direction: column;
+  }
+  .board, .board * { line-height: 1.35; }
+
+  /* shared board furniture */
+  .b-top { display: flex; justify-content: space-between; align-items: center; padding: 7% 8% 0; }
+  .b-tag {
+    font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .b-star { width: 22px; height: 22px; }
+  .b-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 8%; }
+  .b-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 8% 6%; font-size: .78rem; font-weight: 600;
+  }
+  .b-brand { font-weight: 800; letter-spacing: .02em; }
+
+  /* board 1 — announcement (turquoise gradient) */
+  .board.announce { background: linear-gradient(135deg, #00b4d8 0%, #00cec9 100%); color: #fff; }
+  .announce .b-tag { background: rgba(255,255,255,.22); color: #fff; }
+  .announce .b-kicker { font-size: .95rem; font-weight: 500; opacity: .92; margin: 0 0 6px; }
+  .announce .b-title { font-size: clamp(1.5rem, 4.2vw, 2.1rem); font-weight: 900; margin: 0 0 14px; }
+  .announce .b-title .pop { color: #1e3a5f; }
+  .announce .b-cta {
+    align-self: flex-start;
+    background: #1e3a5f; color: #fff;
+    font-size: .85rem; font-weight: 700;
+    padding: 8px 20px; border-radius: 999px;
+  }
+  .announce .b-foot { color: rgba(255,255,255,.9); }
+
+  /* board 2 — quick tip (white, pink accent) */
+  .board.tip { background: #ffffff; color: #1e293b; }
+  .tip .b-tag { background: #fce8f1; color: #c0227e; }
+  .tip .b-num {
+    font-size: .8rem; font-weight: 700; color: #e84393; margin: 0 0 4px;
+  }
+  .tip .b-title { font-size: clamp(1.25rem, 3.4vw, 1.7rem); font-weight: 900; margin: 0 0 12px; }
+  .tip .b-quote {
+    background: #f7f8fc;
+    border-inline-start: 4px solid #e84393;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: .88rem;
+    color: #475569;
+    margin: 0;
+  }
+  .tip .b-quote code { font-family: inherit; font-weight: 600; color: #1e293b; }
+  .tip .b-foot { color: #94a3b8; }
+
+  /* board 3 — carousel cover (navy, gold star) */
+  .board.carousel { background: #1e3a5f; color: #fff; }
+  .carousel .b-tag { background: rgba(253,203,110,.18); color: #fdcb6e; }
+  .carousel .b-count { font-size: 3.4rem; font-weight: 900; color: #fdcb6e; margin: 0; line-height: 1; }
+  .carousel .b-count small { font-size: 1.1rem; font-weight: 700; color: #fff; }
+  .carousel .b-title { font-size: clamp(1.3rem, 3.6vw, 1.8rem); font-weight: 900; margin: 8px 0 10px; }
+  .carousel .b-swipe { font-size: .82rem; color: #8fb3d9; }
+  .carousel .b-foot { color: #8fb3d9; }
+
+  /* board 4 — before/after (split) */
+  .board.beforeafter { background: #ffffff; color: #1e293b; }
+  .beforeafter .split { flex: 1; display: grid; grid-template-rows: 1fr 1fr; margin: 4% 8%; gap: 10px; }
+  .beforeafter .half { border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; }
+  .beforeafter .half .lbl { font-size: .72rem; font-weight: 800; letter-spacing: .08em; margin-bottom: 4px; }
+  .beforeafter .half p { margin: 0; font-size: .85rem; }
+  .beforeafter .before { background: #fce8f1; }
+  .beforeafter .before .lbl { color: #c0227e; }
+  .beforeafter .after { background: #e8faf0; }
+  .beforeafter .after .lbl { color: #1a8a4a; }
+  .beforeafter .b-title { font-size: 1.15rem; font-weight: 900; margin: 0; padding: 6% 8% 0; }
+  .beforeafter .b-foot { color: #94a3b8; }
+
+  /* board 5 — hook question (lavender) */
+  .board.hook { background: linear-gradient(160deg, #9b7ed8 0%, #7a5fc0 100%); color: #fff; }
+  .hook .b-tag { background: rgba(255,255,255,.2); color: #fff; }
+  .hook .b-title { font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 900; margin: 0 0 10px; text-wrap: balance; }
+  .hook .b-sub { font-size: .9rem; opacity: .92; margin: 0; }
+  .hook .b-foot { color: rgba(255,255,255,.85); }
+
+  /* ---------- do / don't ---------- */
+  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .rule-col { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+  .rule-col h3 { margin: 0 0 12px; font-size: 1rem; font-weight: 800; }
+  .rule-col.do h3 { color: #1a8a4a; }
+  .rule-col.dont h3 { color: #c0227e; }
+  .rule-col ul { margin: 0; padding-inline-start: 20px; color: var(--text-soft); font-size: .92rem; display: grid; gap: 8px; }
+
+  footer { text-align: center; color: var(--text-soft); font-size: .85rem; border-top: 1px solid var(--line); padding-top: 24px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .board { transition: transform .25s ease; }
+    .board:hover { transform: translateY(-4px); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="star-lg" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#9b7ed8"/>
+      <path d="M50 22 L54 46 L78 50 L54 54 L50 78 L46 54 L22 50 L46 46 Z" fill="#c4b5e0" opacity=".55" transform="rotate(45,50,50)"/>
+    </svg>
+    <h1>ערכת הסושיאל של <span class="hl">לרני</span></h1>
+    <p>שפה ויזואלית אחידה לפוסטים על הדרכות ובינה מלאכותית — מקצועית, מעוצבת, ומסקרנת מספיק כדי לעצור את הגלילה.</p>
+  </header>
+
+  <section>
+    <span class="eyebrow">הרעיון המרכזי</span>
+    <h2>כוכב אחד, שפה אחת</h2>
+    <p class="lead">הכוכב מהלוגו של לרני הוא בדיוק הסמל שהעולם מזהה כ"בינה מלאכותית" (ה־sparkle). הוא הופך לחותמת של המותג: מופיע באותה פינה בכל פוסט, כמו חתימה. מי שגולל בפיד מזהה פוסט של לרני עוד לפני שקרא מילה.</p>
+    <div class="principles">
+      <div class="principle">
+        <div class="p-mark">📐</div>
+        <h3>מקצועי</h3>
+        <p>גריד קבוע, שוליים נדיבים, מסר אחד בכל פוסט. בלי עומס — ביטחון שקט של מי שיודע על מה הוא מדבר.</p>
+      </div>
+      <div class="principle">
+        <div class="p-mark">🎨</div>
+        <h3>מעוצב</h3>
+        <p>צבעי האתר החיים על רקעים נקיים. מילה אחת צבעונית בכותרת עושה את העבודה של עשר קישוטים.</p>
+      </div>
+      <div class="principle">
+        <div class="p-mark">✨</div>
+        <h3>מסקרן</h3>
+        <p>כל פוסט נפתח בשאלה, מספר או הבטחה — לא בשם הכלי. קודם "למה זה שווה לי", אחר כך "איך".</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">צבעים</span>
+    <h2>הפלטה — ישר מהאתר</h2>
+    <p class="lead">חמישה צבעים, כל אחד עם תפקיד. הכלל: רקע אחד דומיננטי + צבע הדגשה אחד לכל פוסט. אף פעם לא שלושה צבעים חזקים באותו פריים.</p>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#00b4d8"></div><div class="meta"><b>טורקיז</b><span>#00b4d8</span><i>הצבע הראשי — הדרכות</i></div></div>
+      <div class="swatch"><div class="chip" style="background:#e84393"></div><div class="meta"><b>פוקסיה</b><span>#e84393</span><i>הדגשה — טיפים ו־CTA</i></div></div>
+      <div class="swatch"><div class="chip" style="background:#00cec9"></div><div class="meta"><b>מנטה</b><span>#00cec9</span><i>גרדיאנט עם הטורקיז</i></div></div>
+      <div class="swatch"><div class="chip" style="background:#fdcb6e"></div><div class="meta"><b>זהב</b><span>#fdcb6e</span><i>מספרים והצלחות</i></div></div>
+      <div class="swatch"><div class="chip" style="background:#9b7ed8"></div><div class="meta"><b>לבנדר</b><span>#9b7ed8</span><i>הכוכב — כלים חדשים</i></div></div>
+      <div class="swatch"><div class="chip" style="background:#1e3a5f"></div><div class="meta"><b>נייבי</b><span>#1e3a5f</span><i>טקסט ורקע כהה</i></div></div>
+    </div>
+    <div class="coding">
+      <div class="code-row"><span class="dot" style="background:#00b4d8"></span>הכרזה על הדרכה — טורקיז</div>
+      <div class="code-row"><span class="dot" style="background:#e84393"></span>טיפ מהיר / פרומפט — פוקסיה</div>
+      <div class="code-row"><span class="dot" style="background:#9b7ed8"></span>כלי AI חדש — לבנדר</div>
+      <div class="code-row"><span class="dot" style="background:#fdcb6e"></span>סיפור הצלחה / נתון — זהב</div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">טיפוגרפיה</span>
+    <h2>Heebo עושה את כל העבודה</h2>
+    <div class="type-card">
+      <p class="type-demo-xl">כותרת ענקית, <span class="hl">מילה אחת</span> בצבע.</p>
+      <p class="type-demo-sub">משפט משנה קצר שמסביר מה מרוויחים — לא יותר משורה וחצי.</p>
+      <ul class="type-rules">
+        <li>Heebo Black (900) לכותרות, Heebo Regular לטקסט רץ</li>
+        <li>מקסימום שני גדלים בפוסט: כותרת + משפט אחד</li>
+        <li>מספרים גדולים בזהב — העין נתפסת עליהם ראשונים</li>
+        <li>שמות כלים באנגלית (Claude, ChatGPT) — תמיד באותו משקל</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">התבניות</span>
+    <h2>חמש תבניות — כל הפיד מכוסה</h2>
+    <p class="lead">כל תבנית עם מבנה קבוע: תג קטגוריה למעלה, כוכב בפינה, לוגו למטה. מחליפים רק טקסט וצבע — והפיד נשאר אחיד גם כשכל פוסט שונה.</p>
+    <div class="posts">
+
+      <div class="post-item">
+        <div class="board announce">
+          <div class="b-top">
+            <span class="b-tag">הדרכה חדשה</span>
+            <svg class="b-star" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#ffffff" opacity=".9"/></svg>
+          </div>
+          <div class="b-body">
+            <p class="b-kicker">בשעה אחת תלמדו</p>
+            <p class="b-title">לבנות מצגת שלמה עם <span class="pop">Claude</span> — בלי לגעת ב־PowerPoint</p>
+            <span class="b-cta">יום ג׳ · 20:00 · בזום</span>
+          </div>
+          <div class="b-foot"><span class="b-brand">Learni ✦</span><span>הרשמה בלינק בביו</span></div>
+        </div>
+        <h3>הכרזה על הדרכה</h3>
+        <p class="use">גרדיאנט טורקיז–מנטה. הכותרת מוכרת את התוצאה, לא את הכלי.</p>
+      </div>
+
+      <div class="post-item">
+        <div class="board tip">
+          <div class="b-top">
+            <span class="b-tag">טיפ ב־30 שניות</span>
+            <svg class="b-star" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#e84393"/></svg>
+          </div>
+          <div class="b-body">
+            <p class="b-num">טיפ #14</p>
+            <p class="b-title">תנו ל־AI תפקיד, וקבלו תשובה פי שלוש יותר טובה</p>
+            <p class="b-quote">"אתה יועץ שיווק עם 15 שנות ניסיון. כתוב לי..." — עובד על מייל למנהלים, פוסט שיווקי או מערך שיעור.</p>
+          </div>
+          <div class="b-foot"><span class="b-brand" style="color:#1e3a5f">Learni ✦</span><span>שמרו לפעם הבאה</span></div>
+        </div>
+        <h3>טיפ מהיר</h3>
+        <p class="use">רקע לבן, הדגשת פוקסיה. פרומפט אמיתי בתיבת ציטוט — ערך מיידי ששומרים.</p>
+      </div>
+
+      <div class="post-item">
+        <div class="board carousel">
+          <div class="b-top">
+            <span class="b-tag">מדריך מלא</span>
+            <svg class="b-star" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#fdcb6e"/></svg>
+          </div>
+          <div class="b-body">
+            <p class="b-count">5<small> שלבים</small></p>
+            <p class="b-title">מרעיון לסרטון הדרכה — עם כלי AI חינמיים בלבד</p>
+            <p class="b-swipe">← החליקו לשלב הראשון</p>
+          </div>
+          <div class="b-foot"><span class="b-brand">Learni ✦</span><span>1 / 6</span></div>
+        </div>
+        <h3>שער קרוסלה</h3>
+        <p class="use">נייבי + זהב. המספר הגדול מבטיח מסלול ברור ומזמין להחליק.</p>
+      </div>
+
+      <div class="post-item">
+        <div class="board beforeafter">
+          <p class="b-title">אותו כלי. פרומפט אחר. 👇</p>
+          <div class="split">
+            <div class="half before">
+              <span class="lbl">לפני</span>
+              <p>"כתוב לי תוכנית עבודה"</p>
+            </div>
+            <div class="half after">
+              <span class="lbl">אחרי</span>
+              <p>"בנה תוכנית עבודה רבעונית לצוות של 4, עם יעדים מדידים ואבן דרך חודשית"</p>
+            </div>
+          </div>
+          <div class="b-foot"><span class="b-brand" style="color:#1e3a5f">Learni ✦</span><span>ההבדל בתוצאה — בתגובה הראשונה</span></div>
+        </div>
+        <h3>לפני / אחרי</h3>
+        <p class="use">הפורמט שהכי קל לעצור עליו — ההשוואה מספרת את הסיפור לבד.</p>
+      </div>
+
+      <div class="post-item">
+        <div class="board hook">
+          <div class="b-top">
+            <span class="b-tag">כלי חדש</span>
+            <svg class="b-star" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#ffffff" opacity=".95"/></svg>
+          </div>
+          <div class="b-body">
+            <p class="b-title">הכלי הזה מסכם לכם פגישה של שעה בדקה וחצי.</p>
+            <p class="b-sub">ובגרסה החינמית זה מספיק לגמרי. כל הפרטים בהדרכה הקרובה 👀</p>
+          </div>
+          <div class="b-foot"><span class="b-brand">Learni ✦</span><span>עקבו כדי לא לפספס</span></div>
+        </div>
+        <h3>כלי חדש / טיזר</h3>
+        <p class="use">לבנדר — הצבע של הכוכב. הבטחה מסקרנת בלי לחשוף הכול, מייצרת ציפייה להדרכה.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">כללי זהב</span>
+    <h2>מה שומר על השפה</h2>
+    <div class="rules">
+      <div class="rule-col do">
+        <h3>✓ תמיד</h3>
+        <ul>
+          <li>כוכב בפינה העליונה, לוגו Learni בתחתית — באותו מקום בכל פוסט</li>
+          <li>מסר אחד לפוסט. יש שניים? זו קרוסלה.</li>
+          <li>כותרת שמוכרת תועלת: "תחסכו שעה" ולא "הכירו את הכלי"</li>
+          <li>דוגמאות מגוונות — מורים, מנהלים, יזמים, משווקים</li>
+        </ul>
+      </div>
+      <div class="rule-col dont">
+        <h3>✗ אף פעם</h3>
+        <ul>
+          <li>יותר משני צבעים חזקים באותו פריים</li>
+          <li>צילומי מסך עמוסים בלי מסגרת וכותרת</li>
+          <li>טקסט מתחת לגודל קריא בנייד (פחות מ־24px על קנבס 1080)</li>
+          <li>ז'רגון טכני בכותרת — "פרומפט הנדסי" מבריח, "שאלה חכמה" מזמין</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    ערכת הסושיאל של לרני · הצבעים מתוך אתר לרני · הכוכב מתוך הלוגו
+  </footer>
+</div>
+</body>
+</html>
