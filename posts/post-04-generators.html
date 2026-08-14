@@ -3,52 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <title>לרני — מחוללים</title>
-<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@400;600;700;800&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@300;400;500;600;700;800&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="post.css">
-<style>
-  .blob.b1 { width: 620px; height: 620px; background: #f97316; opacity: .1; top: -150px; left: -130px; }
-  .blob.b2 { width: 540px; height: 540px; background: #7babd4; opacity: .18; bottom: -130px; right: -110px; }
-  .sticky-note { top: 130px; left: 90px; transform: rotate(-8deg); }
-  .body { position: absolute; top: 270px; right: 90px; left: 90px; z-index: 10; }
-  .count { font-family: 'Playpen Sans Hebrew', cursive; font-size: 120px; font-weight: 800; color: #f97316; line-height: 1; }
-  .count small { font-size: 44px; color: #1e3a5f; font-weight: 700; }
-  .title { font-size: 56px; margin-top: 16px; max-width: 850px; }
-  .chips { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 16px; max-width: 880px; }
-  .chip {
-    background: rgba(255,255,255,.78);
-    border-radius: 50px; padding: 12px 28px;
-    font-size: 27px; font-weight: 600; color: #1e3a5f;
-    box-shadow: 0 6px 20px rgba(30,58,95,.09);
-  }
-  .chip.more { background: #1e3a5f; color: #fff; }
-</style>
 </head>
 <body>
-<div class="post">
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <div class="watermark">10</div>
-  <span class="pill">חדש באתר לרני</span>
-  <div class="sticky-note">שמרו 📌</div>
+<div class="canvas" style="--tool-color: #E9A319;">
 
-  <div class="body">
-    <div class="count">10<small> מחוללים חינמיים</small></div>
-    <div class="title">שעובדים בשבילכם — בלי הרשמה ובלי ידע טכני</div>
-    <div class="chips">
-      <span class="chip">🎮 משחקי למידה</span>
-      <span class="chip">📝 שאלונים</span>
-      <span class="chip">🎬 רקעי זום</span>
-      <span class="chip">🎉 פעילויות פתיחה</span>
-      <span class="chip">💬 סטיקרים לוואטסאפ</span>
-      <span class="chip more">+ עוד 5 באתר ←</span>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  <div class="ring ring-1"></div><div class="ring ring-2"></div>
+  <div class="diamond diamond-1"></div><div class="diamond diamond-2"></div>
+
+  <div class="tool-badge">
+    <div class="tool-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E9A319" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 4V2m0 20v-2m7-7h-2M4 13H2m15.5-6.5L19 5M5 21l9-9M19 21l-1.5-1.5M6.5 6.5L5 5"/>
+        <path d="M9 12l3-3 9 9-3 3z"/>
+      </svg>
+    </div>
+    <span class="tool-name">Learni</span>
+  </div>
+
+  <div class="cat">
+    <svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+    חדש באתר לרני
+  </div>
+
+  <div class="title">
+    <span class="hl">10 מחוללים חינמיים</span><br>שעובדים בשבילכם
+  </div>
+
+  <div class="sticker">
+    <span class="sticker-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+    </span>
+    בלי הרשמה!
+  </div>
+
+  <div class="examples" style="top: 330px;">
+    <div class="example-row">
+      <div class="ex-plain">🎮 מחולל משחקי למידה — מזינים נושא, מקבלים משחק מוכן</div>
+    </div>
+    <div class="example-row">
+      <div class="ex-plain">📝 מחולל שאלונים — כולל תשובות והסברים</div>
+    </div>
+    <div class="example-row">
+      <div class="ex-plain">🎬 רקעי זום · 🎉 פעילויות פתיחה · 💬 סטיקרים לוואטסאפ</div>
     </div>
   </div>
 
-  <div class="footer">
-    <svg class="circles" viewBox="0 0 40 40"><circle cx="15" cy="20" r="12" fill="#7babd4" opacity=".7"/><circle cx="25" cy="20" r="12" fill="#7dd4ac" opacity=".7"/></svg>
-    <span class="name">Learni</span>
-    <span class="url">learni.ai</span>
+  <div class="insight">
+    בוחרים מחולל, ממלאים שדה או שניים — <span class="hl">מקבלים תוצר מוכן</span>.<br>
+    מושלם לפתיחת שנה, לגיבוש צוות או להפתעה בישיבה הבאה 😉
   </div>
+
+  <div class="audiences">
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>מורים</div>
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>מנהלי צוותים</div>
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75M12 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>מנחי סדנאות</div>
+  </div>
+
+  <div class="cta">כל המחוללים — בקישור בתגובה הראשונה | learni.ai</div>
+
+  <div class="bottom">
+    <div class="logo">
+      <div class="logo-circles"><div class="c1"></div><div class="c2"></div></div>
+      <div class="logo-name">Learni</div>
+    </div>
+    <div class="date-label">24.8.2026</div>
+    <div class="url">learni.ai</div>
+  </div>
+
 </div>
 </body>
 </html>

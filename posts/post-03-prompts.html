@@ -3,43 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <title>לרני — ספריית פרומפטים</title>
-<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@400;600;700;800&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@300;400;500;600;700;800&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="post.css">
-<style>
-  .blob.b1 { width: 600px; height: 600px; background: #b8a9d4; opacity: .18; top: -140px; left: -120px; }
-  .blob.b2 { width: 520px; height: 520px; background: #7dd4ac; opacity: .18; bottom: -120px; right: -100px; }
-  .title { position: absolute; top: 150px; right: 90px; left: 90px; z-index: 10; font-size: 58px; }
-  .stack { position: absolute; top: 380px; right: 90px; left: 90px; z-index: 10; display: flex; flex-direction: column; gap: 30px; }
-  .fcard.c1 { transform: rotate(-1.8deg); border-color: #7dd4ac; margin-left: 70px; }
-  .fcard.c1 .num { background: linear-gradient(135deg, #7dd4ac, #5bc494); }
-  .fcard.c2 { transform: rotate(1.1deg); border-color: #7babd4; margin-right: 70px; }
-  .fcard.c2 .num { background: linear-gradient(135deg, #7babd4, #5a93c4); }
-  .fcard.c3 { transform: rotate(-.9deg); border-color: #b8a9d4; margin-left: 35px; }
-  .fcard.c3 .num { background: linear-gradient(135deg, #b8a9d4, #9a88c0); }
-  .sticky-note { bottom: 150px; left: 90px; transform: rotate(7deg); }
-</style>
 </head>
 <body>
-<div class="post">
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <span class="pill">מספריית הפרומפטים</span>
+<div class="canvas" style="--tool-color: #2A9D8F;">
 
-  <div class="title">3 פרומפטים שיחסכו לכם שעה מחר בבוקר</div>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  <div class="ring ring-1"></div><div class="ring ring-2"></div>
+  <div class="diamond diamond-1"></div><div class="diamond diamond-2"></div>
 
-  <div class="stack">
-    <div class="fcard c1"><span class="num">1</span>"סכם לי את המסמך הזה לשלוש נקודות — לישיבת הנהלה"</div>
-    <div class="fcard c2"><span class="num">2</span>"בנה לי שיעור / סדנה של 45 דקות על ___, עם פתיחה ותרגול"</div>
-    <div class="fcard c3"><span class="num">3</span>"נסח תשובה מקצועית ומנומסת למייל הזה — בלי להתנצל יותר מדי"</div>
+  <div class="tool-badge">
+    <div class="tool-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#2A9D8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+      </svg>
+    </div>
+    <span class="tool-name">Learni</span>
   </div>
 
-  <div class="sticky-note">עוד 50+ בספרייה 📌</div>
-
-  <div class="footer">
-    <svg class="circles" viewBox="0 0 40 40"><circle cx="15" cy="20" r="12" fill="#7babd4" opacity=".7"/><circle cx="25" cy="20" r="12" fill="#7dd4ac" opacity=".7"/></svg>
-    <span class="name">Learni</span>
-    <span class="url">learni.ai</span>
+  <div class="cat">
+    <svg viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+    טיפ יומי
   </div>
+
+  <div class="title">
+    3 פרומפטים שיחסכו לכם<br><span class="hl">שעה</span> מחר בבוקר
+  </div>
+
+  <div class="sticker">
+    <span class="sticker-icon">
+      <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+    </span>
+    שמרו את זה!
+  </div>
+
+  <div class="examples" style="top: 320px;">
+    <div class="example-row">
+      <div class="num">1</div>
+      <div class="ex-plain">"סכם לי את המסמך הזה לשלוש נקודות — לישיבת הנהלה"</div>
+    </div>
+    <div class="example-row">
+      <div class="num">2</div>
+      <div class="ex-plain">"בנה לי שיעור / סדנה של 45 דקות על ___, עם פתיחה ותרגול"</div>
+    </div>
+    <div class="example-row">
+      <div class="num">3</div>
+      <div class="ex-plain">"נסח תשובה מקצועית למייל הזה — בלי להתנצל יותר מדי" 😄</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    אלה רק 3 מתוך <span class="hl">+50 בספריית הפרומפטים</span> באתר —<br>
+    מסודרים לפי נושא, עם כפתור העתקה
+  </div>
+
+  <div class="audiences">
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>מורים</div>
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>מנהלים</div>
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>יזמים</div>
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>שיווק</div>
+  </div>
+
+  <div class="cta">הספרייה המלאה — בקישור בתגובה הראשונה | learni.ai</div>
+
+  <div class="bottom">
+    <div class="logo">
+      <div class="logo-circles"><div class="c1"></div><div class="c2"></div></div>
+      <div class="logo-name">Learni</div>
+    </div>
+    <div class="date-label">21.8.2026</div>
+    <div class="url">learni.ai</div>
+  </div>
+
 </div>
 </body>
 </html>

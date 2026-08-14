@@ -3,42 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <title>לרני — NotebookLM</title>
-<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@400;600;700;800&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@300;400;500;600;700;800&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="post.css">
-<style>
-  .blob.b1 { width: 640px; height: 640px; background: #b8a9d4; opacity: .26; top: -160px; left: -140px; }
-  .blob.b2 { width: 480px; height: 480px; background: #7babd4; opacity: .16; bottom: -120px; right: -100px; }
-  .wow { top: 140px; left: 90px; }
-  .body { position: absolute; top: 300px; right: 90px; left: 90px; z-index: 10; }
-  .title { font-size: 66px; }
-  .title .pop { color: #f97316; }
-  .sub {
-    margin-top: 34px; font-size: 33px; font-weight: 500;
-    color: #4a6a8a; line-height: 1.6; max-width: 820px;
-  }
-  .sub b { color: #1e3a5f; }
-  .cta-row { position: absolute; bottom: 150px; right: 90px; z-index: 10; }
-</style>
 </head>
 <body>
-<div class="post">
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <span class="pill">כלי חדש באתר</span>
-  <div class="wow">חינמי<br>לגמרי!</div>
+<div class="canvas" style="--tool-color: #EA4335;">
 
-  <div class="body">
-    <div class="title">העליתי מסמך משעמם.<br>קיבלתי <span class="pop">פודקאסט</span>. 🎧</div>
-    <div class="sub"><b>NotebookLM של Google</b> הופך כל מסמך — מערך שיעור, דוח להנהלה, תוכנית עסקית — לסיכום, פודקאסט, אינפוגרפיקה ואפילו מצגת.</div>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  <div class="ring ring-1"></div><div class="ring ring-2"></div>
+  <div class="diamond diamond-1"></div><div class="diamond diamond-2"></div>
+
+  <div class="tool-badge">
+    <div class="tool-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+      </svg>
+    </div>
+    <span class="tool-name">NotebookLM</span>
   </div>
 
-  <div class="cta-row"><span class="cta-chip">ההדרכה המלאה באתר לרני ←</span></div>
-
-  <div class="footer">
-    <svg class="circles" viewBox="0 0 40 40"><circle cx="15" cy="20" r="12" fill="#7babd4" opacity=".7"/><circle cx="25" cy="20" r="12" fill="#7dd4ac" opacity=".7"/></svg>
-    <span class="name">Learni</span>
-    <span class="url">learni.ai</span>
+  <div class="cat">
+    <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    כלי חדש באתר
   </div>
+
+  <div class="title">
+    העליתי מסמך משעמם.<br>קיבלתי <span class="hl">פודקאסט</span> 🎧
+  </div>
+
+  <div class="sticker">
+    <span class="sticker-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+    </span>
+    חינמי לגמרי!
+  </div>
+
+  <div class="examples" style="top: 330px;">
+    <div class="example-row">
+      <div class="ex-plain">מערך שיעור של 40 עמודים</div>
+      <div class="ex-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="ex-right">פודקאסט של שני מנחים 🎧</div>
+    </div>
+    <div class="example-row">
+      <div class="ex-plain">דוח ארוך להנהלה</div>
+      <div class="ex-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="ex-right">אינפוגרפיקה מעוצבת 📊</div>
+    </div>
+    <div class="example-row">
+      <div class="ex-plain">תוכנית עסקית שלמה</div>
+      <div class="ex-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="ex-right">מצגת מוכנה להצגה 🎯</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    NotebookLM של Google — חינמי, בעברית, בלי ידע טכני.<br>
+    <span class="hl">ההדרכה המלאה באתר לרני</span>
+  </div>
+
+  <div class="audiences">
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>מורים</div>
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>מנהלים</div>
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>יזמים</div>
+    <div class="aud-pill"><svg viewBox="0 0 24 24"><path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>שיווק</div>
+  </div>
+
+  <div class="cta">ההדרכה המלאה — בקישור בתגובה הראשונה | learni.ai</div>
+
+  <div class="bottom">
+    <div class="logo">
+      <div class="logo-circles"><div class="c1"></div><div class="c2"></div></div>
+      <div class="logo-name">Learni</div>
+    </div>
+    <div class="date-label">17.8.2026</div>
+    <div class="url">learni.ai</div>
+  </div>
+
 </div>
 </body>
 </html>
