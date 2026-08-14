@@ -22,19 +22,6 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const GRAPH = 'https://graph.facebook.com/v21.0';
 
-// --- .env ---
-const envPath = join(here, '.env');
-if (!existsSync(envPath)) {
-  console.error('חסר קובץ .env — ראו META-SETUP.md בתיקייה הזו.');
-  process.exit(1);
-}
-const env = {};
-for (const line of readFileSync(envPath, 'utf8').split(/\r?\n/)) {
-  const m = line.match(/^\s*([A-Z_]+)\s*=\s*(.+)\s*$/);
-  if (m) env[m[1]] = m[2];
-}
-const { META_PAGE_ID, META_IG_USER_ID, META_PAGE_TOKEN } = env;
-
 // --- args ---
 const args = process.argv.slice(2);
 const getArg = (name) => {
@@ -48,6 +35,19 @@ if (args.includes('--list')) {
   for (const p of data.posts) console.log(`${p.id}  ${p.when}  ${p.title}`);
   process.exit(0);
 }
+
+// --- .env ---
+const envPath = join(here, '.env');
+if (!existsSync(envPath)) {
+  console.error('חסר קובץ .env — ראו META-SETUP.md בתיקייה הזו.');
+  process.exit(1);
+}
+const env = {};
+for (const line of readFileSync(envPath, 'utf8').split(/\r?\n/)) {
+  const m = line.match(/^\s*([A-Z_]+)\s*=\s*(.+)\s*$/);
+  if (m) env[m[1]] = m[2];
+}
+const { META_PAGE_ID, META_IG_USER_ID, META_PAGE_TOKEN } = env;
 
 const postId = getArg('post');
 const to = (getArg('to') || 'fb,ig').split(',').map(s => s.trim());
