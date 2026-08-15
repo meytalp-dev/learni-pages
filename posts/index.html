@@ -22,6 +22,13 @@
   header h1 { font-family: 'Playpen Sans Hebrew', cursive; font-size: clamp(1.8rem, 4.5vw, 2.5rem); font-weight: 800; margin: 8px 0 8px; }
   header h1 span { color: var(--blue); }
   header p { color: var(--soft); max-width: 52ch; margin: 0 auto; }
+  .header-cta {
+    display: inline-block; margin-top: 16px; text-decoration: none;
+    background: var(--navy); color: #fff; font-weight: 700; font-size: .95rem;
+    padding: 10px 24px; border-radius: 999px;
+    box-shadow: 0 6px 20px rgba(30,58,95,.2);
+  }
+  .header-cta:hover { background: #2b4d7a; }
 
   .howto {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;
@@ -97,6 +104,7 @@
     <svg width="46" height="46" viewBox="0 0 40 40"><circle cx="15" cy="20" r="12" fill="#7babd4" opacity=".75"/><circle cx="25" cy="20" r="12" fill="#7dd4ac" opacity=".75"/></svg>
     <h1>מרכז הפוסטים של <span>לרני</span></h1>
     <p>הכול מוכן: תמונה להורדה, טקסט מותאם לכל פלטפורמה, ותאריך מוצע. שתי דקות לפוסט.</p>
+    <a class="header-cta" href="https://business.facebook.com/latest/planner" target="_blank" rel="noopener">📅 תזמון פייסבוק + אינסטגרם — Meta Business Suite</a>
   </header>
 
   <div class="howto">
