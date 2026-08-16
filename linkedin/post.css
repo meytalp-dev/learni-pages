@@ -1,0 +1,168 @@
+/* תבנית כרטיס לינקדין — IMPACT OS · "מאחורי הקלעים של המערכות" */
+/* 1080×1350 (4:5) · כל פוסט מגדיר --accent על ה-canvas */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1080px; height: 1350px; overflow: hidden; background: #061E4F; }
+
+.canvas {
+  width: 1080px; height: 1350px; position: relative; overflow: hidden;
+  background: #061E4F; color: #fff;
+  font-family: 'Heebo', 'Assistant', sans-serif; direction: rtl;
+  --accent: #12C7C7; --navy: #061E4F; --fuchsia: #F00678; --teal: #12C7C7;
+  --green: #7BCB52; --yellow: #F4B41B; --orange: #FF7A1A;
+}
+.canvas::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 45% at 100% 0%, color-mix(in srgb, var(--accent) 34%, transparent) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 45% at 0% 100%, rgba(240,6,120,.28) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 50% 60%, rgba(255,255,255,.04) 0%, transparent 70%);
+}
+.canvas::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; opacity: .55;
+  background-image: radial-gradient(rgba(255,255,255,.10) 1px, transparent 1.2px);
+  background-size: 30px 30px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.9) 100%);
+}
+.canvas > * { position: relative; z-index: 2; }
+
+/* ===== שורת-על: תגית סדרה + מספר ===== */
+.series {
+  position: absolute; top: 52px; right: 60px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 24px; font-weight: 600; letter-spacing: .2px; color: rgba(255,255,255,.82);
+  padding: 10px 22px 10px 24px; border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05);
+}
+.series .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 30%, transparent); }
+.series .num { font-weight: 800; color: #fff; direction: ltr; }
+
+/* ===== תגית מערכת (משמאל למעלה) ===== */
+.system {
+  position: absolute; top: 46px; left: 60px;
+  display: flex; align-items: center; gap: 14px; direction: rtl;
+}
+.system .tile {
+  width: 62px; height: 62px; border-radius: 18px;
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 55%, #061E4F));
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 45%, transparent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; font-weight: 900; color: #fff;
+}
+.system .tile svg { width: 34px; height: 34px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.system .name { font-size: 28px; font-weight: 800; line-height: 1.1; }
+.system .sub { font-size: 19px; font-weight: 500; color: rgba(255,255,255,.62); direction: ltr; text-align: right; }
+
+/* ===== כותרת ===== */
+.main {
+  position: absolute; top: 172px; right: 60px; left: 60px; bottom: 300px;
+  display: flex; flex-direction: column; justify-content: flex-start; gap: 54px;
+}
+.title {
+  font-size: 66px; font-weight: 900; line-height: 1.22; letter-spacing: -1.2px;
+  color: #fff;
+}
+.title.small { font-size: 58px; }
+.title .hl { color: var(--accent); }
+.title .hl2 { color: var(--fuchsia); }
+.kicker {
+  position: absolute; top: 140px; right: 62px;
+  font-size: 22px; font-weight: 600; color: var(--accent); letter-spacing: .5px;
+}
+
+/* ===== פאנל טכני ===== */
+.panel {
+  position: relative;
+  background: rgba(255,255,255,.055);
+  border: 1.5px solid rgba(255,255,255,.13);
+  border-radius: 30px; padding: 34px 40px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.panel .label {
+  position: absolute; top: -18px; right: 34px;
+  background: var(--accent); color: #061E4F;
+  font-size: 19px; font-weight: 800; padding: 6px 18px; border-radius: 999px;
+}
+
+/* פאנל קוד */
+.code {
+  direction: ltr; text-align: left;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 25px; line-height: 1.62; color: rgba(255,255,255,.88);
+  font-variant-ligatures: none; font-feature-settings: 'liga' 0, 'calt' 0;
+}
+.code .k { color: #7BCB52; }          /* מפתחות */
+.code .s { color: #F4B41B; }          /* מחרוזות */
+.code .n { color: #12C7C7; }          /* מספרים */
+.code .c { color: rgba(255,255,255,.42); font-style: italic; }
+.code .p { color: #F00678; }
+.code .he { font-family: 'Heebo', sans-serif; direction: rtl; unicode-bidi: isolate; font-style: normal; }
+.code .lt { unicode-bidi: isolate; direction: ltr; }
+.code .dim { opacity: .55; }
+.winbar { display: flex; gap: 10px; margin-bottom: 20px; direction: ltr; }
+.winbar i { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.22); display: block; }
+.winbar i:nth-child(1) { background: #FF7A1A; } .winbar i:nth-child(2) { background: #F4B41B; } .winbar i:nth-child(3) { background: #7BCB52; }
+
+/* פאנל זרימה */
+.flow { display: flex; align-items: stretch; gap: 14px; }
+.flow .box {
+  flex: 1; background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.14);
+  border-radius: 20px; padding: 22px 18px; text-align: center;
+  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+}
+.flow .box b { font-size: 27px; font-weight: 800; }
+.flow .box span { font-size: 20px; color: rgba(255,255,255,.7); line-height: 1.35; }
+.flow .box.hot { background: color-mix(in srgb, var(--accent) 22%, transparent); border-color: var(--accent); }
+.flow .arrow { display: flex; align-items: center; color: var(--accent); font-size: 40px; font-weight: 300; }
+.flow-v { display: flex; flex-direction: column; gap: 14px; }
+.flow-v .row { display: flex; align-items: center; gap: 18px; font-size: 27px; }
+.flow-v .row .tag { min-width: 190px; text-align: center; background: color-mix(in srgb, var(--accent) 22%, transparent); border: 1.5px solid var(--accent); border-radius: 14px; padding: 8px 14px; font-weight: 800; }
+.flow-v .row .txt { color: rgba(255,255,255,.85); font-weight: 500; line-height: 1.35; }
+.flow-v .row .txt b { color: #fff; }
+
+/* פאנל סטטיסטיקה */
+.stats { display: flex; gap: 22px; }
+.stat { flex: 1; text-align: center; padding: 10px 0; }
+.stat .big { font-size: 78px; font-weight: 900; line-height: 1; letter-spacing: -2px; color: var(--accent); direction: ltr; }
+.stat .big.f { color: var(--fuchsia); }
+.stat .big.g { color: var(--green); }
+.stat .cap { font-size: 22px; color: rgba(255,255,255,.75); margin-top: 10px; line-height: 1.3; }
+.vs { display: flex; align-items: center; gap: 26px; }
+.vs .side { flex: 1; text-align: center; }
+.vs .side .big { font-size: 96px; font-weight: 900; line-height: 1; letter-spacing: -3px; direction: ltr; }
+.vs .side .cap { font-size: 23px; color: rgba(255,255,255,.72); margin-top: 8px; }
+.vs .mid { font-size: 44px; color: var(--accent); }
+
+/* רשימת נקודות בתוך פאנל */
+.bul { list-style: none; display: flex; flex-direction: column; gap: 16px; font-size: 28px; line-height: 1.35; }
+.bul li { display: flex; gap: 16px; align-items: flex-start; color: rgba(255,255,255,.9); }
+.bul li::before { content: ''; flex: 0 0 auto; width: 14px; height: 14px; margin-top: 14px; border-radius: 4px; background: var(--accent); transform: rotate(45deg); }
+.bul li b { color: #fff; }
+.bul li.no::before { background: rgba(255,255,255,.28); }
+.bul li.no { color: rgba(255,255,255,.55); text-decoration: line-through; text-decoration-color: rgba(240,6,120,.7); }
+
+/* ===== שורה תחתונה ===== */
+.takeaway {
+  position: absolute; right: 60px; left: 60px; bottom: 170px;
+  padding-right: 26px; border-right: 6px solid var(--accent);
+}
+.takeaway .lbl { font-size: 20px; font-weight: 700; color: var(--accent); letter-spacing: 1px; margin-bottom: 6px; }
+.takeaway .txt { font-size: 34px; font-weight: 700; line-height: 1.35; color: #fff; }
+.takeaway .txt em { font-style: normal; color: var(--fuchsia); }
+
+/* ===== פוטר ===== */
+.footer {
+  position: absolute; right: 60px; left: 60px; bottom: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1.5px solid rgba(255,255,255,.14); padding-top: 26px;
+}
+.who { display: flex; align-items: center; gap: 16px; }
+.who .avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #12C7C7, #F00678);
+  display: flex; align-items: center; justify-content: center;
+}
+.who .avatar svg { width: 30px; height: 30px; }
+.who .n1 { font-size: 26px; font-weight: 800; line-height: 1.1; }
+.who .n2 { font-size: 19px; color: rgba(255,255,255,.62); }
+.brand { font-size: 22px; font-weight: 700; color: rgba(255,255,255,.75); direction: ltr; }
+.brand b { color: var(--accent); font-weight: 900; }

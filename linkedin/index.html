@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>לינקדין — מאחורי הקלעים של המערכות · IMPACT OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23061E4F'/%3E%3Ccircle cx='20' cy='20' r='8' fill='%2312C7C7'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #F8FAFC; --surface: #fff; --navy: #061E4F; --soft: #3b4f76; --gray: #64748B;
+    --teal: #12C7C7; --fuchsia: #F00678; --green: #7BCB52; --yellow: #F4B41B; --orange: #FF7A1A;
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--navy); font-family: 'Heebo', 'Segoe UI', sans-serif; line-height: 1.6; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  header { text-align: center; margin-bottom: 30px; }
+  header .tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(18,199,199,.12); color: #0a8a8a; font-weight: 700; font-size: .85rem; padding: 6px 14px; border-radius: 999px; }
+  header .tag i { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1 } 50% { transform: scale(1.5); opacity: .5 } }
+  header h1 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); font-weight: 900; letter-spacing: -.5px; margin: 12px 0 6px; }
+  header h1 em { font-style: normal; color: var(--fuchsia); }
+  header p { color: var(--soft); max-width: 60ch; margin: 0 auto; }
+  .header-cta { display: inline-block; margin-top: 16px; text-decoration: none; background: var(--fuchsia); color: #fff; font-weight: 700; font-size: .95rem; padding: 10px 24px; border-radius: 999px; box-shadow: 0 8px 24px rgba(240,6,120,.28); }
+
+  .howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 26px; }
+  .step { background: var(--surface); border-radius: 18px; padding: 16px 18px; box-shadow: 0 6px 24px rgba(6,30,79,.06); font-size: .92rem; color: var(--soft); border-bottom: 3px solid var(--teal); }
+  .step b { display: block; color: var(--navy); font-size: 1rem; margin-bottom: 2px; }
+  .step .n { color: var(--fuchsia); font-weight: 900; }
+
+  .summary { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 36px; font-size: .92rem; font-weight: 700; }
+  .summary span { background: var(--surface); border-radius: 999px; padding: 7px 18px; box-shadow: 0 4px 14px rgba(6,30,79,.06); }
+
+  .day-label { font-weight: 800; font-size: 1.1rem; color: var(--soft); margin: 34px 4px 14px; display: flex; align-items: center; gap: 12px; }
+  .day-label::after { content: ''; flex: 1; height: 1px; background: rgba(6,30,79,.12); }
+
+  .post-card { background: var(--surface); border-radius: 26px; box-shadow: 0 12px 48px rgba(6,30,79,.08); margin-bottom: 28px; overflow: hidden; display: grid; grid-template-columns: 320px 1fr; }
+  @media (max-width: 800px) { .post-card { grid-template-columns: 1fr; } }
+  .preview { background: #0b1a3d; padding: 18px; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; }
+  .preview img { width: 100%; max-width: 280px; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+  .btn { display: inline-block; border: 0; cursor: pointer; text-decoration: none; text-align: center; background: var(--teal); color: var(--navy); font-family: inherit; font-size: .85rem; font-weight: 800; padding: 8px 18px; border-radius: 999px; }
+  .btn.ghost { background: rgba(255,255,255,.12); color: #fff; }
+
+  .content { padding: 20px 24px; }
+  .content .top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .content h2 { font-size: 1.15rem; font-weight: 800; margin: 0; }
+  .num { font-weight: 900; color: var(--fuchsia); font-size: .9rem; }
+  .sys { background: rgba(6,30,79,.07); color: var(--navy); font-size: .8rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
+  .when { color: var(--gray); font-size: .85rem; font-weight: 600; }
+  .status { font-size: .78rem; font-weight: 800; padding: 3px 12px; border-radius: 999px; }
+  .status.pending   { background: #fdf3d7; color: #8a6d1a; }
+  .status.approved  { background: #ddf3e7; color: #1e7a4d; }
+  .status.published { background: #dbeafe; color: #1d4ed8; }
+
+  .tabs { display: flex; gap: 8px; margin: 10px 0 12px; flex-wrap: wrap; }
+  .tab { border: 0; cursor: pointer; font-family: inherit; background: rgba(6,30,79,.07); color: var(--navy); font-size: .86rem; font-weight: 700; padding: 6px 16px; border-radius: 999px; }
+  .tab.active { background: var(--navy); color: #fff; }
+
+  .caption-box { position: relative; }
+  .caption { background: var(--bg); border-radius: 14px; padding: 14px 16px; font-size: .92rem; color: var(--navy); white-space: pre-wrap; max-height: 260px; overflow-y: auto; border-inline-start: 4px solid var(--teal); }
+  .copy-btn { position: absolute; top: 10px; inset-inline-end: 10px; border: 0; cursor: pointer; font-family: inherit; background: #fff; color: var(--navy); font-weight: 700; font-size: .8rem; padding: 5px 14px; border-radius: 999px; box-shadow: 0 3px 10px rgba(6,30,79,.15); }
+  .copy-btn.done { background: var(--green); color: #fff; }
+  .meta { color: var(--gray); font-size: .8rem; margin-top: 8px; }
+
+  footer { text-align: center; color: var(--gray); font-size: .85rem; border-top: 1px solid rgba(6,30,79,.1); padding-top: 22px; margin-top: 40px; }
+  footer a { color: #0a8a8a; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="tag"><i></i> לינקדין · IMPACT OS</div>
+    <h1>מאחורי הקלעים של <em>המערכות</em></h1>
+    <p>סדרת לינקדין — 14 פוסטים על הטכנולוגיה מאחורי אבני יסוד, רצף, אדורה, מישמיש, Goldfish, Lumi ופיציק. פוסט = רעיון טכנולוגי אחד, ממערכת אחת. ימי א'/ג'/ה' ב-08:30, מ-18.8 עד 22.9.</p>
+    <a class="header-cta" href="https://www.linkedin.com/feed/?shareActive=true" target="_blank" rel="noopener">✍️ פתיחת פוסט חדש בלינקדין</a>
+  </header>
+
+  <div class="howto">
+    <div class="step"><b><span class="n">1</span> · עוברים על התור</b>כל פוסט מופיע עם התמונה (1080×1350), הטקסט, התגובה הראשונה והמועד</div>
+    <div class="step"><b><span class="n">2</span> · מאשרים לקלוד</b>"מאשרת הכול" / "בלי 7" / "תזיזי את 3 לחמישי" / "תשני את הכותרת של 5"</div>
+    <div class="step"><b><span class="n">3</span> · מפרסמים ידנית</b>לינקדין לא נותנת API — ביום הפוסט: העתקה → הורדת PNG → פוסט (או תזמון בשעון של לינקדין)</div>
+    <div class="step"><b><span class="n">4</span> · תגובה ראשונה</b>הקישור נכנס בתגובה הראשונה, לא בגוף הפוסט (לינקדין מענישה קישורים חיצוניים בגוף)</div>
+  </div>
+
+  <div class="summary" id="summary"></div>
+  <div id="posts"></div>
+
+  <footer>
+    IMPACT OS · לינקדין · <a href="../posts/">סדרת לרני (פייסבוק + אינסטגרם)</a> · המקור: linkedin/build.py
+  </footer>
+</div>
+
+<script>
+const STATUS_LABELS = {
+  pending:   { cls: 'pending',   text: '⏳ ממתין לאישור' },
+  approved:  { cls: 'approved',  text: '✅ מאושר — לפרסם ביום' },
+  published: { cls: 'published', text: '🚀 פורסם' }
+};
+const DAYS = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+const TABS = [ {key:'li', label:'הפוסט'}, {key:'comment', label:'תגובה ראשונה (קישור)'} ];
+
+fetch('posts-data.json?v=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    const posts = data.posts.slice().sort((a, b) => a.when.localeCompare(b.when));
+    const counts = { pending: 0, approved: 0, published: 0 };
+    posts.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
+    document.getElementById('summary').innerHTML =
+      '<span>⏳ ממתינים לאישור: ' + counts.pending + '</span>' +
+      '<span>✅ מאושרים: ' + counts.approved + '</span>' +
+      '<span>🚀 פורסמו: ' + counts.published + '</span>';
+
+    const container = document.getElementById('posts');
+    let lastDay = '';
+    posts.forEach(p => {
+      const d = new Date(p.when.replace(' ', 'T'));
+      const dayKey = p.when.slice(0, 10);
+      if (dayKey !== lastDay) {
+        lastDay = dayKey;
+        const label = document.createElement('div');
+        label.className = 'day-label';
+        label.textContent = 'יום ' + DAYS[d.getDay()] + ' · ' + d.getDate() + '.' + (d.getMonth() + 1);
+        container.appendChild(label);
+      }
+      const st = STATUS_LABELS[p.status] || STATUS_LABELS.pending;
+      const time = p.when.slice(11);
+      const card = document.createElement('div');
+      card.className = 'post-card';
+      const tabsHtml = TABS.map((t, i) => '<button class="tab' + (i === 0 ? ' active' : '') + '" data-key="' + t.key + '">' + t.label + '</button>').join('');
+      const words = (p.li || '').split(/\s+/).filter(Boolean).length;
+      card.innerHTML =
+        '<div class="preview">' +
+          '<img src="img/' + p.image + '" alt="' + p.title + '" loading="lazy">' +
+          '<a class="btn" href="img/' + p.image + '" download>⬇ הורדת PNG</a>' +
+          '<a class="btn ghost" href="' + p.image.replace('.png', '.html') + '" target="_blank" rel="noopener">פתיחת המקור</a>' +
+        '</div>' +
+        '<div class="content">' +
+          '<div class="top">' +
+            '<span class="num">' + String(p.n).padStart(2, '0') + '/' + posts.length + '</span>' +
+            '<h2>' + p.title + '</h2>' +
+            '<span class="sys">' + p.system + '</span>' +
+            '<span class="when">🕗 ' + time + '</span>' +
+            '<span class="status ' + st.cls + '">' + st.text + '</span>' +
+          '</div>' +
+          '<div class="tabs">' + tabsHtml + '</div>' +
+          '<div class="caption-box"><button class="copy-btn">העתקה</button><div class="caption"></div></div>' +
+          '<div class="meta">' + words + ' מילים · ' + (p.li || '').length + ' תווים</div>' +
+        '</div>';
+
+      const caption = card.querySelector('.caption');
+      const copyBtn = card.querySelector('.copy-btn');
+      let current = 'li';
+      const render = () => { caption.textContent = p[current] || ''; };
+      render();
+      card.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          card.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          current = tab.dataset.key; render();
+          copyBtn.textContent = 'העתקה'; copyBtn.classList.remove('done');
+        });
+      });
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(p[current] || '').then(() => {
+          copyBtn.textContent = '✓ הועתק'; copyBtn.classList.add('done');
+          setTimeout(() => { copyBtn.textContent = 'העתקה'; copyBtn.classList.remove('done'); }, 2200);
+        });
+      });
+      container.appendChild(card);
+    });
+  })
+  .catch(() => {
+    document.getElementById('posts').innerHTML = '<p style="text-align:center;color:#64748B">לא הצלחתי לטעון את התור — נסו לרענן.</p>';
+  });
+</script>
+</body>
+</html>
