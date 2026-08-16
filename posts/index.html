@@ -181,9 +181,13 @@ fetch('posts-data.json?v=' + Date.now())
 
       card.innerHTML =
         '<div class="preview">' +
-          '<img src="img/' + p.image + '" alt="' + p.title + '" loading="lazy">' +
-          '<a class="btn" href="img/' + p.image + '" download>⬇ הורדת PNG</a>' +
-          '<a class="btn ghost" href="' + p.image.replace('.png', '.html') + '" target="_blank" rel="noopener">פתיחת המקור לעריכה</a>' +
+          (p.video
+            ? '<video src="../videos/' + p.video + '" controls preload="metadata" playsinline style="width:100%;max-width:264px;border-radius:14px;box-shadow:0 8px 24px rgba(30,58,95,.15);background:#000"></video>' +
+              '<a class="btn" href="../videos/' + p.video + '" download>⬇ הורדת MP4</a>' +
+              '<span class="btn ghost" style="cursor:default">🎬 סרטון' + (p.aspect ? ' ' + p.aspect : '') + '</span>'
+            : '<img src="img/' + p.image + '" alt="' + p.title + '" loading="lazy">' +
+              '<a class="btn" href="img/' + p.image + '" download>⬇ הורדת PNG</a>' +
+              '<a class="btn ghost" href="' + p.image.replace('.png', '.html') + '" target="_blank" rel="noopener">פתיחת המקור לעריכה</a>') +
         '</div>' +
         '<div class="content">' +
           '<div class="top">' +

@@ -80,7 +80,8 @@ if (!post) {
   console.error(`פוסט "${postId}" לא נמצא. אפשרויות: ${data.posts.map(p => p.id).join(', ')}`);
   process.exit(1);
 }
-const imageUrl = data.imageBase + post.image;
+const isVideo = !!post.video;
+const imageUrl = isVideo ? (data.videoBase || 'https://meytalp-dev.github.io/learni-pages/videos/') + post.video : data.imageBase + post.image;
 
 async function graphGet(path, params) {
   const qs = new URLSearchParams(params);
@@ -112,14 +113,16 @@ async function resolveCredentials() {
 
 async function publishFacebook() {
   if (!META_PAGE_ID) throw new Error('חסר META_PAGE_ID ב-.env');
-  const params = { url: imageUrl, message: post.fb };
+  const params = isVideo
+    ? { file_url: imageUrl, description: post.fb, title: post.title }
+    : { url: imageUrl, message: post.fb };
   if (when) {
     const ts = Math.floor(new Date(when).getTime() / 1000);
     if (Number.isNaN(ts)) throw new Error(`תאריך לא תקין: ${when}`);
     params.published = 'false';
     params.scheduled_publish_time = String(ts);
   }
-  const r = await graph(`${META_PAGE_ID}/photos`, params);
+  const r = await graph(`${META_PAGE_ID}/${isVideo ? 'videos' : 'photos'}`, params);
   console.log(when
     ? `✓ פייסבוק: תוזמן ל-${when} (post id: ${r.id || r.post_id})`
     : `✓ פייסבוק: פורסם (post id: ${r.post_id || r.id})`);
@@ -128,13 +131,24 @@ async function publishFacebook() {
 async function publishInstagram() {
   if (!META_IG_USER_ID) throw new Error('חסר META_IG_USER_ID ב-.env');
   if (when) console.warn('⚠ אינסטגרם: ה-API לא תומך בתזמון — מפרסם עכשיו. לתזמון השתמשי ב-Business Suite.');
-  const container = await graph(`${META_IG_USER_ID}/media`, { image_url: imageUrl, caption: post.ig });
+  const container = isVideo
+    ? await graph(`${META_IG_USER_ID}/media`, { media_type: 'REELS', video_url: imageUrl, caption: post.ig, share_to_feed: 'true' })
+    : await graph(`${META_IG_USER_ID}/media`, { image_url: imageUrl, caption: post.ig });
+  if (isVideo) {
+    // סרטונים מעובדים בצד של מטא — מחכים ל-FINISHED לפני הפרסום
+    for (let i = 0; i < 40; i++) {
+      const st = await graphGet(container.id, { fields: 'status_code,status', access_token: META_PAGE_TOKEN });
+      if (st.status_code === 'FINISHED') break;
+      if (st.status_code === 'ERROR') throw new Error(`אינסטגרם: עיבוד הסרטון נכשל (${st.status})`);
+      await new Promise(r => setTimeout(r, 5000));
+    }
+  }
   const r = await graph(`${META_IG_USER_ID}/media_publish`, { creation_id: container.id });
   console.log(`✓ אינסטגרם: פורסם (media id: ${r.id})`);
 }
 
 console.log(`פוסט: ${post.title}`);
-console.log(`תמונה: ${imageUrl}`);
+console.log(`${isVideo ? 'סרטון' : 'תמונה'}: ${imageUrl}`);
 try {
   await resolveCredentials();
   if (to.includes('fb')) await publishFacebook();
