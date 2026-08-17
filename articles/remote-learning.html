@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>למידה מרחוק: זו לא בעיית תוכן, זו בעיית קשר · לרני</title>
+<meta name="description" content="חמש שנים ושלושה משברים אחרי הקורונה — מה המחקר הישראלי אומר על למידה מרחוק, ומה עושים מחר בבוקר. מאמר של לרני.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@400;600;700;800&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7f5f0; --ink:#1e3a5f; --ink-soft:#3f5878; --muted:#7a8aa0;
+  --teal:#2A9D8F; --gold:#E9A319; --coral:#E76F7A; --lav:#8e5bc8;
+  --sticker:#f5e6a3; --card:#ffffff;
+  --shadow:0 10px 30px rgba(30,58,95,.08), 0 2px 6px rgba(30,58,95,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream); color:var(--ink);
+  font-family:'Assistant',sans-serif; font-size:19px; line-height:1.75;
+  direction:rtl; overflow-x:hidden;
+}
+body::before{
+  content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 45% at 5% 5%, rgba(42,157,143,.13) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 50% at 95% 90%, rgba(233,163,25,.10) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(184,169,212,.07) 0%, transparent 70%);
+}
+h1,h2,h3,.hand{font-family:'Playpen Sans Hebrew',cursive}
+a{color:var(--teal)}
+.wrap{max-width:820px;margin:0 auto;padding:0 22px}
+
+/* ===== קישוטים ===== */
+.deco{position:absolute;z-index:0;pointer-events:none}
+.orb{border-radius:50%;background:var(--teal);opacity:.14;filter:blur(2px)}
+.ring{border-radius:50%;border:3px solid var(--teal);opacity:.13}
+.diamond{width:18px;height:18px;background:var(--gold);opacity:.16;transform:rotate(45deg)}
+
+/* ===== header ===== */
+header{position:relative;padding:26px 0 0}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.top img{height:56px;width:auto}
+.cat{
+  background:var(--teal);color:#fff;font-family:'Playpen Sans Hebrew',cursive;
+  font-weight:700;font-size:16px;padding:7px 18px;border-radius:22px;
+  box-shadow:0 4px 0 rgba(0,0,0,.06),0 8px 20px rgba(0,0,0,.12);
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap
+}
+.cat svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== hero ===== */
+.hero{position:relative;padding:44px 0 10px}
+.hero h1{font-size:clamp(34px,5.4vw,52px);line-height:1.25;font-weight:800;color:var(--ink);max-width:720px}
+.hero h1 .hl{color:var(--teal)}
+.hero .sub{margin-top:18px;font-size:22px;line-height:1.6;color:var(--ink-soft);font-weight:500;max-width:700px}
+.meta{margin-top:18px;font-size:15px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.meta b{color:var(--ink-soft)}
+.sticker{
+  position:absolute;top:10px;left:0;z-index:5;transform:rotate(-7deg);
+  background:var(--sticker);color:#3d2e0a;font-family:'Playpen Sans Hebrew',cursive;
+  font-size:17px;font-weight:800;text-align:center;line-height:1.3;
+  padding:12px 16px;width:150px;border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.12),inset 0 -2px 4px rgba(0,0,0,.06),inset 0 2px 4px rgba(255,255,255,.5);
+  clip-path:polygon(2% 4%,8% 1%,15% 3%,22% 0%,30% 2%,38% 1%,45% 3%,52% 0%,60% 2%,68% 1%,75% 3%,82% 0%,90% 2%,96% 1%,100% 4%,99% 12%,100% 20%,98% 28%,100% 36%,99% 44%,100% 52%,98% 60%,100% 68%,99% 76%,100% 84%,98% 92%,100% 100%,96% 99%,90% 100%,82% 98%,75% 100%,68% 99%,60% 100%,52% 98%,45% 100%,38% 99%,30% 100%,22% 98%,15% 100%,8% 99%,2% 100%,0% 92%,2% 84%,0% 76%,2% 68%,0% 60%,2% 52%,0% 44%,2% 36%,0% 28%,2% 20%,0% 12%,2% 4%)
+}
+
+/* ===== stat cards ===== */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:36px 0 10px}
+.stat{
+  background:rgba(255,255,255,.85);backdrop-filter:blur(6px);border-radius:18px;
+  padding:20px 16px 16px;box-shadow:var(--shadow);border-top:5px solid var(--c,var(--teal));
+  transform:rotate(var(--r,0deg));text-align:center
+}
+.stat .n{font-family:'Playpen Sans Hebrew',cursive;font-size:40px;font-weight:800;color:var(--c,var(--teal));line-height:1;direction:ltr}
+.stat .t{font-size:15px;line-height:1.4;color:var(--ink-soft);margin-top:8px}
+.stat .s{font-size:12px;color:var(--muted);margin-top:6px}
+
+/* ===== article ===== */
+article{position:relative;z-index:1;padding:20px 0 40px}
+article p{margin:0 0 18px;color:var(--ink-soft)}
+article p strong{color:var(--ink);font-weight:700}
+article h2{font-size:30px;line-height:1.3;margin:52px 0 18px;color:var(--ink);position:relative;padding-right:22px}
+article h2::before{content:'';position:absolute;right:0;top:12px;width:12px;height:12px;background:var(--teal);border-radius:3px;transform:rotate(45deg)}
+article ul{margin:0 0 20px 0;padding-right:26px;color:var(--ink-soft)}
+article li{margin-bottom:8px}
+.lead{font-size:22px;line-height:1.7;color:var(--ink)!important;font-weight:500}
+.tl{margin:22px 0}
+.tl-item{
+  background:rgba(255,255,255,.75);border-radius:16px;padding:18px 22px;margin-bottom:12px;
+  box-shadow:var(--shadow);border-right:6px solid var(--c,var(--teal));position:relative
+}
+.tl-item .y{font-family:'Playpen Sans Hebrew',cursive;font-weight:800;color:var(--c,var(--teal));font-size:20px;margin-bottom:6px}
+.tl-item p{margin:0;font-size:18px}
+.quote{
+  margin:30px 0;background:var(--card);border-radius:20px;padding:26px 30px;
+  box-shadow:var(--shadow);border-top:5px solid var(--gold);transform:rotate(-.6deg);position:relative
+}
+.quote .q{font-family:'Playpen Sans Hebrew',cursive;font-size:24px;line-height:1.5;color:var(--ink);font-weight:700}
+.quote .who{margin-top:10px;font-size:15px;color:var(--muted)}
+.quote::after{content:'”';position:absolute;top:-22px;left:24px;font-size:90px;color:var(--gold);opacity:.35;font-family:Georgia,serif;line-height:1}
+.callout{
+  background:linear-gradient(135deg,rgba(42,157,143,.10),rgba(42,157,143,.03));
+  border:2px dashed rgba(42,157,143,.45);border-radius:18px;padding:20px 24px;margin:26px 0
+}
+.callout .lbl{font-family:'Playpen Sans Hebrew',cursive;font-weight:800;color:var(--teal);font-size:17px;margin-bottom:6px}
+.callout p{margin:0}
+
+/* ===== steps ===== */
+.steps{display:grid;gap:14px;margin:26px 0 10px}
+.step{
+  display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;
+  background:var(--card);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow);
+  border-top:5px solid var(--teal);transform:rotate(var(--r,0deg))
+}
+.step .num{
+  width:52px;height:52px;border-radius:14px;background:var(--teal);color:#fff;
+  font-family:'Playpen Sans Hebrew',cursive;font-size:26px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 rgba(0,0,0,.08)
+}
+.step h3{font-size:21px;margin-bottom:6px;color:var(--ink)}
+.step p{margin:0;font-size:17px}
+
+/* ===== audiences ===== */
+.aud{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0}
+.aud-card{
+  background:var(--card);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);
+  border-top:5px solid var(--c,var(--teal));transform:rotate(var(--r,0deg))
+}
+.aud-card .h{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.aud-card .ic{width:40px;height:40px;border-radius:12px;background:color-mix(in srgb,var(--c,var(--teal)) 15%,#fff);display:flex;align-items:center;justify-content:center}
+.aud-card .ic svg{width:22px;height:22px;fill:none;stroke:var(--c,var(--teal));stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.aud-card h3{font-size:21px;color:var(--c,var(--teal))}
+.aud-card p{margin:0;font-size:17px}
+
+/* ===== AI examples ===== */
+.ai{display:grid;gap:12px;margin:22px 0}
+.ai-item{background:rgba(255,255,255,.8);border-radius:16px;padding:16px 20px;box-shadow:var(--shadow);border-right:6px solid var(--lav)}
+.ai-item b{color:var(--lav)}
+.ai-item .pr{display:inline-block;background:#f1eefa;border-radius:10px;padding:2px 10px;font-size:16px;color:#4a3d6e;margin:0 2px}
+
+/* ===== bottom line ===== */
+.bottom{
+  background:var(--ink);color:#fff;border-radius:24px;padding:30px 32px;margin:40px 0 20px;
+  box-shadow:0 20px 40px rgba(30,58,95,.25);position:relative;overflow:hidden
+}
+.bottom::before{content:'';position:absolute;width:220px;height:220px;border-radius:50%;background:var(--teal);opacity:.25;top:-90px;left:-70px}
+.bottom .lbl{font-family:'Playpen Sans Hebrew',cursive;font-weight:800;color:var(--gold);font-size:18px;margin-bottom:8px}
+.bottom p{color:rgba(255,255,255,.92);margin:0 0 12px;font-size:19px;position:relative}
+.bottom p:last-child{margin:0}
+.bottom em{color:var(--gold);font-style:normal;font-weight:700}
+
+/* ===== sources ===== */
+.sources{margin:36px 0 10px;background:rgba(255,255,255,.6);border-radius:18px;padding:22px 26px}
+.sources h2{font-size:22px;margin:0 0 12px;padding-right:0}
+.sources h2::before{display:none}
+.sources ol{padding-right:22px;font-size:15px;color:var(--ink-soft)}
+.sources li{margin-bottom:6px}
+.note{font-size:14px;color:var(--muted);margin-top:14px}
+
+/* ===== footer ===== */
+footer{border-top:1px solid rgba(30,58,95,.12);padding:26px 0 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer img{height:44px}
+footer .r{font-size:15px;color:var(--muted);text-align:left;direction:ltr}
+footer .r b{color:var(--ink);font-family:'Assistant',sans-serif}
+
+@media (max-width:760px){
+  body{font-size:18px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .aud{grid-template-columns:1fr}
+  .sticker{position:static;display:inline-block;margin:0 0 16px;transform:rotate(-4deg)}
+  .hero{padding-top:28px}
+  .top img{height:46px}
+  article h2{font-size:26px}
+  .quote{transform:none}
+  .step,.stat,.aud-card{transform:none}
+}
+@media print{
+  body::before,.deco{display:none}
+  .stat,.step,.aud-card,.quote{transform:none;box-shadow:none;border:1px solid #ddd}
+}
+</style>
+</head>
+<body>
+
+<div class="deco ring" style="width:160px;height:160px;top:-40px;right:-50px"></div>
+<div class="deco orb" style="width:60px;height:60px;top:120px;left:6%"></div>
+<div class="deco diamond" style="top:420px;right:4%"></div>
+<div class="deco orb" style="width:38px;height:38px;top:900px;right:3%;opacity:.1"></div>
+
+<div class="wrap">
+<header>
+  <div class="top">
+    <img src="assets/lerani-logo-compact-vivid.png" alt="Learni">
+    <span class="cat"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>מאמר · למידה מרחוק</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="sticker">טיוטה<br>אוגוסט 2026</div>
+  <h1>למידה מרחוק:<br>זו לא בעיית תוכן, <span class="hl">זו בעיית קשר</span></h1>
+  <p class="sub">חמש שנים ושלושה משברים אחרי הקורונה, המספרים בישראל כמעט לא זזו. מה שכן השתנה — אנחנו כבר יודעים בדיוק מה עובד. השאלה היא אם נתאמן על זה בשגרה.</p>
+  <div class="meta"><span><b>לרני</b> · מיטל פלג</span><span>·</span><span>קריאה: ~7 דקות</span><span>·</span><span>מבוסס על מבקר המדינה 2026, משרד החינוך, ראמ"ה ומחקר אקדמי</span></div>
+
+  <div class="stats">
+    <div class="stat" style="--c:var(--teal);--r:-1deg"><div class="n">68%</div><div class="t">מהתלמידים השתתפו בלמידה מרחוק</div><div class="s">משרד החינוך, 9.3.2026</div></div>
+    <div class="stat" style="--c:var(--coral);--r:1deg"><div class="n">59%</div><div class="t">מהמנהלים משלבים למידה מרחוק בשגרה "מעט או בכלל לא"</div><div class="s">מבקר המדינה 2026</div></div>
+    <div class="stat" style="--c:var(--gold);--r:-.7deg"><div class="n">72%</div><div class="t">מבתי הספר — מחסור באמצעי קצה לתלמידים</div><div class="s">מבקר המדינה 2026</div></div>
+    <div class="stat" style="--c:var(--lav);--r:1.1deg"><div class="n">12–15%</div><div class="t">מהמורים הוכשרו בלמידה דיגיטלית</div><div class="s">תשפ"ב–תשפ"ג</div></div>
+  </div>
+</section>
+
+<article>
+  <p class="lead">ב-8 במרץ 2026, בעיצומה של "שאגת הארי", פרסם המנהל הפדגוגי במשרד החינוך מסמך של ארבעה עמודים: "דגשים ועקרונות לקיום למידה מרחוק". יום למחרת דיווח המשרד ש-1.1 מיליון תלמידים — 68% — השתתפו בלמידה מרחוק.</p>
+  <p>68% זה מספר שאפשר להציג כהצלחה. אבל תעשו את החשבון ההפוך: כחצי מיליון ילדים בישראל לא היו שם. לא בזום, לא בקלאסרום, לא במשימה האסינכרונית. ואף אחד לא יודע לומר בדיוק מי הם, מה קרה להם באותו בוקר, ומי התקשר לבדוק.</p>
+  <p>זה, בעצם, כל הסיפור של למידה מרחוק בישראל. <strong>לא חסר לנו תוכן. לא חסרות לנו פלטפורמות. חסר לנו הדבר הכי פשוט: לדעת את מי איבדנו היום — ולעשות עם זה משהו.</strong></p>
+
+  <h2>חמש שנים, אותם מספרים</h2>
+  <p>בואו נניח את הנתונים על השולחן, כי הם מדברים בעד עצמם.</p>
+  <div class="tl">
+    <div class="tl-item" style="--c:var(--lav)"><div class="y">קורונה · 2020–2021</div><p>מבקר המדינה מצא שרק <strong>31%</strong> מהמורים סברו שהתקיימה למידה משמעותית מרחוק, ו-<strong>42%</strong> מההורים דיווחו על הוראה "במידה מועטה בלבד". במושב של מרכז טאוב (נובמבר 2021) הציגו זמירה מברך ועמיתיה נתון נוסף: <strong>37%</strong> מהמורים סברו שהוראה מקוונת פשוט לא מתאימה לתלמידים שלהם. המדינה חילקה כ-49,000 מחשבים, חיברה בתי ספר לוויי-פיי — והחוקרים סיכמו שהמשבר "חשף בעיות מבניות שדורשות פתרונות מעבר לטכנולוגיה".</p></div>
+    <div class="tl-item" style="--c:var(--coral)"><div class="y">חרבות ברזל · 2023–2025</div><p>דוח מבקר המדינה שפורסם ב-2026 קבע במילים פשוטות: לא הייתה "קפיצת מדרגה" מאז הקורונה. ערב המלחמה רק <strong>11%</strong> מבתי הספר היו ברמת מוכנות טכנולוגית גבוהה. ב-<strong>72%</strong> מבתי הספר היה מחסור באמצעי קצה לתלמידים, ב-<strong>48%</strong> — למורים. רק <strong>12%–15%</strong> מעובדי ההוראה עברו הכשרה בלמידה דיגיטלית, ובסקר של המשרד עצמו (אפריל 2024) <strong>36%–40%</strong> מהמורים אמרו שהם לא רואים את עצמם מיומנים בהוראה מרחוק.</p></div>
+    <div class="tl-item" style="--c:var(--teal)"><div class="y">שאגת הארי · 2026</div><p><strong>68%</strong> השתתפות. מנהל חינוך ברשות מקומית אמר לכלכליסט משפט אחד שמסכם הכול: "כל הבעיות שהתגלו בקורונה נמשכות".</p></div>
+  </div>
+  <p>שימו לב למה שלא השתנה בין שלושת המשברים: <strong>הפער בין ההנחיה למימוש.</strong> משרד החינוך יודע מה צריך. המסמך ממרץ 2026 מגדיר שנים־עשר "עוגנים" ללמידה בחירום, ושניים מהם הם בדיוק מה שהמחקר הבין־לאומי אומר כבר עשור: <strong>"עוגן הקשר האישי"</strong> — קשר רציף בין הצוות לתלמידים כמרחב בטוח; ו<strong>"עוגן הדיווח והנוכחות"</strong> — דיווח נוכחות מדי שיעור, לצד יצירת קשר יזום עם תלמידים שאינם מופיעים.</p>
+  <p>זה כתוב. השאלה היא למה זה לא קורה.</p>
+
+  <h2>מה שבאמת עבד: הערוץ שכולם כבר היו בו</h2>
+  <p>יש נתון אחד בדוח המבקר שכדאי לעצור עליו. כששאלו הורים על מה התבסס הקשר שלהם עם בית הספר בזמן המלחמה, <strong>68% ענו: וואטסאפ ודוא"ל.</strong></p>
+  <p>לא בית הספר הווירטואלי. לא ה-LMS. לא הפלטפורמה שנבנתה במיוחד. הערוץ שהחזיק את הקשר היה זה שכבר היה פתוח בטלפון של כולם, בלי סיסמה, בלי הזדהות אחידה, בלי מחשב.</p>
+  <p>וזה מתחבר לממצא ממחקר אחר לגמרי. חוקרים ישראלים שסקרו 300 מורים בזמן המלחמה (Learning Environments Research, 2025) מצאו שהמשתנה שהכי ניבא מעורבות בהוראה מרחוק לא היה הציוד ולא הפלטפורמה — אלא <strong>תחושת המסוגלות של המורה, שהייתה קשורה ליציבות השגרה שלו</strong>. מורה שיש לו שגרה יציבה ותחושה שהוא יודע מה לעשות — מלמד. מורה שנזרק למערכת שהוא פוגש בפעם הראשונה ביום הכי גרוע — נעלם יחד עם התלמידים.</p>
+  <div class="quote"><div class="q">קודם רואים את הילד. אחר כך מלמדים אותו.</div><div class="who">העיקרון של תקן INEE 2024 לחינוך בחירום — ושל המורים באוקראינה מאז 2022: check-in חי וקצר לפני שנוגעים בחומר</div></div>
+
+  <h2>שריר שלא מתאמנים עליו</h2>
+  <p>ההמלצה המרכזית של מבקר המדינה ב-2026 מנוסחת כמעט כמו סיסמה:</p>
+  <div class="quote" style="border-top-color:var(--coral);transform:rotate(.5deg)"><div class="q">"שילוב של למידה דיגיטלית בלימודים בעת שגרה הוא הבסיס."</div><div class="who">מבקר המדינה, דוח 2026 — היערכות מערכת החינוך ללמידה במצב חירום</div></div>
+  <p>הנתון שעומד מאחוריה: <strong>59%</strong> ממנהלי בתי הספר משלבים למידה מרחוק בשגרה "מעט או בכלל לא". ואז מגיע חירום, וכולם מגלים בו־זמנית שהסיסמה לא עובדת, שהמורה לא יודעת איפה הכפתור, שהתלמיד בכלל לא רשום, ושאין לאף אחד רשימה מסודרת של מי לא הגיע.</p>
+  <p>זה לא כישלון טכנולוגי. זה כישלון של תרגול. <strong>שום מערכת — לא בבית ספר, לא בארגון, לא בעסק — לא עובדת ביום הגרוע אם היא לא חיה גם ביום הרגיל.</strong></p>
+  <div class="callout"><div class="lbl">החדשות הטובות</div><p>לתרגל את זה בשגרה זול, פשוט, ולא דורש שום שינוי רגולטורי. המשרד עצמו ממליץ על זה. הכלים קיימים. מה שחסר הוא ההחלטה לעשות מזה הרגל.</p></div>
+
+  <h2>למדוד את מה שחשוב, לא את מה שקל</h2>
+  <p>נועה אונגר, בטור באתר "קיימא" של אוניברסיטת חיפה, ניסחה את הבעיה בצורה החדה ביותר: מערכת החינוך "משכפלת את הכיתה לדיגיטל" במקום לפתח מודל שמתאים למצב חירום. וההמלצה שלה: לעבור <strong>"ממדדי הפעלה למדדי תוצאה"</strong>.</p>
+  <p>"68% השתתפו" זה מדד הפעלה. הוא אומר שהמערכת פעלה. הוא לא אומר כלום על:</p>
+  <ul>
+    <li>כמה תלמידים לא ראינו במשך שלושה ימים ברצף, ומי דיבר איתם.</li>
+    <li>כמה מהם הרגישו שיש מישהו שמצפה להם בבוקר.</li>
+    <li>האם הפער בין תלמיד עם מחשב וחדר שקט לתלמיד עם טלפון וארבעה אחים גדל או הצטמצם.</li>
+  </ul>
+  <p>ראמ"ה, אגב, כבר הבינה את זה: סקר התלמידים הארצי לתשפ"ה כולל לראשונה תחום שנקרא "למידה מרחוק — אתגרי השעה", עם שאלות על יכולת ללמוד בשיעורים מקוונים ועל יחס אישי בזום. כשהממצאים יפורסמו, כדאי לקרוא אותם קודם דרך העדשה הזאת.</p>
+
+  <h2>אז מה עושים מחר בבוקר? חמישה צעדים</h2>
+  <p>לא צריך לחכות לתוכנית האסטרטגית הלאומית (שהמבקר מציין שהיא "בטיפול" מאז 2021). הנה מה שכל צוות יכול להתחיל השבוע:</p>
+  <div class="steps">
+    <div class="step" style="--r:-.4deg"><div class="num">1</div><div><h3>יום אחד מרחוק בחודש — בשגרה</h3><p>לא בגלל חירום. בגלל שזה תרגול. תלמידים לומדים איפה הקישור, מורים לומדים לנהל שיעור של 30 דקות, ההורים לומדים מה מצפים מהם. כשיגיע היום הגרוע, זה כבר לא זר.</p></div></div>
+    <div class="step" style="--r:.4deg"><div class="num">2</div><div><h3>ערוץ אחד, שכולם כבר בו</h3><p>לא להילחם בוואטסאפ — לבנות עליו. קישור קבוע אחד לכל כיתה, שנשלח באותו ערוץ בכל פעם. אפס חיכוך.</p></div></div>
+    <div class="step" style="--r:-.3deg"><div class="num">3</div><div><h3>Check-in לפני תוכן</h3><p>חמש דקות בפתיחת כל יום מרחוק: "איך אתם היום, 1 עד 5?" — לא כטקס, אלא כמדד. המסמך של המשרד דורש בדיוק את זה ("זמן מוגדר לשיח רגשי בפתיחה ובסיום"). לעשות את זה גם בשגרה הופך את זה לטבעי.</p></div></div>
+    <div class="step" style="--r:.5deg"><div class="num">4</div><div><h3>רשימת "מי לא ראינו"</h3><p>לא רשימת נוכחות — רשימת היעדרות. בסוף כל יום מרחוק, המחנך/ת יודע/ת בדיוק אילו שמות לא הופיעו, ומישהו מרים טלפון. המדד היחיד שבאמת חשוב: כמה זמן עובר מרגע שתלמיד "נעלם" ועד שאדם פנה אליו.</p></div></div>
+    <div class="step" style="--r:-.4deg"><div class="num">5</div><div><h3>תוכן במנות קטנות, לא שכפול של הכיתה</h3><p>יחידה של 10 דקות שאפשר לעשות מהטלפון שווה יותר משיעור זום של 45 דקות שרבע מהכיתה לא מגיע אליו. המשרד עצמו ממליץ על שיעורים קצרים יותר עם הפסקות.</p></div></div>
+  </div>
+
+  <h2>וזה בכלל לא רק חינוך</h2>
+  <p>מי שמנהל צוות, עסק או קהילה, קרא עד כאן ואולי זיהה את עצמו.</p>
+  <div class="aud">
+    <div class="aud-card" style="--c:var(--teal);--r:-.5deg"><div class="h"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4M7 9h10M7 13h6"/></svg></div><h3>ניהול</h3></div><p>"שריר שלא מתאמנים עליו בשגרה" הוא הסיפור של כל תוכנית רציפות עסקית שנכתבה ונשכחה במגירה. צוות שעבד היברידי רק בכפייה — מתפרק בפעם הבאה שהמשרד נסגר. הבדיקה הפשוטה: האם אתם יודעים, בסוף יום עבודה מרחוק, מי מאנשי הצוות "לא נראה" היום? ומי דיבר איתו?</p></div>
+    <div class="aud-card" style="--c:var(--gold);--r:.5deg"><div class="h"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 5 5.6.8-4 3.9.9 5.6-4.9-2.6-4.9 2.6.9-5.6-4-3.9 5.6-.8z"/></svg></div><h3>יזמות</h3></div><p>הלקח של "הערוץ שכולם כבר בו" הוא לקח מוצרי. המערכות שנבנו במיוחד ללמידה מרחוק לא החזיקו את הקשר — וואטסאפ כן. לפני שבונים פלטפורמה חדשה, שווה לשאול: איפה המשתמשים שלי כבר נמצאים, ומה החיכוך המינימלי שאפשר להוסיף שם?</p></div>
+    <div class="aud-card" style="--c:var(--coral);--r:.4deg"><div class="h"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l18-7-7 18-2-8-9-3z"/></svg></div><h3>שיווק וקהילה</h3></div><p>"ממדדי הפעלה למדדי תוצאה" — זה ההבדל בין "שלחנו ניוזלטר ל-10,000 איש" לבין "כמה מהם הרגישו שמישהו מצפה להם". Churn מתחיל בדיוק כמו נשירה: לא ביום שהלקוח עוזב, אלא בשלושת הימים שבהם לא ראינו אותו ואף אחד לא שם לב.</p></div>
+    <div class="aud-card" style="--c:var(--lav);--r:-.4deg"><div class="h"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>כללי</h3></div><p>רציפות היא לא טכנולוגיה. היא הרגל, ערוץ פתוח, ומישהו שסופר מי חסר.</p></div>
+  </div>
+
+  <h2>איפה ה-AI נכנס לתמונה</h2>
+  <p>בעבר, הצוואר־בקבוק האמיתי של למידה מרחוק טובה היה זמן ההכנה. לבנות יחידה אסינכרונית של 10 דקות, בשלוש רמות קושי, עם משוב אוטומטי — זה היה ערב עבודה. היום זה חמש דקות עם פרומפט טוב. המרחב הפדגוגי של משרד החינוך כבר פתח מדור "פרקטיקות מבוססות AI לחירום" — סימן שגם המערכת מבינה לאן זה הולך.</p>
+  <div class="ai">
+    <div class="ai-item"><b>המורה</b> מזינה את נושא השיעור ומבקשת: <span class="pr">"שלוש משימות של 10 דקות, לטלפון, ברמות שונות, עם שאלת בדיקה אחת בסוף"</span> — ומקבלת יחידה אסינכרונית מוכנה לשליחה בוואטסאפ.</div>
+    <div class="ai-item"><b>המנהל/ת</b> מדביק/ה את רשימת הנוכחות של שלושה ימים ומבקש/ת: <span class="pr">"מי לא הופיע יותר מפעם אחת, ממוין לפי מחנך"</span> — ומקבל/ת את רשימת ה"מי לא ראינו" בשנייה.</div>
+    <div class="ai-item"><b>המחנך/ת</b> מבקש/ת: <span class="pr">"חמש שאלות פתיחה קצרות לצ'ק-אין רגשי לכיתה ז', בלי קלישאות"</span> — ומגיע/ה לזום עם משהו שילדים באמת עונים עליו.</div>
+  </div>
+  <p>ה-AI לא פותר את בעיית הקשר. אבל הוא משחרר את הזמן שנגמר בהכנת תוכן — כדי שיהיה למי להרים את הטלפון.</p>
+
+  <div class="bottom">
+    <div class="lbl">שורה תחתונה</div>
+    <p>שלושה משברים לימדו אותנו את אותו שיעור: <em>לא חסר תוכן, חסר קשר;</em> מה שלא מתורגל בשגרה לא עובד בחירום; ומה שלא מודדים לא משתפר. משרד החינוך כבר כתב את זה בעוגנים שלו. מבקר המדינה כבר המליץ על זה. המחקר כבר אישר את זה.</p>
+    <p>מה שנשאר זה להתחיל — ביום שגרה רגיל, בכיתה אחת, ברשימה אחת של <em>"מי לא ראינו היום"</em>.</p>
+  </div>
+
+  <div class="sources">
+    <h2>מקורות עיקריים</h2>
+    <ol>
+      <li>משרד החינוך, המנהל הפדגוגי — <a href="https://meyda.education.gov.il/files/MinhalPedagogy/herum/emergency_distance_learning_principles_&_highlights_lion's_roar.pdf" target="_blank" rel="noopener">דגשים ועקרונות לקיום למידה מרחוק, "שאגת הארי", 8.3.2026</a></li>
+      <li>המרחב הפדגוגי — <a href="https://pop.education.gov.il/sherutey-tiksuv-bachinuch/emergency-learning/" target="_blank" rel="noopener">פורטל למידה בחירום</a></li>
+      <li>מבקר המדינה 2026 — <a href="https://library.mevaker.gov.il/sites/DigitalLibrary/Pages/Reports/9561-2.aspx" target="_blank" rel="noopener">היערכות מערכת החינוך ללמידה במצב חירום והפעלתה במלחמת חרבות ברזל</a></li>
+      <li>מבקר המדינה 2021 — <a href="https://www.isoc.org.il/sts-data/distance-learning-during-covid-mevaker-report" target="_blank" rel="noopener">הוראה ולמידה מרחוק בתקופת הקורונה</a></li>
+      <li>ראמ"ה — <a href="https://rama.gov.il/assessments/sample-survey-2025-1" target="_blank" rel="noopener">סקר התלמידים הארצי תשפ"ה</a> · <a href="https://rama.gov.il/reports/remote-learning-summary" target="_blank" rel="noopener">סקרי הוראה מרחוק בקורונה</a></li>
+      <li>מברך, רפאלי, פדילה, מלאך — <a href="https://portal.macam.ac.il/article/השפעות-הלמידה-מרחוק-על-מערכת-החינוך/" target="_blank" rel="noopener">השפעות הלמידה מרחוק על מערכת החינוך, כנס טאוב 2021 (פורטל מס"ע)</a></li>
+      <li>Learning Environments Research (2025) — <a href="https://link.springer.com/article/10.1007/s10984-025-09539-y" target="_blank" rel="noopener">Teacher self-efficacy, stability and ICT support in emergency remote teaching</a></li>
+      <li>נועה אונגר — <a href="https://kayama.haifa.ac.il/עוד-לא-למדנו-כלום-כך-מסתבר/" target="_blank" rel="noopener">עוד לא למדנו כלום, כך מסתבר (קיימא, אונ' חיפה)</a></li>
+      <li>כלכליסט, 3.3.2026 — <a href="https://www.calcalist.co.il/local_news/article/r13rzketbe" target="_blank" rel="noopener">מחדל הלמידה מרחוק חוזר</a></li>
+      <li>INEE — <a href="https://inee.org/minimum-standards" target="_blank" rel="noopener">Minimum Standards for Education 2024</a></li>
+    </ol>
+    <p class="note">טיוטה לבדיקה. שני נתונים מסומנים לאימות ידני לפני פרסום (ראו סקירת המקורות המלאה).</p>
+  </div>
+</article>
+
+<footer>
+  <img src="assets/lerani-logo-compact-vivid.png" alt="Learni">
+  <div class="r"><b>lerani.co.il</b> · AI שנשאר אצלכם · 2026</div>
+</footer>
+</div>
+</body>
+</html>
