@@ -134,9 +134,63 @@ footer .r b{color:var(--ink);font-weight:600}
   .head{padding-top:36px}
 }
 @media print{
-  body{background:#fff;font-size:12pt}
-  .masthead,.figures,.pull{break-inside:avoid}
+  @page{size:A4;margin:18mm 16mm 20mm 16mm}
+  html,body{background:#fff}
+  body{font-size:11.5pt;line-height:1.65}
+  .container{max-width:none;padding:0}
+  .measure{max-width:none}
+  .masthead{padding:0 0 8px}
+  .masthead img{height:30px}
+  .head{padding:22px 0 14px}
+  h1{font-size:30pt;line-height:1.15}
+  .dek{font-size:14pt;margin-top:12px}
+  .byline{font-size:10pt;margin-top:14px}
+  .byline b{font-size:11pt}
+  .head-rule{margin-top:16px}
+  .figures{margin:18px auto 4px;break-inside:avoid;grid-template-columns:repeat(4,1fr)}
+  .fig{padding:10px 8px;border-bottom:none;border-right:1px solid var(--rule)}
+  .fig:first-child{border-right:none}
+  .fig .n{font-size:24pt}
+  .fig .t{font-size:8.5pt}
+  .fig .s{font-size:7.5pt}
+  article{padding:10px 0 0}
+  article p{margin-bottom:12px}
+  article .lead{font-size:13pt}
+  article .lead::first-letter{font-size:52pt;margin:4px 0 0 8px}
+  article h2{font-size:17pt;margin:22px 0 10px;padding-top:12px;break-after:avoid;break-inside:avoid;page-break-inside:avoid;page-break-after:avoid}
+  article h2+p,article h2+.era,article h2+.pull{break-before:avoid}
+  article h2 .num{font-size:8.5pt}
+  .era{break-inside:auto;margin-bottom:12px}
+  .era .y{break-after:avoid}
+  .era .y{font-size:8.5pt}
+  .pull{margin:16px 0;break-inside:avoid}
+  .pull .q{font-size:15pt;padding:10px 6px 4px}
+  .pull .who{font-size:8.5pt}
+  .pull.side{float:none;width:auto;margin:14px 0;text-align:center;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;padding:6px 0 8px}
+  .pull.side .q{font-size:15pt;padding:10px 6px 4px}
+  .aside{font-size:10pt;padding:10px 14px;margin:14px 0;break-inside:avoid;background:#f4f1ea;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .aside .lbl{font-size:8.5pt}
+  article ol.steps li{margin-bottom:10px;padding-right:44px;break-inside:avoid}
+  article ol.steps li::before{width:30px;height:30px;font-size:14pt}
+  article ol.steps li b{font-size:12.5pt}
+  .grid2{grid-template-columns:1fr 1fr;gap:0 24px}
+  .grid2 h3{font-size:12.5pt;margin:8px 0 4px;padding-top:6px}
+  .grid2 p{font-size:10.5pt}
+  .grid2>div{break-inside:avoid}
+  .ex{break-inside:avoid}
+  .ex q{font-size:10pt;background:#f0f6f5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .closing{margin:20px 0 6px;padding-top:14px;break-inside:avoid}
+  .closing p{font-size:12.5pt}
+  .endmark{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sources{margin-top:22px;padding-top:12px;break-before:auto}
+  .sources ol{font-size:8.5pt;line-height:1.5}
+  .sources li{margin-bottom:3px}
+  .sources .note{font-size:8pt}
   a{border:none;color:inherit}
+  .sources a{color:#1f7a6f}
+  footer{margin-top:16px;padding:10px 0 0;font-size:8.5pt}
+  footer img{height:24px}
+  .head-rule,.era,article ol.steps li::before,.pull.side{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
 </head>
