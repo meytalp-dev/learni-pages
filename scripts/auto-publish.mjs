@@ -123,16 +123,17 @@ for (const post of due) {
       ? { media_type: 'REELS', video_url: mediaUrl, caption: post.ig, share_to_feed: 'true' }
       : { image_url: mediaUrl, caption: post.ig };
     const container = await graphPost(`${META_IG_USER_ID}/media`, containerParams, PAGE_TOKEN);
-    if (isVideo) {
-      let done = false;
-      for (let i = 0; i < 48; i++) {
-        const st = await graphGet(container.id, { fields: 'status_code', access_token: PAGE_TOKEN });
-        if (st.status_code === 'FINISHED') { done = true; break; }
-        if (st.status_code === 'ERROR') throw new Error('עיבוד הווידאו באינסטגרם נכשל');
-        await sleep(10000);
-      }
-      if (!done) throw new Error('עיבוד הווידאו באינסטגרם לא הסתיים בזמן (8 דקות)');
+    // גם תמונות צריכות המתנה לעיבוד — פרסום מיידי מחזיר 9007 (Media ID is not available)
+    const maxChecks = isVideo ? 48 : 12;
+    const interval = isVideo ? 10000 : 5000;
+    let done = false;
+    for (let i = 0; i < maxChecks; i++) {
+      const st = await graphGet(container.id, { fields: 'status_code', access_token: PAGE_TOKEN });
+      if (st.status_code === 'FINISHED') { done = true; break; }
+      if (st.status_code === 'ERROR') throw new Error('עיבוד המדיה באינסטגרם נכשל');
+      await sleep(interval);
     }
+    if (!done) throw new Error('עיבוד המדיה באינסטגרם לא הסתיים בזמן');
     const r = await graphPost(`${META_IG_USER_ID}/media_publish`, { creation_id: container.id }, PAGE_TOKEN);
     post.igMediaId = r.id;
     console.log(`  ✓ אינסטגרם: ${r.id}`);
