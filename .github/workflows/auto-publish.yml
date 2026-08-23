@@ -1,0 +1,44 @@
+name: פרסום אוטומטי לפייסבוק ולאינסטגרם
+
+on:
+  schedule:
+    - cron: '0 5,10,17 * * *'   # 8:00, 13:00 ו-20:00 שעון ישראל (קיץ)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: פרסום פוסטים מאושרים שהגיע זמנם
+        run: node scripts/auto-publish.mjs
+        env:
+          META_USER_TOKEN: ${{ secrets.META_USER_TOKEN }}
+          META_PAGE_ID: '752991207892637'
+          META_IG_USER_ID: '17841439746209347'
+
+      - name: עדכון סטטוס בתור ודחיפה
+        if: always()
+        run: |
+          if ! git diff --quiet posts/posts-data.json; then
+            git config user.name "learni-auto-publish"
+            git config user.email "actions@users.noreply.github.com"
+            git add posts/posts-data.json
+            git commit -m "פרסום אוטומטי: עדכון סטטוס התור"
+            git pull --rebase
+            git push
+          else
+            echo "אין שינויים בתור."
+          fi

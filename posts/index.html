@@ -82,6 +82,7 @@
   .status.pending   { background: #fdf3d7; color: #8a6d1a; }
   .status.approved  { background: #ddf3e7; color: #1e7a4d; }
   .status.published { background: #dbeafe; color: #1d4ed8; }
+  .status.skipped   { background: #f1f1f1; color: #777; }
 
   .tabs { display: flex; gap: 8px; margin: 10px 0 12px; flex-wrap: wrap; }
   .tab {
@@ -139,7 +140,8 @@
 const STATUS_LABELS = {
   pending:   { cls: 'pending',   text: '⏳ ממתין לאישור' },
   approved:  { cls: 'approved',  text: '✅ מאושר — יפורסם אוטומטית' },
-  published: { cls: 'published', text: '🚀 פורסם' }
+  published: { cls: 'published', text: '🚀 פורסם' },
+  skipped:   { cls: 'skipped',   text: '⏭ דולג — הוחמץ המועד' }
 };
 const DAYS = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
 const PLATFORMS = [ {key:'fb', label:'פייסבוק'}, {key:'ig', label:'אינסטגרם'} ];
