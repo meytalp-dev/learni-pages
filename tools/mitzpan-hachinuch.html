@@ -331,10 +331,10 @@
 <style>
   .masthead { border-bottom: 1px solid var(--rule); }
   .masthead .row {
-    max-width: 780px; margin: 0 auto; padding: 14px 20px;
-    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    max-width: 780px; margin: 0 auto; padding: 13px 20px;
+    display: flex; align-items: center; gap: 15px; flex-wrap: wrap;
   }
-  .masthead img { height: 36px; display: block; }
+  .masthead svg { display: block; flex-shrink: 0; }
   .masthead .section {
     font-family: var(--sans); font-size: 12px; font-weight: 600;
     letter-spacing: .13em; color: var(--ink-3);
@@ -345,11 +345,9 @@
     font-size: 13px; color: var(--ink-3); direction: ltr;
   }
   .brandfoot {
-    border-top: 1px solid var(--rule); margin-top: 30px; padding-top: 22px;
-    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-    font-size: 13.5px; color: var(--ink-3);
+    border-top: 1px solid var(--rule); margin-top: 28px; padding-top: 20px;
+    font-size: 13.5px; line-height: 1.7; color: var(--ink-3);
   }
-  .brandfoot img { height: 34px; display: block; }
   .brandfoot b { color: var(--ink-2); font-weight: 600; }
   .brandfoot a { color: var(--accent-dp); text-decoration: none; border-bottom: 1px solid var(--rule); }
   .brandfoot a:hover { border-bottom-color: var(--accent-dp); }
@@ -360,7 +358,59 @@
 <body>
 <div class="masthead">
   <div class="row">
-    <img src="../articles/assets/lerani-logo-compact-vivid.png" alt="Learni">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 140" height="34" width="73" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="lg-leftCircle" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#48cae4"/>
+      <stop offset="45%" stop-color="#00b4d8"/>
+      <stop offset="100%" stop-color="#8e5bc8"/>
+    </linearGradient>
+    <linearGradient id="lg-rightCircle" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c454b0"/>
+      <stop offset="45%" stop-color="#e84393"/>
+      <stop offset="100%" stop-color="#f9a06b"/>
+    </linearGradient>
+    <linearGradient id="lg-overlapGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8e5bc8" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#c454b0" stop-opacity="0.65"/>
+    </linearGradient>
+    <filter id="lg-softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1e3a5f40"/>
+    </filter>
+    <filter id="lg-textGlow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
+      <feFlood flood-color="#ffffff" flood-opacity="0.6" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="lg-starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fdcb6e" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#fdcb6e" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#fdcb6e" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="lg-clipRight"><circle cx="186" cy="64" r="58"/></clipPath>
+  </defs>
+
+  <circle cx="114" cy="64" r="58" fill="url(#lg-leftCircle)" opacity="0.8" filter="url(#lg-softShadow)"/>
+  <circle cx="186" cy="64" r="58" fill="url(#lg-rightCircle)" opacity="0.8" filter="url(#lg-softShadow)"/>
+  <circle cx="114" cy="64" r="58" fill="url(#lg-overlapGrad)" clip-path="url(#lg-clipRight)" opacity="0.5"/>
+  <circle cx="114" cy="64" r="58" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.35"/>
+  <circle cx="186" cy="64" r="58" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.35"/>
+
+  <!-- Gold star accent -->
+  <g opacity="0.95">
+    <circle cx="150" cy="10" r="12" fill="url(#lg-starGlow)"/>
+    <path d="M150 3 L151.3 8 L156.5 10 L151.3 12 L150 17 L148.7 12 L143.5 10 L148.7 8 Z" fill="#fdcb6e"/>
+    <path d="M150 5 L150.8 8.5 L154 10 L150.8 11.5 L150 15 L149.2 11.5 L146 10 L149.2 8.5 Z" fill="#ffe3a3" opacity="0.6" transform="rotate(45,150,10)"/>
+    <circle cx="150" cy="10" r="1" fill="#fff" opacity="0.95"/>
+  </g>
+  <g opacity="0.55">
+    <path d="M68 38 L69.2 40.5 L71.7 41.7 L69.2 42.9 L68 45.4 L66.8 42.9 L64.3 41.7 L66.8 40.5 Z" fill="#fdcb6e"/>
+    <path d="M232 32 L233.2 34.5 L235.7 35.7 L233.2 36.9 L232 39.4 L230.8 36.9 L228.3 35.7 L230.8 34.5 Z" fill="#fdcb6e"/>
+  </g>
+
+  <text x="150" y="76" text-anchor="middle" font-family="'Caveat', 'Segoe UI', cursive" font-size="42" font-weight="700" fill="#ffffff" letter-spacing="1" filter="url(#lg-textGlow)">Learni</text>
+</svg>
     <div class="section"><b>כלים</b> · חינוך · בחירות 2026</div>
     <div class="site">lerani.co.il</div>
   </div>
@@ -423,8 +473,7 @@
     <p class="byline">נבנה על ידי מיטל פלג · לרני</p>
   </footer>
     <div class="brandfoot">
-      <img src="../articles/assets/lerani-logo-compact-vivid.png" alt="Learni">
-      <div><b>לרני מבית אימפקט.OS</b> · טכנולוגיה עם טביעת אצבע אנושית · <a href="https://www.impactos.co.il" target="_blank" rel="noopener">impactos.co.il</a></div>
+      <b>לרני מבית אימפקט.OS</b> · טכנולוגיה עם טביעת אצבע אנושית · <a href="https://www.impactos.co.il" target="_blank" rel="noopener">impactos.co.il</a>
     </div>
 </div>
 
