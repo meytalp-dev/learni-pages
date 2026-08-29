@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="שמונה שאלות על מה שחשוב לכם בחינוך — ובסוף, כמה כל אחת מחמש המפלגות שפרסמו מצע חינוך קרובה לעמדות שלכם. בחירות 2026.">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="מצפן החינוך 2026">
+<meta property="og:description" content="שמונה שאלות על מה שחשוב לכם בחינוך — ובסוף, כמה כל אחת מחמש המפלגות שפרסמו מצע חינוך קרובה לעמדות שלכם. בחירות 2026.">
+<meta property="og:locale" content="he_IL">
+<title>מצפן החינוך 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;600;800&display=swap">
+
+<style>
+  :root {
+    --paper:      #FDFCF9;
+    --surface:    #FFFFFF;
+    --surface-2:  #F4F1EA;
+    --ink:        #1A1A1A;
+    --ink-2:      #3A3A38;
+    --ink-3:      #6E6A61;
+    --rule:       #DED9CD;
+    --rule-soft:  #EBE7DD;
+    --accent:     #2A9D8F;
+    --accent-dp:  #1F7A6F;
+    --accent-wash:#E6F2F0;
+    --gold:       #C98A12;
+    --gold-wash:  #FBF1DC;
+    --btn-fg:     #FFFFFF;
+    --shadow:     0 1px 2px rgba(26,26,26,.04), 0 8px 24px rgba(26,26,26,.06);
+    --shadow-lift:0 2px 4px rgba(26,26,26,.05), 0 14px 40px rgba(26,26,26,.10);
+
+    --serif: 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
+    --sans:  'Heebo', 'Segoe UI', Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #14161A;
+      --surface:    #1B1E24;
+      --surface-2:  #23272F;
+      --ink:        #F2EFE8;
+      --ink-2:      #D2CEC5;
+      --ink-3:      #948F85;
+      --rule:       #333842;
+      --rule-soft:  #272C34;
+      --accent:     #4FC3B3;
+      --accent-dp:  #7BD6C8;
+      --accent-wash:#16302E;
+      --gold:       #E0A83A;
+      --gold-wash:  #2E2617;
+      --btn-fg:     #10201E;
+      --shadow:     0 1px 2px rgba(0,0,0,.30), 0 8px 24px rgba(0,0,0,.34);
+      --shadow-lift:0 2px 4px rgba(0,0,0,.34), 0 14px 40px rgba(0,0,0,.44);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:      #14161A;
+    --surface:    #1B1E24;
+    --surface-2:  #23272F;
+    --ink:        #F2EFE8;
+    --ink-2:      #D2CEC5;
+    --ink-3:      #948F85;
+    --rule:       #333842;
+    --rule-soft:  #272C34;
+    --accent:     #4FC3B3;
+    --accent-dp:  #7BD6C8;
+    --accent-wash:#16302E;
+    --gold:       #E0A83A;
+    --gold-wash:  #2E2617;
+    --btn-fg:     #10201E;
+    --shadow:     0 1px 2px rgba(0,0,0,.30), 0 8px 24px rgba(0,0,0,.34);
+    --shadow-lift:0 2px 4px rgba(0,0,0,.34), 0 14px 40px rgba(0,0,0,.44);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    direction: rtl;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* ---------- masthead ---------- */
+  header.top {
+    border-bottom: 1px solid var(--rule);
+    padding: 40px 0 30px;
+    margin-bottom: 34px;
+  }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: .15em;
+    color: var(--accent-dp);
+    margin: 0 0 16px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(38px, 7.2vw, 58px);
+    line-height: 1.08;
+    letter-spacing: -.015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .dek {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.6vw, 22px);
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 18px 0 0;
+    max-width: 60ch;
+    text-wrap: pretty;
+  }
+  .meta {
+    margin-top: 22px;
+    display: flex; flex-wrap: wrap; gap: 10px 18px;
+    font-size: 14px; color: var(--ink-3);
+  }
+  .meta b { color: var(--ink-2); font-weight: 600; }
+
+  /* ---------- progress ---------- */
+  .progress-bar {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--paper);
+    padding: 12px 0 10px;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 30px;
+  }
+  .progress-row {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13px; font-weight: 600; color: var(--ink-3);
+  }
+  .track {
+    flex-grow: 1; height: 5px; border-radius: 3px;
+    background: var(--rule-soft); overflow: hidden;
+  }
+  .track > i {
+    display: block; height: 100%; width: 0%;
+    background: var(--accent);
+    transition: width .35s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ---------- questions ---------- */
+  .q {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 26px 26px 22px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .q-head { display: flex; gap: 14px; align-items: baseline; margin-bottom: 6px; }
+  .q-num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 15px; color: var(--accent-dp);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0; padding-top: 2px;
+  }
+  .q-title {
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(21px, 3.2vw, 25px); line-height: 1.35;
+    margin: 0; text-wrap: pretty;
+  }
+  .q-note {
+    font-size: 14.5px; color: var(--ink-3);
+    margin: 0 0 18px 0; padding-right: 29px; line-height: 1.55;
+  }
+
+  .opts { display: flex; flex-direction: column; gap: 9px; }
+
+  .opt {
+    display: block; width: 100%; text-align: right;
+    font-family: var(--sans); font-size: 16.5px; line-height: 1.5;
+    color: var(--ink-2);
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 3px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, color .15s;
+  }
+  .opt:hover { border-color: var(--accent); }
+  .opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .opt[aria-pressed="true"] {
+    background: var(--accent-wash);
+    border-color: var(--accent);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .weight {
+    margin-top: 14px; padding-top: 13px;
+    border-top: 1px dashed var(--rule-soft);
+    display: flex; align-items: center; gap: 9px;
+    font-size: 14px; color: var(--ink-3);
+    cursor: pointer; user-select: none;
+    width: fit-content;
+  }
+  .weight input { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; }
+  .weight:hover { color: var(--ink-2); }
+
+  /* ---------- actions ---------- */
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
+  .btn {
+    font-family: var(--sans); font-size: 16px; font-weight: 600;
+    padding: 14px 30px; border-radius: 3px; cursor: pointer;
+    border: 1.5px solid var(--accent);
+    background: var(--accent); color: var(--btn-fg);
+    transition: background .15s, opacity .15s;
+  }
+  .btn:hover { background: var(--accent-dp); border-color: var(--accent-dp); }
+  .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .btn[disabled] { opacity: .4; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--ink-2); border-color: var(--rule); }
+  .btn.ghost:hover { background: var(--surface-2); border-color: var(--ink-3); }
+
+  /* ---------- results ---------- */
+  #results[hidden] { display: none !important; }
+  .res-head {
+    border-top: 3px solid var(--ink);
+    padding-top: 26px; margin-top: 52px; margin-bottom: 26px;
+  }
+  .res-head h2 {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(28px, 5vw, 38px); line-height: 1.15; margin: 0;
+  }
+  .res-head p { font-size: 15.5px; color: var(--ink-3); margin: 12px 0 0; line-height: 1.6; max-width: 62ch; }
+
+  .party {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .party.lead { border-color: var(--accent); box-shadow: var(--shadow-lift); }
+  .p-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .p-rank {
+    font-family: var(--serif); font-weight: 900; font-size: 15px;
+    color: var(--ink-3); font-variant-numeric: tabular-nums;
+  }
+  .p-name { font-family: var(--serif); font-weight: 700; font-size: 24px; margin: 0; }
+  .p-lead-tag {
+    font-size: 12px; font-weight: 600; letter-spacing: .08em;
+    color: var(--accent-dp); background: var(--accent-wash);
+    padding: 4px 10px; border-radius: 2px;
+  }
+  .p-pct {
+    margin-right: auto;
+    font-family: var(--serif); font-weight: 900; font-size: 30px;
+    color: var(--accent-dp); font-variant-numeric: tabular-nums;
+    direction: ltr;
+  }
+  .p-track {
+    height: 8px; border-radius: 4px; background: var(--rule-soft);
+    margin: 14px 0 4px; overflow: hidden;
+  }
+  .p-track > i {
+    display: block; height: 100%; width: 0%;
+    background: var(--accent); border-radius: 4px;
+    transition: width .7s cubic-bezier(.4,0,.2,1);
+  }
+  .p-lead-name { font-size: 14px; color: var(--ink-3); margin: 10px 0 0; }
+
+  details.why { margin-top: 14px; }
+  details.why > summary {
+    font-size: 14.5px; font-weight: 600; color: var(--accent-dp);
+    cursor: pointer; padding: 6px 0; list-style: none;
+  }
+  details.why > summary::-webkit-details-marker { display: none; }
+  details.why > summary::before { content: "▸ "; display: inline-block; transition: transform .15s; }
+  details.why[open] > summary::before { content: "▾ "; }
+  details.why > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .why-body { padding-top: 8px; font-size: 15px; line-height: 1.62; color: var(--ink-2); }
+  .why-body ul { margin: 6px 0 14px; padding-right: 20px; }
+  .why-body li { margin-bottom: 7px; }
+  .why-body li::marker { color: var(--accent); }
+  .why-body h4 {
+    font-family: var(--sans); font-size: 13px; font-weight: 600;
+    letter-spacing: .09em; color: var(--ink-3);
+    margin: 14px 0 4px;
+  }
+
+  /* ---------- footer ---------- */
+  .note {
+    background: var(--gold-wash);
+    border-right: 3px solid var(--gold);
+    padding: 18px 20px;
+    margin: 34px 0 0;
+    font-size: 15px; line-height: 1.65; color: var(--ink-2);
+    border-radius: 0 3px 3px 0;
+  }
+  .note b { color: var(--ink); font-weight: 600; }
+
+  footer.src {
+    border-top: 1px solid var(--rule);
+    margin-top: 46px; padding-top: 24px;
+    font-size: 13.5px; line-height: 1.75; color: var(--ink-3);
+  }
+  footer.src h3 {
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: .13em; color: var(--ink-2);
+    margin: 0 0 10px;
+  }
+  footer.src a { color: var(--accent-dp); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  footer.src a:hover { border-bottom-color: var(--accent-dp); }
+  footer.src a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .byline { margin-top: 18px; color: var(--ink-3); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+  @media (max-width: 560px) {
+    .q { padding: 20px 18px 18px; }
+    .p-pct { font-size: 26px; }
+    .q-note { padding-right: 0; }
+  }
+</style>
+
+<style>
+  .masthead { border-bottom: 1px solid var(--rule); }
+  .masthead .row {
+    max-width: 780px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .masthead img { height: 36px; display: block; }
+  .masthead .section {
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: .13em; color: var(--ink-3);
+  }
+  .masthead .section b { color: var(--accent-dp); }
+  .masthead .site {
+    margin-right: auto; font-family: var(--sans);
+    font-size: 13px; color: var(--ink-3); direction: ltr;
+  }
+  .brandfoot {
+    border-top: 1px solid var(--rule); margin-top: 30px; padding-top: 22px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: 13.5px; color: var(--ink-3);
+  }
+  .brandfoot img { height: 34px; display: block; }
+  .brandfoot b { color: var(--ink-2); font-weight: 600; }
+  .brandfoot a { color: var(--accent-dp); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .brandfoot a:hover { border-bottom-color: var(--accent-dp); }
+  .brandfoot a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+</head>
+<body>
+<div class="masthead">
+  <div class="row">
+    <img src="../articles/assets/lerani-logo-compact-vivid.png" alt="Learni">
+    <div class="section"><b>כלים</b> · חינוך · בחירות 2026</div>
+    <div class="site">lerani.co.il</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="top">
+    <p class="eyebrow">בחירות 2026 · 27 באוקטובר</p>
+    <h1>מצפן החינוך</h1>
+    <p class="dek">שמונה שאלות על מה שחשוב לכם בחינוך — ובסוף, כמה כל מפלגה קרובה לעמדות שלכם. לא המלצה למי להצביע: השוואה בין מצעים כתובים.</p>
+    <div class="meta">
+      <span><b>5</b> מפלגות שפרסמו מצע חינוך</span>
+      <span><b>8</b> שאלות</span>
+      <span>עודכן <b>29.8.2026</b></span>
+    </div>
+  </header>
+
+  <div class="progress-bar">
+    <div class="progress-row">
+      <span id="pcount">0 מתוך 8</span>
+      <span class="track"><i id="pfill"></i></span>
+    </div>
+  </div>
+
+  <main id="quiz"></main>
+
+  <div class="actions">
+    <button class="btn" id="calc" disabled>הציגו את התוצאות</button>
+    <button class="btn ghost" id="reset">התחלה מחדש</button>
+  </div>
+
+  <section id="results" hidden aria-live="polite">
+    <div class="res-head">
+      <h2>כמה כל מפלגה קרובה אליכם</h2>
+      <p id="res-sub"></p>
+    </div>
+    <div id="res-list"></div>
+
+    <div class="note">
+      <b>איך זה מחושב:</b> לכל תשובה שבחרתם יש ציון התאמה לכל מפלגה, על סמך מה שכתוב במצע שלה. שאלה שסימנתם כחשובה במיוחד נספרת פי שניים. האחוז הוא היחס בין הציון שהמפלגה צברה לבין המקסימום האפשרי.
+      <br><br>
+      <b>מה הכלי לא עושה:</b> הוא לא בודק אם הבטחה תתממש, לא מדרג את איכות המצעים, ולא לוקח בחשבון שום נושא מחוץ לחינוך. מפלגה יכולה לקבל אחוז גבוה ולהיות רחוקה מכם בכל השאר.
+    </div>
+  </section>
+
+  <footer class="src">
+    <h3>מקורות</h3>
+    <p>
+      מצעי המפלגות כפי שפורסמו עד אוגוסט 2026 —
+      <a href="https://www.maariv.co.il/news/education/article-1356611" target="_blank" rel="noopener">סקירת מצעי החינוך, מעריב (17.8.2026)</a> ·
+      <a href="https://yeshatid.org.il/platforms/%D7%97%D7%99%D7%A0%D7%95%D7%9A" target="_blank" rel="noopener">מצע החינוך של יש עתיד</a> ·
+      <a href="https://beytenu.org.il/%D7%9E%D7%A6%D7%A2-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%99%D7%AA%D7%A0%D7%95-%D7%91%D7%A0%D7%95%D7%A9%D7%90-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9A-%D7%99%D7%97%D7%93-%D7%A2%D7%9D-%D7%9E%D7%95/" target="_blank" rel="noopener">מצע ישראל ביתנו</a> ·
+      <a href="https://www.themarker.com/news/education/2026-08-24/ty-article-live/000001a0-2e7c-dd2f-a1b6-7ffefd300000" target="_blank" rel="noopener">ועידת החינוך של TheMarker (24.8.2026)</a> ·
+      <a href="https://www.maariv.co.il/news/education/article-1337135" target="_blank" rel="noopener">תוכנית החינוך של "ביחד"</a>
+    </p>
+    <p>
+      הכלי כולל רק את חמש המפלגות שפרסמו מצע חינוך כתוב. מפלגות שלא פרסמו מצע בתחום — ובהן ש"ס, יהדות התורה, הציונות הדתית ועוצמה יהודית — אינן מופיעות כאן, מכיוון שאין מסמך שאפשר להשוות אליו.
+    </p>
+    <p class="byline">נבנה על ידי מיטל פלג · לרני</p>
+  </footer>
+    <div class="brandfoot">
+      <img src="../articles/assets/lerani-logo-compact-vivid.png" alt="Learni">
+      <div><b>לרני מבית אימפקט.OS</b> · טכנולוגיה עם טביעת אצבע אנושית · <a href="https://www.impactos.co.il" target="_blank" rel="noopener">impactos.co.il</a></div>
+    </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var PARTIES = [
+    { id: "beyachad", name: "ביחד", lead: "בנט–לפיד · מועמדת לתיק: מירב כהן" },
+    { id: "yashar",   name: "ישר!", lead: "גדי איזנקוט · מועמד לתיק: מתן כהנא" },
+    { id: "likud",    name: "הליכוד", lead: "בנימין נתניהו" },
+    { id: "democrats",name: "הדמוקרטים", lead: "יאיר גולן" },
+    { id: "beytenu",  name: "ישראל ביתנו", lead: "אביגדור ליברמן" }
+  ];
+
+  // s = [beyachad, yashar, likud, democrats, beytenu]
+  var QUESTIONS = [
+    {
+      t: "מימון ציבורי ולימודי ליבה",
+      note: "22.5% מהתלמידים בישראל לא לומדים מקצועות ליבה מלאים. מה צריך לקרות?",
+      opts: [
+        { t: "מוסד שלא מלמד ליבה מלאה — לא מקבל שקל מהמדינה", s: [1.0, 0.6, 0.1, 0.9, 1.0] },
+        { t: "לחייב ליבה, אבל בפריסה מדורגת ובהסכמה", s: [0.6, 1.0, 0.2, 0.5, 0.5] },
+        { t: "לא לקשור תקציב בליבה — זו כפייה על קהילות", s: [0.0, 0.2, 0.9, 0.0, 0.0] }
+      ]
+    },
+    {
+      t: "מי מנהל את בית הספר",
+      note: "כ-70% מההחלטות מתקבלות היום בשלטון המרכזי. איפה צריך לשבת הכוח?",
+      opts: [
+        { t: "אצל המנהל והצוות — ביזור סמכויות לרשויות ולשטח", s: [1.0, 1.0, 0.2, 0.6, 0.7] },
+        { t: "אצל משרד החינוך — תוכנית לימודים אחידה מלמעלה", s: [0.1, 0.1, 1.0, 0.4, 0.3] },
+        { t: "משהו באמצע — ליבה אחידה, אבל חופש בביצוע", s: [0.7, 0.9, 0.4, 0.8, 0.7] }
+      ]
+    },
+    {
+      t: "זהות בתוכנית הלימודים",
+      note: "מה צריך לעמוד במרכז — ועל חשבון מה.",
+      opts: [
+        { t: "מורשת יהודית וציונות במרכז", s: [0.1, 0.5, 1.0, 0.0, 0.4] },
+        { t: "אזרחות ודמוקרטיה במרכז", s: [0.6, 0.5, 0.1, 1.0, 0.5] },
+        { t: "שילוב — גם מורשת וגם אזרחות, בתוך ליבה אחת", s: [0.5, 1.0, 0.4, 0.4, 0.6] },
+        { t: "פחות עיסוק בזהות, יותר במיומנויות", s: [0.9, 0.4, 0.1, 0.3, 0.4] }
+      ]
+    },
+    {
+      t: "שכר וקידום מורים",
+      note: "חסרים במערכת כ-31,000 מורים. מה יחזיר אנשים טובים להוראה?",
+      opts: [
+        { t: "תגמול לפי איכות ותפוקות — לא לפי ותק", s: [0.4, 1.0, 0.3, 0.4, 1.0] },
+        { t: "העלאת שכר רוחבית ותוספת תקציב גדולה", s: [1.0, 0.3, 0.4, 0.7, 0.3] },
+        { t: "לשפר תנאים בלי לשנות את מבנה ההעסקה", s: [0.2, 0.1, 1.0, 0.3, 0.1] }
+      ]
+    },
+    {
+      t: "גודל הכיתה",
+      note: "בישראל 30 תלמידים בממוצע בחטיבה — 31% מעל ממוצע ה-OECD.",
+      opts: [
+        { t: "יעד מספרי מחייב — 20 תלמידים בכיתה", s: [1.0, 0.3, 1.0, 0.4, 0.5] },
+        { t: "להקטין בהדרגה, בלי להתחייב למספר", s: [0.5, 0.6, 0.5, 0.7, 0.9] },
+        { t: "לא העיקר — עדיף להשקיע באיכות ההוראה", s: [0.3, 0.9, 0.2, 0.5, 0.4] }
+      ]
+    },
+    {
+      t: "בגרויות",
+      note: "מערך הבגרויות מעצב את כל התיכון. להשאיר או לשנות?",
+      opts: [
+        { t: "לצמצם דרמטית — לעבור למבחני מיומנויות", s: [0.7, 1.0, 0.2, 0.4, 0.3] },
+        { t: "לסיים מוקדם — י\"ב לשירות או למכינה", s: [1.0, 0.6, 0.1, 0.2, 0.2] },
+        { t: "להשאיר את המערך הקיים", s: [0.1, 0.1, 0.8, 0.4, 0.5] }
+      ]
+    },
+    {
+      t: "גיל הרך",
+      note: "מ-0 עד 3 המדינה כמעט לא נוכחת. האם זה צריך להשתנות עכשיו?",
+      opts: [
+        { t: "כן — חינוך ציבורי מסובסד מגיל 0, עם פיקוח", s: [1.0, 0.4, 0.3, 0.6, 0.4] },
+        { t: "לא עכשיו — קודם לתקן את גילאי בית הספר", s: [0.2, 0.6, 0.7, 0.4, 0.6] }
+      ]
+    },
+    {
+      t: "בינה מלאכותית בכיתה",
+      note: "כל המצעים מזכירים AI. הם מתכוונים לדברים שונים מאוד.",
+      opts: [
+        { t: "AI בלב הלמידה — מורה אישי לכל תלמיד", s: [1.0, 0.5, 0.4, 0.1, 0.2] },
+        { t: "AI ככלי ממוקד למקצוע מסוים", s: [0.5, 0.6, 1.0, 0.3, 0.4] },
+        { t: "AI כמיומנות שלומדים, לא ככלי שמלמד", s: [0.4, 1.0, 0.3, 0.5, 0.5] },
+        { t: "לא בראש סדר העדיפויות", s: [0.1, 0.2, 0.2, 0.7, 0.7] }
+      ]
+    }
+  ];
+
+  var answers = new Array(QUESTIONS.length).fill(null);
+  var weights = new Array(QUESTIONS.length).fill(false);
+
+  var quiz    = document.getElementById("quiz");
+  var calcBtn = document.getElementById("calc");
+  var resetBtn= document.getElementById("reset");
+  var results = document.getElementById("results");
+  var resList = document.getElementById("res-list");
+  var resSub  = document.getElementById("res-sub");
+  var pcount  = document.getElementById("pcount");
+  var pfill   = document.getElementById("pfill");
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  QUESTIONS.forEach(function (q, qi) {
+    var card = el("section", "q");
+
+    var head = el("div", "q-head");
+    head.appendChild(el("span", "q-num", String(qi + 1).padStart(2, "0")));
+    head.appendChild(el("h2", "q-title", q.t));
+    card.appendChild(head);
+
+    card.appendChild(el("p", "q-note", q.note));
+
+    var list = el("div", "opts");
+    q.opts.forEach(function (o, oi) {
+      var b = el("button", "opt", o.t);
+      b.type = "button";
+      b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () {
+        answers[qi] = oi;
+        Array.prototype.forEach.call(list.children, function (c, ci) {
+          c.setAttribute("aria-pressed", ci === oi ? "true" : "false");
+        });
+        refresh();
+      });
+      list.appendChild(b);
+    });
+    card.appendChild(list);
+
+    var wLabel = el("label", "weight");
+    var wBox = document.createElement("input");
+    wBox.type = "checkbox";
+    wBox.addEventListener("change", function () {
+      weights[qi] = wBox.checked;
+      if (!results.hidden) render();
+    });
+    wLabel.appendChild(wBox);
+    wLabel.appendChild(el("span", null, "הנושא הזה חשוב לי במיוחד"));
+    card.appendChild(wLabel);
+
+    quiz.appendChild(card);
+  });
+
+  function answeredCount() {
+    return answers.filter(function (a) { return a !== null; }).length;
+  }
+
+  function refresh() {
+    var n = answeredCount();
+    pcount.textContent = n + " מתוך " + QUESTIONS.length;
+    pfill.style.width = (n / QUESTIONS.length * 100) + "%";
+    calcBtn.disabled = n === 0;
+    if (!results.hidden) render();
+  }
+
+  function score() {
+    var totals = PARTIES.map(function () { return 0; });
+    var max = 0;
+    answers.forEach(function (a, qi) {
+      if (a === null) return;
+      var w = weights[qi] ? 2 : 1;
+      max += w;
+      QUESTIONS[qi].opts[a].s.forEach(function (v, pi) {
+        totals[pi] += v * w;
+      });
+    });
+    return PARTIES.map(function (p, pi) {
+      return {
+        party: p,
+        pct: max ? Math.round(totals[pi] / max * 100) : 0,
+        raw: totals[pi]
+      };
+    }).sort(function (x, y) { return y.pct - x.pct; });
+  }
+
+  function breakdown(pi) {
+    var strong = [], weak = [];
+    answers.forEach(function (a, qi) {
+      if (a === null) return;
+      var v = QUESTIONS[qi].opts[a].s[pi];
+      var line = QUESTIONS[qi].t + " — " + QUESTIONS[qi].opts[a].t;
+      if (v >= 0.8) strong.push(line);
+      else if (v <= 0.3) weak.push(line);
+    });
+    return { strong: strong, weak: weak };
+  }
+
+  function render() {
+    var ranked = score();
+    var n = answeredCount();
+
+    resSub.textContent = n < QUESTIONS.length
+      ? "מבוסס על " + n + " מתוך " + QUESTIONS.length + " השאלות. ענו על השאר כדי לדייק."
+      : "מבוסס על כל שמונה השאלות.";
+
+    resList.textContent = "";
+
+    ranked.forEach(function (r, i) {
+      var pi = PARTIES.indexOf(r.party);
+      var box = el("article", "party" + (i === 0 ? " lead" : ""));
+
+      var top = el("div", "p-top");
+      top.appendChild(el("span", "p-rank", String(i + 1)));
+      top.appendChild(el("h3", "p-name", r.party.name));
+      if (i === 0) top.appendChild(el("span", "p-lead-tag", "ההתאמה הגבוהה ביותר"));
+      top.appendChild(el("span", "p-pct", r.pct + "%"));
+      box.appendChild(top);
+
+      var track = el("div", "p-track");
+      var fill = document.createElement("i");
+      track.appendChild(fill);
+      box.appendChild(track);
+      requestAnimationFrame(function () { fill.style.width = r.pct + "%"; });
+
+      box.appendChild(el("p", "p-lead-name", r.party.lead));
+
+      var b = breakdown(pi);
+      if (b.strong.length || b.weak.length) {
+        var d = el("details", "why");
+        var sum = el("summary", null, "למה");
+        d.appendChild(sum);
+        var body = el("div", "why-body");
+
+        if (b.strong.length) {
+          body.appendChild(el("h4", null, "נפגשים אתכם"));
+          var ul1 = document.createElement("ul");
+          b.strong.forEach(function (t) { ul1.appendChild(el("li", null, t)); });
+          body.appendChild(ul1);
+        }
+        if (b.weak.length) {
+          body.appendChild(el("h4", null, "רחוקים מכם"));
+          var ul2 = document.createElement("ul");
+          b.weak.forEach(function (t) { ul2.appendChild(el("li", null, t)); });
+          body.appendChild(ul2);
+        }
+        d.appendChild(body);
+        box.appendChild(d);
+      }
+
+      resList.appendChild(box);
+    });
+  }
+
+  calcBtn.addEventListener("click", function () {
+    render();
+    results.hidden = false;
+    results.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  resetBtn.addEventListener("click", function () {
+    answers.fill(null);
+    weights.fill(false);
+    Array.prototype.forEach.call(quiz.querySelectorAll(".opt"), function (b) {
+      b.setAttribute("aria-pressed", "false");
+    });
+    Array.prototype.forEach.call(quiz.querySelectorAll(".weight input"), function (c) {
+      c.checked = false;
+    });
+    results.hidden = true;
+    refresh();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  refresh();
+})();
+</script>
+
+</body>
+</html>
