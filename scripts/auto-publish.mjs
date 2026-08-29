@@ -71,16 +71,34 @@ if (!due.length) {
 const pageTokenRes = await graphGet(META_PAGE_ID, { fields: 'access_token', access_token: META_USER_TOKEN });
 const PAGE_TOKEN = pageTokenRes.access_token;
 
-// הגנה מכפל פרסום: הפוסטים האחרונים בעמוד ב-24 השעות האחרונות
-let recentFirstLines = [];
+// הגנה מכפל פרסום: כל מה שכבר באוויר בעמוד — פייסבוק ואינסטגרם, עד 200 פוסטים בכל פלטפורמה.
+// הערה: /feed מחזיר שגיאת הרשאה עם טוקן העמוד, /published_posts עובד. זו הסיבה שההגנה
+// הקודמת לא עבדה בפועל ופוסטים יצאו פעמיים בהפרש של ימים.
+const norm = (s) => (s || '').replace(/[‎‏ ]/g, '').replace(/\s+/g, ' ').trim();
+
+async function pullAll(path, fields) {
+  let page = await graphGet(path, { fields, limit: '100', access_token: PAGE_TOKEN });
+  const all = [...(page.data || [])];
+  while (page.paging?.next && all.length < 200) {
+    const res = await fetch(page.paging.next);
+    page = await res.json();
+    if (page.error) break;
+    all.push(...(page.data || []));
+  }
+  return all;
+}
+
+// אם אי אפשר לוודא — לא מפרסמים. הפוסט נשאר approved ויֵצא בהרצה הבאה.
+const livePosts = new Set();
 try {
-  const feed = await graphGet(`${META_PAGE_ID}/feed`, { fields: 'message,created_time', limit: '25', access_token: PAGE_TOKEN });
-  const dayAgo = Date.now() - 24 * 3600 * 1000;
-  recentFirstLines = (feed.data || [])
-    .filter(f => f.message && new Date(f.created_time).getTime() > dayAgo)
-    .map(f => f.message.split('\n')[0].trim());
+  for (const f of await pullAll(`${META_PAGE_ID}/published_posts`, 'message')) livePosts.add(norm(f.message));
+  for (const m of await pullAll(`${META_IG_USER_ID}/media`, 'caption')) livePosts.add(norm(m.caption));
+  livePosts.delete('');
+  console.log(`הגנה מכפילויות: נטענו ${livePosts.size} פוסטים שכבר באוויר.`);
 } catch (e) {
-  console.warn('⚠ לא הצלחתי לשלוף את הפיד לבדיקת כפילויות:', e.message);
+  console.error('✗ לא הצלחתי לשלוף את הפוסטים הקיימים לבדיקת כפילויות:', e.message);
+  console.error('  לא מפרסם כלום כדי לא לסכן פרסום כפול. התור יישאר כמו שהוא וינסה שוב בהרצה הבאה.');
+  process.exit(1);
 }
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
@@ -92,8 +110,8 @@ for (const post of due) {
   const mediaUrl = isVideo ? data.videoBase + post.video : data.imageBase + post.image;
   console.log(`\n▶ ${post.id} — ${post.title}`);
 
-  if (recentFirstLines.includes(post.fb.split('\n')[0].trim())) {
-    console.log('  ⏭ כבר קיים פוסט זהה בעמוד מה-24 שעות האחרונות — מסומן published בלי לפרסם שוב.');
+  if (livePosts.has(norm(post.fb)) || livePosts.has(norm(post.ig))) {
+    console.log('  ⏭ הטקסט הזה כבר פורסם בעמוד — מסומן published בלי לפרסם שוב.');
     post.status = 'published';
     post.publishedAt = now;
     post.note = 'זוהה כפרסום כפול — סומן published בלי פרסום חוזר';

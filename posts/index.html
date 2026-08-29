@@ -108,6 +108,28 @@
   }
   .copy-btn.done { background: var(--green); color: #fff; }
 
+  .archive { margin-top: 50px; }
+  .archive > summary {
+    cursor: pointer; list-style: none; user-select: none;
+    font-family: 'Playpen Sans Hebrew', cursive; font-weight: 800; font-size: 1.1rem;
+    background: var(--surface); border-radius: 999px; padding: 14px 26px;
+    box-shadow: 0 6px 24px rgba(30,58,95,.07);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .archive > summary::-webkit-details-marker { display: none; }
+  .archive > summary::after { content: '▾'; margin-inline-start: auto; font-size: .9rem; color: var(--muted); }
+  .archive[open] > summary::after { content: '▴'; }
+  .archive > summary .hint { font-family: 'Assistant', sans-serif; font-weight: 500; font-size: .87rem; color: var(--muted); }
+  .archive .day-label { margin-top: 26px; }
+
+  .live-links { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 2px; }
+  .live-links a, .live-links span {
+    font-size: .8rem; font-weight: 700; text-decoration: none;
+    padding: 5px 14px; border-radius: 999px;
+    background: rgba(123,171,212,.16); color: #3d6a94;
+  }
+  .live-links span { background: rgba(30,58,95,.06); color: var(--muted); }
+
   footer { text-align: center; color: var(--muted); font-size: .85rem; border-top: 1px solid rgba(30,58,95,.1); padding-top: 22px; margin-top: 40px; }
   footer a { color: var(--blue); }
 </style>
@@ -125,11 +147,16 @@
     <div class="step"><b><span class="n">1</span> · עוברים על התור</b>כל פוסט מופיע כאן עם התמונה, הטקסטים והמועד שלו</div>
     <div class="step"><b><span class="n">2</span> · מאשרים לקלוד</b>אומרים "מאשרת הכול" / "בלי פוסט 4" / "תזיזי את 2 לחמישי"</div>
     <div class="step"><b><span class="n">3</span> · הפרסום אוטומטי</b>הסוכן רץ ב־8:00 ו־20:00 ומפרסם רק פוסטים מאושרים ✅</div>
-    <div class="step"><b><span class="n">4</span> · הדף מתעדכן</b>פוסט שיצא מסומן "פורסם" — תמיד רואים מה המצב האמיתי</div>
+    <div class="step"><b><span class="n">4</span> · עובר לארכיון</b>פוסט שיצא נכנס לארכיון למטה עם קישור לפוסט החי — ולא יפורסם שוב</div>
   </div>
 
   <div class="summary" id="summary"></div>
   <div id="posts"></div>
+
+  <details class="archive" id="archive" hidden>
+    <summary>📦 ארכיון · <span id="archive-count"></span> <span class="hint">מה שכבר פורסם — לא יפורסם שוב</span></summary>
+    <div id="archive-list"></div>
+  </details>
 
   <footer>
     מרכז הפוסטים של לרני · <a href="../social-kit/">ערכת העיצוב</a> · התמונות בשפת הכרטיסיות הצפות
@@ -149,37 +176,49 @@ const PLATFORMS = [ {key:'fb', label:'פייסבוק'}, {key:'ig', label:'אינ
 fetch('posts-data.json?v=' + Date.now())
   .then(r => r.json())
   .then(data => {
-    const posts = data.posts.slice().sort((a, b) => a.when.localeCompare(b.when));
+    // הארכיון הוא כל מה שכבר יצא לאוויר או שהוחלט לוותר עליו. התור למעלה הוא רק מה שעוד לפנינו.
+    const isArchived = p => p.status === 'published' || p.status === 'skipped';
+    const queue = data.posts.filter(p => !isArchived(p)).sort((a, b) => (a.when || '').localeCompare(b.when || ''));
+    const archive = data.posts.filter(isArchived);
+    // בארכיון החדש למעלה, לפי מועד הפרסום בפועל
+    const archiveDate = p => p.publishedAt || p.when || '';
+    archive.sort((a, b) => archiveDate(b).localeCompare(archiveDate(a)));
 
     const counts = { pending: 0, approved: 0, published: 0 };
-    posts.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
+    data.posts.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
     document.getElementById('summary').innerHTML =
       '<span>⏳ ממתינים לאישור: ' + counts.pending + '</span>' +
       '<span>✅ מאושרים: ' + counts.approved + '</span>' +
       '<span>🚀 פורסמו: ' + counts.published + '</span>';
 
     const container = document.getElementById('posts');
-    let lastDay = '';
 
-    posts.forEach(p => {
-      const d = new Date(p.when.replace(' ', 'T'));
-      const dayKey = p.when.slice(0, 10);
-      if (dayKey !== lastDay) {
-        lastDay = dayKey;
-        const label = document.createElement('div');
-        label.className = 'day-label';
-        label.textContent = 'יום ' + DAYS[d.getDay()] + ' · ' + d.getDate() + '.' + (d.getMonth() + 1);
-        container.appendChild(label);
-      }
+    const addDayLabel = (target, dateStr) => {
+      const d = new Date(dateStr.slice(0, 10) + 'T12:00');
+      const label = document.createElement('div');
+      label.className = 'day-label';
+      label.textContent = 'יום ' + DAYS[d.getDay()] + ' · ' + d.getDate() + '.' + (d.getMonth() + 1);
+      target.appendChild(label);
+    };
 
+    const addCard = (p, target = container) => {
       const st = STATUS_LABELS[p.status] || STATUS_LABELS.pending;
-      const time = p.when.slice(11);
+      const time = p.when ? p.when.slice(11) : '';
       const card = document.createElement('div');
       card.className = 'post-card';
 
       const tabsHtml = PLATFORMS.map((pl, i) =>
         '<button class="tab' + (i === 0 ? ' active' : '') + '" data-key="' + pl.key + '">' + pl.label + '</button>'
       ).join('');
+
+      // בארכיון: קישור ישיר לפוסט החי בפייסבוק ובאינסטגרם
+      const linksHtml = p.status === 'published'
+        ? '<div class="live-links">' +
+            (p.publishedAt ? '<span>🚀 פורסם ' + p.publishedAt + '</span>' : '') +
+            (p.fbUrl ? '<a href="' + p.fbUrl + '" target="_blank" rel="noopener">הפוסט בפייסבוק ↗</a>' : '') +
+            (p.igUrl ? '<a href="' + p.igUrl + '" target="_blank" rel="noopener">הפוסט באינסטגרם ↗</a>' : '') +
+          '</div>'
+        : '';
 
       card.innerHTML =
         '<div class="preview">' +
@@ -194,9 +233,10 @@ fetch('posts-data.json?v=' + Date.now())
         '<div class="content">' +
           '<div class="top">' +
             '<h2>' + p.title + '</h2>' +
-            '<span class="when">🕗 ' + time + '</span>' +
+            (time ? '<span class="when">🕗 ' + time + '</span>' : '') +
             '<span class="status ' + st.cls + '">' + st.text + '</span>' +
           '</div>' +
+          linksHtml +
           '<div class="tabs">' + tabsHtml + '</div>' +
           '<div class="caption-box">' +
             '<button class="copy-btn">העתקה</button>' +
@@ -229,8 +269,40 @@ fetch('posts-data.json?v=' + Date.now())
         });
       });
 
-      container.appendChild(card);
+      target.appendChild(card);
+    };
+
+    // --- התור הפעיל ---
+    let lastDay = '';
+    queue.forEach(p => {
+      const dayKey = (p.when || '').slice(0, 10);
+      if (dayKey && dayKey !== lastDay) {
+        lastDay = dayKey;
+        addDayLabel(container, dayKey);
+      }
+      addCard(p);
     });
+
+    if (!queue.length) {
+      container.innerHTML = '<p style="text-align:center;color:#94a3b8">התור ריק — כל הפוסטים כבר בארכיון.</p>';
+    }
+
+    // --- הארכיון ---
+    if (archive.length) {
+      const archiveList = document.getElementById('archive-list');
+      document.getElementById('archive').hidden = false;
+      document.getElementById('archive-count').textContent = archive.length + ' פוסטים';
+
+      let lastArchiveDay = '';
+      archive.forEach(p => {
+        const dayKey = archiveDate(p).slice(0, 10);
+        if (dayKey && dayKey !== lastArchiveDay) {
+          lastArchiveDay = dayKey;
+          addDayLabel(archiveList, dayKey);
+        }
+        addCard(p, archiveList);
+      });
+    }
   })
   .catch(() => {
     document.getElementById('posts').innerHTML =
