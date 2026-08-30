@@ -3,749 +3,600 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="שמונה שאלות על מה שחשוב לכם בחינוך — ובסוף, כמה כל אחת מחמש המפלגות שפרסמו מצע חינוך קרובה לעמדות שלכם. בחירות 2026.">
+<meta name="description" content="שמונה שאלות על מה שחשוב לכם בחינוך — והדירוג מתעדכן בזמן אמת. השוואה בין מצעי החינוך של חמש המפלגות שפרסמו מצע כתוב. בחירות 2026.">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="מצפן החינוך 2026">
-<meta property="og:description" content="שמונה שאלות על מה שחשוב לכם בחינוך — ובסוף, כמה כל אחת מחמש המפלגות שפרסמו מצע חינוך קרובה לעמדות שלכם. בחירות 2026.">
+<meta property="og:description" content="שמונה שאלות על מה שחשוב לכם בחינוך — והדירוג מתעדכן בזמן אמת. השוואה בין מצעי החינוך של חמש המפלגות שפרסמו מצע כתוב. בחירות 2026.">
 <meta property="og:locale" content="he_IL">
 <title>מצפן החינוך 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap">
 
 <style>
-  :root {
-    --paper:      #FDFCF9;
-    --surface:    #FFFFFF;
-    --surface-2:  #F4F1EA;
-    --ink:        #1A1A1A;
-    --ink-2:      #3A3A38;
-    --ink-3:      #6E6A61;
-    --rule:       #DED9CD;
-    --rule-soft:  #EBE7DD;
-    --accent:     #2A9D8F;
-    --accent-dp:  #1F7A6F;
-    --accent-wash:#E6F2F0;
-    --gold:       #C98A12;
-    --gold-wash:  #FBF1DC;
-    --btn-fg:     #FFFFFF;
-    --shadow:     0 1px 2px rgba(26,26,26,.04), 0 8px 24px rgba(26,26,26,.06);
-    --shadow-lift:0 2px 4px rgba(26,26,26,.05), 0 14px 40px rgba(26,26,26,.10);
-
-    --serif: 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
-    --sans:  'Heebo', 'Segoe UI', Arial, sans-serif;
+  :root{
+    --paper:#FBF9F5; --surface:#FFFFFF; --sunk:#F2EEE6;
+    --ink:#15161A; --ink-2:#43454C; --ink-3:#7C7A73;
+    --rule:#E2DDD1; --hair:#EDE9DF;
+    --accent:#1F7A6F; --accent-2:#2A9D8F; --accent-wash:#E9F3F1;
+    --gold:#B8820F; --gold-wash:#F8EFD9;
+    --btn-fg:#FFFFFF;
+    --lift:0 1px 2px rgba(21,22,26,.04), 0 10px 30px rgba(21,22,26,.07);
+    --serif:'Frank Ruhl Libre',Georgia,serif;
+    --sans:'Heebo','Segoe UI',Arial,sans-serif;
+    --e:cubic-bezier(.22,.61,.36,1);
   }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper:      #14161A;
-      --surface:    #1B1E24;
-      --surface-2:  #23272F;
-      --ink:        #F2EFE8;
-      --ink-2:      #D2CEC5;
-      --ink-3:      #948F85;
-      --rule:       #333842;
-      --rule-soft:  #272C34;
-      --accent:     #4FC3B3;
-      --accent-dp:  #7BD6C8;
-      --accent-wash:#16302E;
-      --gold:       #E0A83A;
-      --gold-wash:  #2E2617;
-      --btn-fg:     #10201E;
-      --shadow:     0 1px 2px rgba(0,0,0,.30), 0 8px 24px rgba(0,0,0,.34);
-      --shadow-lift:0 2px 4px rgba(0,0,0,.34), 0 14px 40px rgba(0,0,0,.44);
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#101215; --surface:#181B20; --sunk:#1F232A;
+      --ink:#F1EEE7; --ink-2:#C9C6BE; --ink-3:#8B8880;
+      --rule:#2C3138; --hair:#242930;
+      --accent:#57C9B8; --accent-2:#7BD9CA; --accent-wash:#152B29;
+      --gold:#D9A537; --gold-wash:#2A2314;
+      --btn-fg:#0C1917;
+      --lift:0 1px 2px rgba(0,0,0,.34), 0 10px 30px rgba(0,0,0,.44);
     }
   }
-
-  :root[data-theme="dark"] {
-    --paper:      #14161A;
-    --surface:    #1B1E24;
-    --surface-2:  #23272F;
-    --ink:        #F2EFE8;
-    --ink-2:      #D2CEC5;
-    --ink-3:      #948F85;
-    --rule:       #333842;
-    --rule-soft:  #272C34;
-    --accent:     #4FC3B3;
-    --accent-dp:  #7BD6C8;
-    --accent-wash:#16302E;
-    --gold:       #E0A83A;
-    --gold-wash:  #2E2617;
-    --btn-fg:     #10201E;
-    --shadow:     0 1px 2px rgba(0,0,0,.30), 0 8px 24px rgba(0,0,0,.34);
-    --shadow-lift:0 2px 4px rgba(0,0,0,.34), 0 14px 40px rgba(0,0,0,.44);
+  :root[data-theme="dark"]{
+    --paper:#101215; --surface:#181B20; --sunk:#1F232A;
+    --ink:#F1EEE7; --ink-2:#C9C6BE; --ink-3:#8B8880;
+    --rule:#2C3138; --hair:#242930;
+    --accent:#57C9B8; --accent-2:#7BD9CA; --accent-wash:#152B29;
+    --gold:#D9A537; --gold-wash:#2A2314;
+    --btn-fg:#0C1917;
+    --lift:0 1px 2px rgba(0,0,0,.34), 0 10px 30px rgba(0,0,0,.44);
   }
 
-  * { box-sizing: border-box; }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);direction:rtl;margin:0;-webkit-font-smoothing:antialiased}
+  .num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;display:inline-block}
 
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--sans);
-    direction: rtl;
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .wrap { max-width: 780px; margin: 0 auto; padding: 0 20px 80px; }
+  .shell{max-width:1120px;margin:0 auto;padding:0 22px 72px}
 
   /* ---------- masthead ---------- */
-  header.top {
-    border-bottom: 1px solid var(--rule);
-    padding: 40px 0 30px;
-    margin-bottom: 34px;
-  }
-  .eyebrow {
-    font-family: var(--sans);
-    font-size: 13px; font-weight: 600;
-    letter-spacing: .15em;
-    color: var(--accent-dp);
-    margin: 0 0 16px;
-  }
-  h1 {
-    font-family: var(--serif);
-    font-weight: 900;
-    font-size: clamp(38px, 7.2vw, 58px);
-    line-height: 1.08;
-    letter-spacing: -.015em;
-    margin: 0;
-    text-wrap: balance;
-  }
-  .dek {
-    font-family: var(--serif);
-    font-size: clamp(18px, 2.6vw, 22px);
-    line-height: 1.6;
-    color: var(--ink-2);
-    margin: 18px 0 0;
-    max-width: 60ch;
-    text-wrap: pretty;
-  }
-  .meta {
-    margin-top: 22px;
-    display: flex; flex-wrap: wrap; gap: 10px 18px;
-    font-size: 14px; color: var(--ink-3);
-  }
-  .meta b { color: var(--ink-2); font-weight: 600; }
+  .top{display:flex;align-items:center;gap:16px;padding:20px 0 18px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+  .top .mark{display:flex;align-items:center;gap:11px}
+  .dial{width:26px;height:26px;flex-shrink:0}
+  .dial .ring{fill:none;stroke:var(--rule);stroke-width:2}
+  .dial .ndl{stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;transform-origin:13px 13px;transition:transform .6s var(--e)}
+  .top .nm{font-family:var(--serif);font-weight:900;font-size:17px;letter-spacing:-.01em}
+  .top .kick{font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--ink-3)}
+  .top .site{margin-right:auto;font-size:12.5px;color:var(--ink-3);direction:ltr}
 
-  /* ---------- progress ---------- */
-  .progress-bar {
-    position: sticky; top: 0; z-index: 20;
-    background: var(--paper);
-    padding: 12px 0 10px;
-    border-bottom: 1px solid var(--rule-soft);
-    margin-bottom: 30px;
-  }
-  .progress-row {
-    display: flex; align-items: center; gap: 14px;
-    font-size: 13px; font-weight: 600; color: var(--ink-3);
-  }
-  .track {
-    flex-grow: 1; height: 5px; border-radius: 3px;
-    background: var(--rule-soft); overflow: hidden;
-  }
-  .track > i {
-    display: block; height: 100%; width: 0%;
-    background: var(--accent);
-    transition: width .35s cubic-bezier(.4,0,.2,1);
-  }
+  /* ---------- hero ---------- */
+  .hero{padding:44px 0 34px;border-bottom:1px solid var(--rule)}
+  .hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,7vw,68px);line-height:1.03;letter-spacing:-.022em;margin:0;text-wrap:balance}
+  .hero .dek{font-family:var(--serif);font-size:clamp(17px,2.3vw,21px);line-height:1.62;color:var(--ink-2);margin:20px 0 0;max-width:56ch;text-wrap:pretty}
+  .facts{display:flex;flex-wrap:wrap;gap:0;margin-top:26px;border-top:1px solid var(--hair)}
+  .fact{padding:14px 22px 12px;border-left:1px solid var(--hair)}
+  .fact:last-child{border-left:0}
+  .fact .n{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1;color:var(--accent)}
+  .fact .l{font-size:12.5px;color:var(--ink-3);margin-top:6px}
 
-  /* ---------- questions ---------- */
-  .q {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: 26px 26px 22px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow);
-  }
-  .q-head { display: flex; gap: 14px; align-items: baseline; margin-bottom: 6px; }
-  .q-num {
-    font-family: var(--serif); font-weight: 900;
-    font-size: 15px; color: var(--accent-dp);
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0; padding-top: 2px;
-  }
-  .q-title {
-    font-family: var(--serif); font-weight: 700;
-    font-size: clamp(21px, 3.2vw, 25px); line-height: 1.35;
-    margin: 0; text-wrap: pretty;
-  }
-  .q-note {
-    font-size: 14.5px; color: var(--ink-3);
-    margin: 0 0 18px 0; padding-right: 29px; line-height: 1.55;
-  }
+  /* ---------- layout ---------- */
+  .layout{display:grid;grid-template-columns:1fr 336px;gap:38px;align-items:start;margin-top:34px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr;gap:26px}}
 
-  .opts { display: flex; flex-direction: column; gap: 9px; }
+  /* ---------- trail ---------- */
+  .trail{display:flex;gap:6px;margin-bottom:26px;flex-wrap:wrap}
+  .tick{width:34px;height:30px;border:0;background:none;padding:0;cursor:pointer;position:relative}
+  .tick i{position:absolute;inset:auto 0 10px 0;height:3px;background:var(--rule);display:block;transition:background .25s var(--e),height .25s var(--e)}
+  .tick b{position:absolute;inset:0 0 auto 0;font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums;transition:color .2s}
+  .tick[data-done="1"] i{background:var(--accent)}
+  .tick[data-cur="1"] i{background:var(--ink);height:6px}
+  .tick[data-cur="1"] b{color:var(--ink)}
+  .tick:hover i{background:var(--accent-2)}
+  .tick:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 
-  .opt {
-    display: block; width: 100%; text-align: right;
-    font-family: var(--sans); font-size: 16.5px; line-height: 1.5;
-    color: var(--ink-2);
-    background: var(--paper);
-    border: 1.5px solid var(--rule);
-    border-radius: 3px;
-    padding: 14px 16px;
-    cursor: pointer;
-    transition: border-color .15s, background .15s, color .15s;
-  }
-  .opt:hover { border-color: var(--accent); }
-  .opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .opt[aria-pressed="true"] {
-    background: var(--accent-wash);
-    border-color: var(--accent);
-    color: var(--ink);
-    font-weight: 600;
-  }
+  /* ---------- question stage ---------- */
+  .stage{min-height:430px}
+  .q{animation:qin .32s var(--e) both}
+  @keyframes qin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .q .idx{font-size:11.5px;font-weight:600;letter-spacing:.16em;color:var(--accent);margin-bottom:13px}
+  .q h2{font-family:var(--serif);font-weight:700;font-size:clamp(25px,3.6vw,34px);line-height:1.28;margin:0;letter-spacing:-.012em;text-wrap:pretty}
+  .q .note{font-size:15.5px;line-height:1.6;color:var(--ink-3);margin:13px 0 26px;max-width:54ch}
 
-  .weight {
-    margin-top: 14px; padding-top: 13px;
-    border-top: 1px dashed var(--rule-soft);
-    display: flex; align-items: center; gap: 9px;
-    font-size: 14px; color: var(--ink-3);
-    cursor: pointer; user-select: none;
-    width: fit-content;
-  }
-  .weight input { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; }
-  .weight:hover { color: var(--ink-2); }
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{position:relative;display:block;width:100%;text-align:right;font-family:var(--sans);font-size:16.5px;font-weight:400;line-height:1.5;color:var(--ink-2);
+       background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:16px 20px 16px 18px;cursor:pointer;overflow:hidden;
+       transition:border-color .18s var(--e),color .18s var(--e);animation:oin .34s var(--e) both;animation-delay:var(--d,0s)}
+  @keyframes oin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .opt::before{content:"";position:absolute;top:0;bottom:0;right:0;width:3px;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform .26s var(--e)}
+  .opt:hover{border-color:var(--accent);color:var(--ink)}
+  .opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .opt[aria-pressed="true"]{border-color:var(--accent);color:var(--ink);font-weight:500;background:var(--accent-wash)}
+  .opt[aria-pressed="true"]::before{transform:scaleY(1)}
 
-  /* ---------- actions ---------- */
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
-  .btn {
-    font-family: var(--sans); font-size: 16px; font-weight: 600;
-    padding: 14px 30px; border-radius: 3px; cursor: pointer;
-    border: 1.5px solid var(--accent);
-    background: var(--accent); color: var(--btn-fg);
-    transition: background .15s, opacity .15s;
-  }
-  .btn:hover { background: var(--accent-dp); border-color: var(--accent-dp); }
-  .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-  .btn[disabled] { opacity: .4; cursor: not-allowed; }
-  .btn.ghost { background: transparent; color: var(--ink-2); border-color: var(--rule); }
-  .btn.ghost:hover { background: var(--surface-2); border-color: var(--ink-3); }
+  .qfoot{display:flex;align-items:center;gap:14px;margin-top:22px;flex-wrap:wrap}
+  .wt{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink-3);cursor:pointer;user-select:none;
+      border:1px dashed var(--rule);border-radius:3px;padding:9px 14px;transition:border-color .18s,color .18s,background .18s}
+  .wt:hover{color:var(--ink-2);border-color:var(--gold)}
+  .wt input{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;margin:0}
+  .wt[data-on="1"]{background:var(--gold-wash);border-style:solid;border-color:var(--gold);color:var(--ink-2)}
+  .nav{margin-right:auto;display:flex;gap:8px}
+  .nb{font-family:var(--sans);font-size:14.5px;font-weight:500;padding:10px 20px;border-radius:3px;cursor:pointer;
+      border:1px solid var(--rule);background:transparent;color:var(--ink-2);transition:border-color .18s,color .18s,background .18s}
+  .nb:hover:not([disabled]){border-color:var(--ink-3);color:var(--ink)}
+  .nb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .nb[disabled]{opacity:.35;cursor:not-allowed}
+  .nb.go{background:var(--accent);border-color:var(--accent);color:var(--btn-fg);font-weight:600}
+  .nb.go:hover:not([disabled]){background:var(--accent-2);border-color:var(--accent-2);color:var(--btn-fg)}
 
-  /* ---------- results ---------- */
-  #results[hidden] { display: none !important; }
-  .res-head {
-    border-top: 3px solid var(--ink);
-    padding-top: 26px; margin-top: 52px; margin-bottom: 26px;
-  }
-  .res-head h2 {
-    font-family: var(--serif); font-weight: 900;
-    font-size: clamp(28px, 5vw, 38px); line-height: 1.15; margin: 0;
-  }
-  .res-head p { font-size: 15.5px; color: var(--ink-3); margin: 12px 0 0; line-height: 1.6; max-width: 62ch; }
+  /* ---------- rail ---------- */
+  .rail{position:sticky;top:18px;background:var(--surface);border:1px solid var(--rule);border-radius:4px;box-shadow:var(--lift);overflow:hidden}
+  @media(max-width:900px){.rail{position:static}}
+  .rail-h{display:flex;align-items:baseline;gap:9px;padding:15px 18px 12px;border-bottom:1px solid var(--hair)}
+  .rail-h .t{font-size:11.5px;font-weight:600;letter-spacing:.15em;color:var(--ink-3)}
+  .rail-h .c{margin-right:auto;font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.35}
+  .pulse.on{animation:pl 1.6s var(--e) infinite}
+  @keyframes pl{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
 
-  .party {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: 20px 22px;
-    margin-bottom: 14px;
-    box-shadow: var(--shadow);
-  }
-  .party.lead { border-color: var(--accent); box-shadow: var(--shadow-lift); }
-  .p-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-  .p-rank {
-    font-family: var(--serif); font-weight: 900; font-size: 15px;
-    color: var(--ink-3); font-variant-numeric: tabular-nums;
-  }
-  .p-name { font-family: var(--serif); font-weight: 700; font-size: 24px; margin: 0; }
-  .p-lead-tag {
-    font-size: 12px; font-weight: 600; letter-spacing: .08em;
-    color: var(--accent-dp); background: var(--accent-wash);
-    padding: 4px 10px; border-radius: 2px;
-  }
-  .p-pct {
-    margin-right: auto;
-    font-family: var(--serif); font-weight: 900; font-size: 30px;
-    color: var(--accent-dp); font-variant-numeric: tabular-nums;
-    direction: ltr;
-  }
-  .p-track {
-    height: 8px; border-radius: 4px; background: var(--rule-soft);
-    margin: 14px 0 4px; overflow: hidden;
-  }
-  .p-track > i {
-    display: block; height: 100%; width: 0%;
-    background: var(--accent); border-radius: 4px;
-    transition: width .7s cubic-bezier(.4,0,.2,1);
-  }
-  .p-lead-name { font-size: 14px; color: var(--ink-3); margin: 10px 0 0; }
+  .bars{padding:8px 18px 16px;position:relative}
+  .bar{position:relative;padding:11px 0 10px;will-change:transform}
+  .bar+.bar{border-top:1px solid var(--hair)}
+  .bar .r1{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+  .bar .rk{font-size:11px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums;width:13px;flex-shrink:0}
+  .bar .nm{font-family:var(--serif);font-weight:700;font-size:16.5px;color:var(--ink-2);transition:color .25s var(--e)}
+  .bar .pc{margin-right:auto;font-family:var(--serif);font-weight:900;font-size:19px;color:var(--ink-3);font-variant-numeric:tabular-nums;direction:ltr;transition:color .25s var(--e)}
+  .bar .tr{height:6px;background:var(--sunk);border-radius:3px;overflow:hidden}
+  .bar .tr>i{display:block;height:100%;width:0%;background:var(--accent);border-radius:3px;opacity:.42;
+             transition:width .55s var(--e),opacity .3s var(--e)}
+  .bar[data-lead="1"] .nm{color:var(--ink)}
+  .bar[data-lead="1"] .pc{color:var(--accent)}
+  .bar[data-lead="1"] .tr>i{opacity:1}
+  .rail-n{padding:12px 18px 15px;border-top:1px solid var(--hair);font-size:12.5px;line-height:1.6;color:var(--ink-3);background:var(--sunk)}
+  .empty{padding:26px 18px 30px;font-size:14px;line-height:1.65;color:var(--ink-3);text-align:center}
 
-  details.why { margin-top: 14px; }
-  details.why > summary {
-    font-size: 14.5px; font-weight: 600; color: var(--accent-dp);
-    cursor: pointer; padding: 6px 0; list-style: none;
-  }
-  details.why > summary::-webkit-details-marker { display: none; }
-  details.why > summary::before { content: "▸ "; display: inline-block; transition: transform .15s; }
-  details.why[open] > summary::before { content: "▾ "; }
-  details.why > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .why-body { padding-top: 8px; font-size: 15px; line-height: 1.62; color: var(--ink-2); }
-  .why-body ul { margin: 6px 0 14px; padding-right: 20px; }
-  .why-body li { margin-bottom: 7px; }
-  .why-body li::marker { color: var(--accent); }
-  .why-body h4 {
-    font-family: var(--sans); font-size: 13px; font-weight: 600;
-    letter-spacing: .09em; color: var(--ink-3);
-    margin: 14px 0 4px;
-  }
+  /* ---------- final ---------- */
+  .final{margin-top:56px;border-top:2px solid var(--ink);padding-top:28px}
+  .final[hidden]{display:none!important}
+  .final h2{font-family:var(--serif);font-weight:900;font-size:clamp(27px,4.4vw,38px);line-height:1.14;margin:0;letter-spacing:-.018em}
+  .final .sub{font-size:15px;color:var(--ink-3);margin:11px 0 26px;max-width:60ch;line-height:1.6}
+  .cards{display:grid;gap:13px}
+  .pc-card{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:19px 21px;animation:cin .42s var(--e) both;animation-delay:var(--d,0s)}
+  @keyframes cin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .pc-card[data-lead="1"]{border-color:var(--accent);box-shadow:var(--lift)}
+  .pc-h{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap}
+  .pc-h .rk{font-family:var(--serif);font-weight:900;font-size:14px;color:var(--ink-3)}
+  .pc-h h3{font-family:var(--serif);font-weight:700;font-size:22px;margin:0}
+  .pc-h .tag{font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--accent);background:var(--accent-wash);padding:4px 9px;border-radius:2px}
+  .pc-h .v{margin-right:auto;font-family:var(--serif);font-weight:900;font-size:27px;color:var(--accent);font-variant-numeric:tabular-nums;direction:ltr}
+  .pc-lead{font-size:13.5px;color:var(--ink-3);margin:9px 0 0}
+  .pc-tr{height:6px;background:var(--sunk);border-radius:3px;overflow:hidden;margin-top:13px}
+  .pc-tr>i{display:block;height:100%;width:0%;background:var(--accent);border-radius:3px;opacity:.45;transition:width .7s var(--e) .15s}
+  .pc-card[data-lead="1"] .pc-tr>i{opacity:1}
+  .why{margin-top:13px}
+  .why summary{font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;list-style:none;padding:5px 0}
+  .why summary::-webkit-details-marker{display:none}
+  .why summary::before{content:"▸ "}
+  .why[open] summary::before{content:"▾ "}
+  .why summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .why-b{padding-top:7px;font-size:14.5px;line-height:1.6;color:var(--ink-2)}
+  .why-b h4{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.11em;color:var(--ink-3);margin:12px 0 4px}
+  .why-b ul{margin:5px 0 12px;padding-right:19px}
+  .why-b li{margin-bottom:6px}
+  .why-b li::marker{color:var(--accent)}
 
-  /* ---------- footer ---------- */
-  .note {
-    background: var(--gold-wash);
-    border-right: 3px solid var(--gold);
-    padding: 18px 20px;
-    margin: 34px 0 0;
-    font-size: 15px; line-height: 1.65; color: var(--ink-2);
-    border-radius: 0 3px 3px 0;
-  }
-  .note b { color: var(--ink); font-weight: 600; }
+  .note{background:var(--gold-wash);border-right:3px solid var(--gold);padding:17px 20px;margin-top:30px;font-size:14.5px;line-height:1.65;color:var(--ink-2);border-radius:0 3px 3px 0}
+  .note b{color:var(--ink);font-weight:600}
+  .again{margin-top:22px}
 
-  footer.src {
-    border-top: 1px solid var(--rule);
-    margin-top: 46px; padding-top: 24px;
-    font-size: 13.5px; line-height: 1.75; color: var(--ink-3);
-  }
-  footer.src h3 {
-    font-family: var(--sans); font-size: 12px; font-weight: 600;
-    letter-spacing: .13em; color: var(--ink-2);
-    margin: 0 0 10px;
-  }
-  footer.src a { color: var(--accent-dp); text-decoration: none; border-bottom: 1px solid var(--rule); }
-  footer.src a:hover { border-bottom-color: var(--accent-dp); }
-  footer.src a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .byline { margin-top: 18px; color: var(--ink-3); }
+  footer.src{border-top:1px solid var(--rule);margin-top:48px;padding-top:24px;font-size:13px;line-height:1.75;color:var(--ink-3)}
+  footer.src h3{font-size:11.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-2);margin:0 0 9px}
+  footer.src a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  footer.src a:hover{border-bottom-color:var(--accent)}
+  footer.src a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .brand{margin-top:17px;padding-top:15px;border-top:1px solid var(--hair)}
+  .brand b{color:var(--ink-2);font-weight:600}
 
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  @media (prefers-reduced-motion:reduce){
+    *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+    .q,.opt,.pc-card{opacity:1!important;transform:none!important;animation:none!important}
   }
-  @media (max-width: 560px) {
-    .q { padding: 20px 18px 18px; }
-    .p-pct { font-size: 26px; }
-    .q-note { padding-right: 0; }
+  @media(max-width:560px){
+    .fact{padding:12px 16px 10px}
+    .hero{padding:34px 0 26px}
   }
 </style>
-
-<style>
-  .masthead { border-bottom: 1px solid var(--rule); }
-  .masthead .row {
-    max-width: 780px; margin: 0 auto; padding: 13px 20px;
-    display: flex; align-items: center; gap: 15px; flex-wrap: wrap;
-  }
-  .masthead svg { display: block; flex-shrink: 0; }
-  .masthead .section {
-    font-family: var(--sans); font-size: 12px; font-weight: 600;
-    letter-spacing: .13em; color: var(--ink-3);
-  }
-  .masthead .section b { color: var(--accent-dp); }
-  .masthead .site {
-    margin-right: auto; font-family: var(--sans);
-    font-size: 13px; color: var(--ink-3); direction: ltr;
-  }
-  .brandfoot {
-    border-top: 1px solid var(--rule); margin-top: 28px; padding-top: 20px;
-    font-size: 13.5px; line-height: 1.7; color: var(--ink-3);
-  }
-  .brandfoot b { color: var(--ink-2); font-weight: 600; }
-  .brandfoot a { color: var(--accent-dp); text-decoration: none; border-bottom: 1px solid var(--rule); }
-  .brandfoot a:hover { border-bottom-color: var(--accent-dp); }
-  .brandfoot a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-</style>
-
 </head>
 <body>
-<div class="masthead">
-  <div class="row">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 140" height="34" width="73" aria-hidden="true" focusable="false">
-  <defs>
-    <linearGradient id="lg-leftCircle" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#48cae4"/>
-      <stop offset="45%" stop-color="#00b4d8"/>
-      <stop offset="100%" stop-color="#8e5bc8"/>
-    </linearGradient>
-    <linearGradient id="lg-rightCircle" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c454b0"/>
-      <stop offset="45%" stop-color="#e84393"/>
-      <stop offset="100%" stop-color="#f9a06b"/>
-    </linearGradient>
-    <linearGradient id="lg-overlapGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#8e5bc8" stop-opacity="0.65"/>
-      <stop offset="100%" stop-color="#c454b0" stop-opacity="0.65"/>
-    </linearGradient>
-    <filter id="lg-softShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1e3a5f40"/>
-    </filter>
-    <filter id="lg-textGlow">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
-      <feFlood flood-color="#ffffff" flood-opacity="0.6" result="color"/>
-      <feComposite in="color" in2="blur" operator="in" result="glow"/>
-      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <radialGradient id="lg-starGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fdcb6e" stop-opacity="0.4"/>
-      <stop offset="60%" stop-color="#fdcb6e" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#fdcb6e" stop-opacity="0"/>
-    </radialGradient>
-    <clipPath id="lg-clipRight"><circle cx="186" cy="64" r="58"/></clipPath>
-  </defs>
+<div class="shell">
 
-  <circle cx="114" cy="64" r="58" fill="url(#lg-leftCircle)" opacity="0.8" filter="url(#lg-softShadow)"/>
-  <circle cx="186" cy="64" r="58" fill="url(#lg-rightCircle)" opacity="0.8" filter="url(#lg-softShadow)"/>
-  <circle cx="114" cy="64" r="58" fill="url(#lg-overlapGrad)" clip-path="url(#lg-clipRight)" opacity="0.5"/>
-  <circle cx="114" cy="64" r="58" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.35"/>
-  <circle cx="186" cy="64" r="58" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.35"/>
-
-  <!-- Gold star accent -->
-  <g opacity="0.95">
-    <circle cx="150" cy="10" r="12" fill="url(#lg-starGlow)"/>
-    <path d="M150 3 L151.3 8 L156.5 10 L151.3 12 L150 17 L148.7 12 L143.5 10 L148.7 8 Z" fill="#fdcb6e"/>
-    <path d="M150 5 L150.8 8.5 L154 10 L150.8 11.5 L150 15 L149.2 11.5 L146 10 L149.2 8.5 Z" fill="#ffe3a3" opacity="0.6" transform="rotate(45,150,10)"/>
-    <circle cx="150" cy="10" r="1" fill="#fff" opacity="0.95"/>
-  </g>
-  <g opacity="0.55">
-    <path d="M68 38 L69.2 40.5 L71.7 41.7 L69.2 42.9 L68 45.4 L66.8 42.9 L64.3 41.7 L66.8 40.5 Z" fill="#fdcb6e"/>
-    <path d="M232 32 L233.2 34.5 L235.7 35.7 L233.2 36.9 L232 39.4 L230.8 36.9 L228.3 35.7 L230.8 34.5 Z" fill="#fdcb6e"/>
-  </g>
-
-  <text x="150" y="76" text-anchor="middle" font-family="'Caveat', 'Segoe UI', cursive" font-size="42" font-weight="700" fill="#ffffff" letter-spacing="1" filter="url(#lg-textGlow)">Learni</text>
-</svg>
-    <div class="section"><b>כלים</b> · חינוך · בחירות 2026</div>
-    <div class="site">lerani.co.il</div>
-  </div>
-</div>
-
-<div class="wrap">
-
-  <header class="top">
-    <p class="eyebrow">בחירות 2026 · 27 באוקטובר</p>
-    <h1>מצפן החינוך</h1>
-    <p class="dek">שמונה שאלות על מה שחשוב לכם בחינוך — ובסוף, כמה כל מפלגה קרובה לעמדות שלכם. לא המלצה למי להצביע: השוואה בין מצעים כתובים.</p>
-    <div class="meta">
-      <span><b>5</b> מפלגות שפרסמו מצע חינוך</span>
-      <span><b>8</b> שאלות</span>
-      <span>עודכן <b>29.8.2026</b></span>
+  <div class="top">
+    <div class="mark">
+      <svg class="dial" viewBox="0 0 26 26" aria-hidden="true">
+        <circle class="ring" cx="13" cy="13" r="11"></circle>
+        <line class="ndl" id="ndl" x1="13" y1="13" x2="13" y2="4.5"></line>
+      </svg>
+      <span class="nm">מצפן החינוך</span>
     </div>
-  </header>
+    <span class="kick">בחירות 2026 · 27.10</span>
+    <span class="site">lerani.co.il</span>
+  </div>
 
-  <div class="progress-bar">
-    <div class="progress-row">
-      <span id="pcount">0 מתוך 8</span>
-      <span class="track"><i id="pfill"></i></span>
+  <div class="hero">
+    <h1>מה באמת מציעות<br>המפלגות בחינוך</h1>
+    <p class="dek">שמונה שאלות על מה שחשוב לכם. הדירוג מתעדכן בזמן אמת עם כל תשובה — ובסוף תראו בדיוק אילו עמדות קירבו כל מפלגה אליכם, ואילו הרחיקו.</p>
+    <div class="facts">
+      <div class="fact"><div class="n"><span class="num">5</span></div><div class="l">מפלגות עם מצע חינוך כתוב</div></div>
+      <div class="fact"><div class="n"><span class="num">8</span></div><div class="l">צירי מחלוקת</div></div>
+      <div class="fact"><div class="n"><span class="num">74%</span></div><div class="l">לא מרוצים מהמערכת</div></div>
     </div>
   </div>
 
-  <main id="quiz"></main>
+  <div class="layout">
+    <main class="stage">
+      <div class="trail" id="trail" role="tablist" aria-label="שאלות"></div>
+      <div id="qwrap"></div>
+    </main>
 
-  <div class="actions">
-    <button class="btn" id="calc" disabled>הציגו את התוצאות</button>
-    <button class="btn ghost" id="reset">התחלה מחדש</button>
+    <aside class="rail" aria-label="דירוג חי">
+      <div class="rail-h">
+        <span class="pulse" id="pulse"></span>
+        <span class="t">דירוג חי</span>
+        <span class="c" id="railc">0 / 8</span>
+      </div>
+      <div id="bars" class="bars" aria-live="polite"></div>
+      <div class="rail-n" id="railn">הדירוג ייבנה מהתשובה הראשונה.</div>
+    </aside>
   </div>
 
-  <section id="results" hidden aria-live="polite">
-    <div class="res-head">
-      <h2>כמה כל מפלגה קרובה אליכם</h2>
-      <p id="res-sub"></p>
-    </div>
-    <div id="res-list"></div>
-
+  <section class="final" id="final" aria-live="polite" hidden>
+    <h2>הדירוג המלא</h2>
+    <p class="sub" id="fsub"></p>
+    <div class="cards" id="cards"></div>
     <div class="note">
-      <b>איך זה מחושב:</b> לכל תשובה שבחרתם יש ציון התאמה לכל מפלגה, על סמך מה שכתוב במצע שלה. שאלה שסימנתם כחשובה במיוחד נספרת פי שניים. האחוז הוא היחס בין הציון שהמפלגה צברה לבין המקסימום האפשרי.
+      <b>איך זה מחושב:</b> לכל תשובה יש ציון התאמה לכל מפלגה, על סמך מה שכתוב במצע שלה. שאלה שסימנתם כחשובה נספרת פי שניים. האחוז הוא היחס בין הציון שנצבר למקסימום האפשרי.
       <br><br>
-      <b>מה הכלי לא עושה:</b> הוא לא בודק אם הבטחה תתממש, לא מדרג את איכות המצעים, ולא לוקח בחשבון שום נושא מחוץ לחינוך. מפלגה יכולה לקבל אחוז גבוה ולהיות רחוקה מכם בכל השאר.
+      <b>מה הכלי לא עושה:</b> לא בודק אם הבטחה תתממש, לא מדרג את איכות המצעים, ולא מתייחס לשום נושא מחוץ לחינוך. מפלגה יכולה לקבל אחוז גבוה ולהיות רחוקה מכם בכל השאר.
     </div>
+    <div class="again"><button class="nb" id="reset">להתחיל מחדש</button></div>
   </section>
 
   <footer class="src">
     <h3>מקורות</h3>
-    <p>
-      מצעי המפלגות כפי שפורסמו עד אוגוסט 2026 —
-      <a href="https://www.maariv.co.il/news/education/article-1356611" target="_blank" rel="noopener">סקירת מצעי החינוך, מעריב (17.8.2026)</a> ·
-      <a href="https://yeshatid.org.il/platforms/%D7%97%D7%99%D7%A0%D7%95%D7%9A" target="_blank" rel="noopener">מצע החינוך של יש עתיד</a> ·
+    <p>מצעי המפלגות כפי שפורסמו עד אוגוסט 2026 —
+      <a href="https://www.maariv.co.il/news/education/article-1356611" target="_blank" rel="noopener">סקירת מצעי החינוך, מעריב</a> ·
+      <a href="https://yeshatid.org.il/platforms/%D7%97%D7%99%D7%A0%D7%95%D7%9A" target="_blank" rel="noopener">מצע יש עתיד</a> ·
       <a href="https://beytenu.org.il/%D7%9E%D7%A6%D7%A2-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%99%D7%AA%D7%A0%D7%95-%D7%91%D7%A0%D7%95%D7%A9%D7%90-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9A-%D7%99%D7%97%D7%93-%D7%A2%D7%9D-%D7%9E%D7%95/" target="_blank" rel="noopener">מצע ישראל ביתנו</a> ·
-      <a href="https://www.themarker.com/news/education/2026-08-24/ty-article-live/000001a0-2e7c-dd2f-a1b6-7ffefd300000" target="_blank" rel="noopener">ועידת החינוך של TheMarker (24.8.2026)</a> ·
-      <a href="https://www.maariv.co.il/news/education/article-1337135" target="_blank" rel="noopener">תוכנית החינוך של "ביחד"</a>
+      <a href="https://www.themarker.com/news/education/2026-08-24/ty-article-live/000001a0-2e7c-dd2f-a1b6-7ffefd300000" target="_blank" rel="noopener">ועידת החינוך של TheMarker</a> ·
+      <a href="https://www.maariv.co.il/news/education/article-1337135" target="_blank" rel="noopener">תוכנית "ביחד"</a>
     </p>
-    <p>
-      הכלי כולל רק את חמש המפלגות שפרסמו מצע חינוך כתוב. מפלגות שלא פרסמו מצע בתחום — ובהן ש"ס, יהדות התורה, הציונות הדתית ועוצמה יהודית — אינן מופיעות כאן, מכיוון שאין מסמך שאפשר להשוות אליו.
-    </p>
-    <p class="byline">נבנה על ידי מיטל פלג · לרני</p>
+    <p>הכלי כולל רק את חמש המפלגות שפרסמו מצע חינוך כתוב. מפלגות שלא פרסמו מצע בתחום אינן מופיעות, מכיוון שאין מסמך שאפשר להשוות אליו.</p>
+    <p class="brand"><b>לרני מבית אימפקט.OS</b> · טכנולוגיה עם טביעת אצבע אנושית · <a href="https://www.impactos.co.il" target="_blank" rel="noopener">impactos.co.il</a></p>
   </footer>
-    <div class="brandfoot">
-      <b>לרני מבית אימפקט.OS</b> · טכנולוגיה עם טביעת אצבע אנושית · <a href="https://www.impactos.co.il" target="_blank" rel="noopener">impactos.co.il</a>
-    </div>
 </div>
 
 <script>
-(function () {
+(function(){
   "use strict";
+  var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var PARTIES = [
-    { id: "beyachad", name: "ביחד", lead: "בנט–לפיד · מועמדת לתיק: מירב כהן" },
-    { id: "yashar",   name: "ישר!", lead: "גדי איזנקוט · מועמד לתיק: מתן כהנא" },
-    { id: "likud",    name: "הליכוד", lead: "בנימין נתניהו" },
-    { id: "democrats",name: "הדמוקרטים", lead: "יאיר גולן" },
-    { id: "beytenu",  name: "ישראל ביתנו", lead: "אביגדור ליברמן" }
+  var PARTIES=[
+    {id:"beyachad", name:"ביחד",        lead:"בנט–לפיד · מירב כהן לתיק"},
+    {id:"yashar",   name:"ישר!",        lead:"גדי איזנקוט · מתן כהנא לתיק"},
+    {id:"likud",    name:"הליכוד",      lead:"בנימין נתניהו"},
+    {id:"democrats",name:"הדמוקרטים",   lead:"יאיר גולן"},
+    {id:"beytenu",  name:"ישראל ביתנו", lead:"אביגדור ליברמן"}
   ];
 
   // s = [beyachad, yashar, likud, democrats, beytenu]
-  var QUESTIONS = [
-    {
-      t: "מימון ציבורי ולימודי ליבה",
-      note: "22.5% מהתלמידים בישראל לא לומדים מקצועות ליבה מלאים. מה צריך לקרות?",
-      opts: [
-        { t: "מוסד שלא מלמד ליבה מלאה — לא מקבל שקל מהמדינה", s: [1.0, 0.6, 0.1, 0.9, 1.0] },
-        { t: "לחייב ליבה, אבל בפריסה מדורגת ובהסכמה", s: [0.6, 1.0, 0.2, 0.5, 0.5] },
-        { t: "לא לקשור תקציב בליבה — זו כפייה על קהילות", s: [0.0, 0.2, 0.9, 0.0, 0.0] }
-      ]
-    },
-    {
-      t: "מי מנהל את בית הספר",
-      note: "כ-70% מההחלטות מתקבלות היום בשלטון המרכזי. איפה צריך לשבת הכוח?",
-      opts: [
-        { t: "אצל המנהל והצוות — ביזור סמכויות לרשויות ולשטח", s: [1.0, 1.0, 0.2, 0.6, 0.7] },
-        { t: "אצל משרד החינוך — תוכנית לימודים אחידה מלמעלה", s: [0.1, 0.1, 1.0, 0.4, 0.3] },
-        { t: "משהו באמצע — ליבה אחידה, אבל חופש בביצוע", s: [0.7, 0.9, 0.4, 0.8, 0.7] }
-      ]
-    },
-    {
-      t: "זהות בתוכנית הלימודים",
-      note: "מה צריך לעמוד במרכז — ועל חשבון מה.",
-      opts: [
-        { t: "מורשת יהודית וציונות במרכז", s: [0.1, 0.5, 1.0, 0.0, 0.4] },
-        { t: "אזרחות ודמוקרטיה במרכז", s: [0.6, 0.5, 0.1, 1.0, 0.5] },
-        { t: "שילוב — גם מורשת וגם אזרחות, בתוך ליבה אחת", s: [0.5, 1.0, 0.4, 0.4, 0.6] },
-        { t: "פחות עיסוק בזהות, יותר במיומנויות", s: [0.9, 0.4, 0.1, 0.3, 0.4] }
-      ]
-    },
-    {
-      t: "שכר וקידום מורים",
-      note: "חסרים במערכת כ-31,000 מורים. מה יחזיר אנשים טובים להוראה?",
-      opts: [
-        { t: "תגמול לפי איכות ותפוקות — לא לפי ותק", s: [0.4, 1.0, 0.3, 0.4, 1.0] },
-        { t: "העלאת שכר רוחבית ותוספת תקציב גדולה", s: [1.0, 0.3, 0.4, 0.7, 0.3] },
-        { t: "לשפר תנאים בלי לשנות את מבנה ההעסקה", s: [0.2, 0.1, 1.0, 0.3, 0.1] }
-      ]
-    },
-    {
-      t: "גודל הכיתה",
-      note: "בישראל 30 תלמידים בממוצע בחטיבה — 31% מעל ממוצע ה-OECD.",
-      opts: [
-        { t: "יעד מספרי מחייב — 20 תלמידים בכיתה", s: [1.0, 0.3, 1.0, 0.4, 0.5] },
-        { t: "להקטין בהדרגה, בלי להתחייב למספר", s: [0.5, 0.6, 0.5, 0.7, 0.9] },
-        { t: "לא העיקר — עדיף להשקיע באיכות ההוראה", s: [0.3, 0.9, 0.2, 0.5, 0.4] }
-      ]
-    },
-    {
-      t: "בגרויות",
-      note: "מערך הבגרויות מעצב את כל התיכון. להשאיר או לשנות?",
-      opts: [
-        { t: "לצמצם דרמטית — לעבור למבחני מיומנויות", s: [0.7, 1.0, 0.2, 0.4, 0.3] },
-        { t: "לסיים מוקדם — י\"ב לשירות או למכינה", s: [1.0, 0.6, 0.1, 0.2, 0.2] },
-        { t: "להשאיר את המערך הקיים", s: [0.1, 0.1, 0.8, 0.4, 0.5] }
-      ]
-    },
-    {
-      t: "גיל הרך",
-      note: "מ-0 עד 3 המדינה כמעט לא נוכחת. האם זה צריך להשתנות עכשיו?",
-      opts: [
-        { t: "כן — חינוך ציבורי מסובסד מגיל 0, עם פיקוח", s: [1.0, 0.4, 0.3, 0.6, 0.4] },
-        { t: "לא עכשיו — קודם לתקן את גילאי בית הספר", s: [0.2, 0.6, 0.7, 0.4, 0.6] }
-      ]
-    },
-    {
-      t: "בינה מלאכותית בכיתה",
-      note: "כל המצעים מזכירים AI. הם מתכוונים לדברים שונים מאוד.",
-      opts: [
-        { t: "AI בלב הלמידה — מורה אישי לכל תלמיד", s: [1.0, 0.5, 0.4, 0.1, 0.2] },
-        { t: "AI ככלי ממוקד למקצוע מסוים", s: [0.5, 0.6, 1.0, 0.3, 0.4] },
-        { t: "AI כמיומנות שלומדים, לא ככלי שמלמד", s: [0.4, 1.0, 0.3, 0.5, 0.5] },
-        { t: "לא בראש סדר העדיפויות", s: [0.1, 0.2, 0.2, 0.7, 0.7] }
-      ]
-    }
+  var Q=[
+    {t:"מימון ציבורי ולימודי ליבה", note:"22.5% מהתלמידים בישראל לא לומדים מקצועות ליבה מלאים. מה צריך לקרות?", opts:[
+      {t:"מוסד שלא מלמד ליבה מלאה — לא מקבל שקל מהמדינה", s:[1.0,0.6,0.1,1.0,1.0]},
+      {t:"לחייב ליבה, אבל בפריסה מדורגת ובהסכמה",           s:[0.6,1.0,0.2,0.5,0.5]},
+      {t:"לא לקשור תקציב בליבה — זו כפייה על קהילות",       s:[0.0,0.2,0.9,0.0,0.0]}]},
+    {t:"מי מנהל את בית הספר", note:"כ-70% מההחלטות מתקבלות היום בשלטון המרכזי. איפה צריך לשבת הכוח?", opts:[
+      {t:"אצל המנהל והצוות — ביזור סמכויות לרשויות ולשטח", s:[1.0,1.0,0.2,0.6,0.7]},
+      {t:"אצל משרד החינוך — תוכנית לימודים אחידה מלמעלה",  s:[0.1,0.1,1.0,0.4,0.3]},
+      {t:"משהו באמצע — ליבה אחידה, אבל חופש בביצוע",        s:[0.7,0.9,0.4,0.8,0.7]}]},
+    {t:"זהות בתוכנית הלימודים", note:"מה צריך לעמוד במרכז — ועל חשבון מה.", opts:[
+      {t:"מורשת יהודית וציונות במרכז",                    s:[0.1,0.5,1.0,0.0,0.4]},
+      {t:"אזרחות ודמוקרטיה במרכז",                        s:[0.6,0.5,0.1,1.0,0.5]},
+      {t:"שילוב — גם מורשת וגם אזרחות, בתוך ליבה אחת",     s:[0.5,1.0,0.4,0.4,0.6]},
+      {t:"פחות עיסוק בזהות, יותר במיומנויות",              s:[0.9,0.4,0.1,0.3,0.4]}]},
+    {t:"שכר וקידום מורים", note:"חסרים במערכת כ-31,000 מורים. מה יחזיר אנשים טובים להוראה?", opts:[
+      {t:"תגמול לפי איכות ותפוקות — לא לפי ותק",  s:[0.4,1.0,0.3,0.4,1.0]},
+      {t:"העלאת שכר רוחבית ותוספת תקציב גדולה",   s:[1.0,0.3,0.4,0.7,0.3]},
+      {t:"לשפר תנאים בלי לשנות את מבנה ההעסקה",   s:[0.2,0.1,1.0,0.3,0.1]}]},
+    {t:"גודל הכיתה", note:"בישראל 30 תלמידים בממוצע בחטיבה — 31% מעל ממוצע ה-OECD.", opts:[
+      {t:"יעד מספרי מחייב — 20 תלמידים בכיתה",      s:[1.0,0.3,1.0,0.4,0.5]},
+      {t:"להקטין בהדרגה, בלי להתחייב למספר",        s:[0.5,0.6,0.5,0.7,0.9]},
+      {t:"לא העיקר — עדיף להשקיע באיכות ההוראה",    s:[0.3,0.9,0.2,0.5,0.4]}]},
+    {t:"בגרויות", note:"מערך הבגרויות מעצב את כל התיכון. להשאיר או לשנות?", opts:[
+      {t:"לצמצם דרמטית — לעבור למבחני מיומנויות",  s:[0.7,1.0,0.2,0.4,0.3]},
+      {t:"לסיים מוקדם — י\"ב לשירות או למכינה",     s:[1.0,0.6,0.1,0.2,0.2]},
+      {t:"להשאיר את המערך הקיים",                  s:[0.1,0.1,0.8,0.4,0.5]}]},
+    {t:"גיל הרך", note:"מ-0 עד 3 המדינה כמעט לא נוכחת. האם זה צריך להשתנות עכשיו?", opts:[
+      {t:"כן — חינוך ציבורי מסובסד מגיל 0, עם פיקוח", s:[1.0,0.4,0.3,0.6,0.4]},
+      {t:"לא עכשיו — קודם לתקן את גילאי בית הספר",    s:[0.2,0.6,0.7,0.4,0.6]}]},
+    {t:"בינה מלאכותית בכיתה", note:"כל המצעים מזכירים AI. הם מתכוונים לדברים שונים מאוד.", opts:[
+      {t:"AI בלב הלמידה — מורה אישי לכל תלמיד",     s:[1.0,0.5,0.4,0.1,0.2]},
+      {t:"AI ככלי ממוקד למקצוע מסוים",              s:[0.5,0.6,1.0,0.3,0.4]},
+      {t:"AI כמיומנות שלומדים, לא ככלי שמלמד",      s:[0.4,1.0,0.3,0.5,0.5]},
+      {t:"לא בראש סדר העדיפויות",                   s:[0.1,0.2,0.2,0.7,0.7]}]}
   ];
 
-  var answers = new Array(QUESTIONS.length).fill(null);
-  var weights = new Array(QUESTIONS.length).fill(false);
+  var ans=new Array(Q.length).fill(null), wts=new Array(Q.length).fill(false), cur=0;
+  var shown={};                 // id -> last rendered pct (for counter tweening)
+  var $=function(id){return document.getElementById(id)};
+  var trail=$("trail"), qwrap=$("qwrap"), bars=$("bars"), railc=$("railc"),
+      railn=$("railn"), pulse=$("pulse"), final=$("final"), cards=$("cards"),
+      fsub=$("fsub"), ndl=$("ndl");
 
-  var quiz    = document.getElementById("quiz");
-  var calcBtn = document.getElementById("calc");
-  var resetBtn= document.getElementById("reset");
-  var results = document.getElementById("results");
-  var resList = document.getElementById("res-list");
-  var resSub  = document.getElementById("res-sub");
-  var pcount  = document.getElementById("pcount");
-  var pfill   = document.getElementById("pfill");
+  function el(t,c,x){var n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n}
+  function done(){return ans.filter(function(a){return a!==null}).length}
 
-  function el(tag, cls, text) {
-    var n = document.createElement(tag);
-    if (cls) n.className = cls;
-    if (text != null) n.textContent = text;
-    return n;
+  /* ---------- scoring ---------- */
+  function score(){
+    var tot=PARTIES.map(function(){return 0}), max=0;
+    ans.forEach(function(a,i){
+      if(a===null)return;
+      var w=wts[i]?2:1; max+=w;
+      Q[i].opts[a].s.forEach(function(v,p){tot[p]+=v*w});
+    });
+    return PARTIES.map(function(p,i){
+      return {p:p, i:i, pct:max?Math.round(tot[i]/max*100):0};
+    }).sort(function(a,b){return b.pct-a.pct || a.i-b.i});
   }
 
-  QUESTIONS.forEach(function (q, qi) {
-    var card = el("section", "q");
+  /* ---------- trail ---------- */
+  function buildTrail(){
+    trail.textContent="";
+    Q.forEach(function(_,i){
+      var b=el("button","tick"); b.type="button";
+      b.setAttribute("aria-label","שאלה "+(i+1));
+      b.appendChild(el("b",null,String(i+1).padStart(2,"0")));
+      b.appendChild(el("i"));
+      b.addEventListener("click",function(){go(i)});
+      trail.appendChild(b);
+    });
+  }
+  function syncTrail(){
+    Array.prototype.forEach.call(trail.children,function(b,i){
+      b.setAttribute("data-done", ans[i]!==null?"1":"0");
+      b.setAttribute("data-cur", i===cur?"1":"0");
+    });
+  }
 
-    var head = el("div", "q-head");
-    head.appendChild(el("span", "q-num", String(qi + 1).padStart(2, "0")));
-    head.appendChild(el("h2", "q-title", q.t));
-    card.appendChild(head);
+  /* ---------- question ---------- */
+  function go(i){
+    if(i<0||i>=Q.length)return;
+    cur=i; render(); syncTrail();
+  }
 
-    card.appendChild(el("p", "q-note", q.note));
+  function render(){
+    var q=Q[cur];
+    qwrap.textContent="";
+    var box=el("div","q");
 
-    var list = el("div", "opts");
-    q.opts.forEach(function (o, oi) {
-      var b = el("button", "opt", o.t);
-      b.type = "button";
-      b.setAttribute("aria-pressed", "false");
-      b.addEventListener("click", function () {
-        answers[qi] = oi;
-        Array.prototype.forEach.call(list.children, function (c, ci) {
-          c.setAttribute("aria-pressed", ci === oi ? "true" : "false");
+    box.appendChild(el("div","idx","שאלה "+(cur+1)+" מתוך "+Q.length));
+    box.appendChild(el("h2",null,q.t));
+    box.appendChild(el("p","note",q.note));
+
+    var list=el("div","opts");
+    q.opts.forEach(function(o,oi){
+      var b=el("button","opt",o.t); b.type="button";
+      b.style.setProperty("--d",(0.05+oi*0.045)+"s");
+      b.setAttribute("aria-pressed", ans[cur]===oi?"true":"false");
+      b.addEventListener("click",function(){
+        ans[cur]=oi;
+        Array.prototype.forEach.call(list.children,function(c,ci){
+          c.setAttribute("aria-pressed", ci===oi?"true":"false");
         });
-        refresh();
+        syncTrail(); paint();
+        if(cur<Q.length-1){ setTimeout(function(){ if(ans[cur]!==null) go(cur+1) }, RM?0:340) }
+        else { finish() }
       });
       list.appendChild(b);
     });
-    card.appendChild(list);
+    box.appendChild(list);
 
-    var wLabel = el("label", "weight");
-    var wBox = document.createElement("input");
-    wBox.type = "checkbox";
-    wBox.addEventListener("change", function () {
-      weights[qi] = wBox.checked;
-      if (!results.hidden) render();
+    var foot=el("div","qfoot");
+    var lab=el("label","wt"); lab.setAttribute("data-on", wts[cur]?"1":"0");
+    var cb=document.createElement("input"); cb.type="checkbox"; cb.checked=wts[cur];
+    cb.addEventListener("change",function(){
+      wts[cur]=cb.checked; lab.setAttribute("data-on",cb.checked?"1":"0"); paint();
+      if(!final.hidden) fillCards();
     });
-    wLabel.appendChild(wBox);
-    wLabel.appendChild(el("span", null, "הנושא הזה חשוב לי במיוחד"));
-    card.appendChild(wLabel);
+    lab.appendChild(cb); lab.appendChild(el("span",null,"חשוב לי במיוחד"));
+    foot.appendChild(lab);
 
-    quiz.appendChild(card);
-  });
+    var nav=el("div","nav");
+    var prev=el("button","nb","הקודמת"); prev.type="button"; prev.disabled=cur===0;
+    prev.addEventListener("click",function(){go(cur-1)});
+    var next=el("button","nb"+(cur===Q.length-1?" go":""), cur===Q.length-1?"לדירוג המלא":"הבאה");
+    next.type="button";
+    next.addEventListener("click",function(){ cur===Q.length-1 ? finish() : go(cur+1) });
+    nav.appendChild(prev); nav.appendChild(next);
+    foot.appendChild(nav);
+    box.appendChild(foot);
 
-  function answeredCount() {
-    return answers.filter(function (a) { return a !== null; }).length;
+    qwrap.appendChild(box);
   }
 
-  function refresh() {
-    var n = answeredCount();
-    pcount.textContent = n + " מתוך " + QUESTIONS.length;
-    pfill.style.width = (n / QUESTIONS.length * 100) + "%";
-    calcBtn.disabled = n === 0;
-    if (!results.hidden) render();
-  }
+  /* ---------- live rail (FLIP) ---------- */
+  function paint(){
+    var n=done();
+    railc.textContent=n+" / "+Q.length;
+    pulse.classList.toggle("on", n>0 && n<Q.length);
 
-  function score() {
-    var totals = PARTIES.map(function () { return 0; });
-    var max = 0;
-    answers.forEach(function (a, qi) {
-      if (a === null) return;
-      var w = weights[qi] ? 2 : 1;
-      max += w;
-      QUESTIONS[qi].opts[a].s.forEach(function (v, pi) {
-        totals[pi] += v * w;
+    if(!n){
+      bars.textContent="";
+      bars.appendChild(el("div","empty","ענו על השאלה הראשונה והדירוג יתחיל להיבנות."));
+      railn.textContent="הדירוג ייבנה מהתשובה הראשונה.";
+      ndl.style.transform="rotate(0deg)";
+      return;
+    }
+
+    var ranked=score();
+
+    // build rows once
+    if(!bars.querySelector(".bar")){
+      bars.textContent="";
+      PARTIES.forEach(function(p){
+        var row=el("div","bar"); row.setAttribute("data-id",p.id);
+        var r1=el("div","r1");
+        r1.appendChild(el("span","rk"));
+        r1.appendChild(el("span","nm",p.name));
+        r1.appendChild(el("span","pc"));
+        row.appendChild(r1);
+        var tr=el("div","tr"); tr.appendChild(document.createElement("i"));
+        row.appendChild(tr);
+        bars.appendChild(row);
       });
+    }
+
+    // FIRST — where each row appears RIGHT NOW (includes any in-flight transform)
+    var rows={}, first={};
+    Array.prototype.forEach.call(bars.querySelectorAll(".bar"),function(r){
+      var id=r.getAttribute("data-id"); rows[id]=r; first[id]=r.getBoundingClientRect().top;
     });
-    return PARTIES.map(function (p, pi) {
-      return {
-        party: p,
-        pct: max ? Math.round(totals[pi] / max * 100) : 0,
-        raw: totals[pi]
-      };
-    }).sort(function (x, y) { return y.pct - x.pct; });
+
+    // drop any leftover transform so the next measurement is of the settled layout
+    Object.keys(rows).forEach(function(id){
+      rows[id].style.transition="none"; rows[id].style.transform="";
+    });
+
+    // reorder DOM to match ranking
+    ranked.forEach(function(r){ bars.appendChild(rows[r.p.id]) });
+
+    // LAST + INVERT + PLAY
+    if(!RM){
+      var deltas={};
+      ranked.forEach(function(r){
+        deltas[r.p.id]=first[r.p.id]-rows[r.p.id].getBoundingClientRect().top;
+      });
+      ranked.forEach(function(r){
+        var node=rows[r.p.id], d=deltas[r.p.id];
+        if(!d){ node.style.transition=""; return }
+        node.style.transform="translateY("+d+"px)";
+      });
+      requestAnimationFrame(function(){
+        ranked.forEach(function(r){
+          var node=rows[r.p.id];
+          node.style.transition="transform .5s cubic-bezier(.22,.61,.36,1)";
+          node.style.transform="";
+        });
+      });
+    }
+
+    // values
+    ranked.forEach(function(r,idx){
+      var node=rows[r.p.id];
+      node.setAttribute("data-lead", idx===0?"1":"0");
+      node.querySelector(".rk").textContent=String(idx+1);
+      node.querySelector(".tr>i").style.width=r.pct+"%";
+      tween(node.querySelector(".pc"), r.p.id, shown[r.p.id]||0, r.pct);
+      shown[r.p.id]=r.pct;
+    });
+
+    // needle leans with the spread between 1st and 2nd
+    var spread = ranked.length>1 ? Math.min(1,(ranked[0].pct-ranked[1].pct)/25) : 0;
+    ndl.style.transform="rotate("+(spread*38).toFixed(1)+"deg)";
+
+    railn.textContent = n<Q.length
+      ? "מבוסס על "+n+" מתוך "+Q.length+" תשובות. הדירוג עוד ישתנה."
+      : "כל השאלות נענו. הדירוג המלא למטה.";
   }
 
-  function breakdown(pi) {
-    var strong = [], weak = [];
-    answers.forEach(function (a, qi) {
-      if (a === null) return;
-      var v = QUESTIONS[qi].opts[a].s[pi];
-      var line = QUESTIONS[qi].t + " — " + QUESTIONS[qi].opts[a].t;
-      if (v >= 0.8) strong.push(line);
-      else if (v <= 0.3) weak.push(line);
-    });
-    return { strong: strong, weak: weak };
+  var raf={}, guard={};
+  function tween(node,key,from,to){
+    if(raf[key]){ cancelAnimationFrame(raf[key]); delete raf[key] }
+    if(guard[key]){ clearTimeout(guard[key]); delete guard[key] }
+    if(RM||from===to){ node.textContent=to+"%"; return }
+    var t0=null, dur=520;
+    function step(ts){
+      if(t0===null)t0=ts;
+      var k=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-k,3);
+      node.textContent=Math.round(from+(to-from)*e)+"%";
+      if(k<1){ raf[key]=requestAnimationFrame(step) } else { delete raf[key] }
+    }
+    raf[key]=requestAnimationFrame(step);
+    // safety net: whatever happens to rAF, the true value is what stays on screen
+    guard[key]=setTimeout(function(){
+      if(raf[key]){ cancelAnimationFrame(raf[key]); delete raf[key] }
+      node.textContent=to+"%"; delete guard[key];
+    }, dur+140);
   }
 
-  function render() {
-    var ranked = score();
-    var n = answeredCount();
+  /* ---------- final ---------- */
+  function breakdown(pi){
+    var st=[], wk=[];
+    ans.forEach(function(a,i){
+      if(a===null)return;
+      var v=Q[i].opts[a].s[pi], line=Q[i].t+" — "+Q[i].opts[a].t;
+      if(v>=0.8) st.push(line); else if(v<=0.3) wk.push(line);
+    });
+    return {st:st, wk:wk};
+  }
 
-    resSub.textContent = n < QUESTIONS.length
-      ? "מבוסס על " + n + " מתוך " + QUESTIONS.length + " השאלות. ענו על השאר כדי לדייק."
+  function fillCards(){
+    var ranked=score(), n=done();
+    fsub.textContent = n<Q.length
+      ? "מבוסס על "+n+" מתוך "+Q.length+" השאלות. ענו על השאר כדי לדייק."
       : "מבוסס על כל שמונה השאלות.";
+    cards.textContent="";
+    ranked.forEach(function(r,idx){
+      var c=el("article","pc-card"); c.setAttribute("data-lead", idx===0?"1":"0");
+      c.style.setProperty("--d",(idx*0.07)+"s");
+      var h=el("div","pc-h");
+      h.appendChild(el("span","rk",String(idx+1)));
+      h.appendChild(el("h3",null,r.p.name));
+      if(idx===0) h.appendChild(el("span","tag","ההתאמה הגבוהה ביותר"));
+      var v=el("span","pc-h-v"); v.className="v"; v.textContent=r.pct+"%";
+      h.appendChild(v);
+      c.appendChild(h);
+      c.appendChild(el("p","pc-lead",r.p.lead));
+      var ctr=el("div","pc-tr"); var ci=document.createElement("i");
+      ctr.appendChild(ci); c.appendChild(ctr);
+      requestAnimationFrame(function(){ ci.style.width=r.pct+"%" });
 
-    resList.textContent = "";
-
-    ranked.forEach(function (r, i) {
-      var pi = PARTIES.indexOf(r.party);
-      var box = el("article", "party" + (i === 0 ? " lead" : ""));
-
-      var top = el("div", "p-top");
-      top.appendChild(el("span", "p-rank", String(i + 1)));
-      top.appendChild(el("h3", "p-name", r.party.name));
-      if (i === 0) top.appendChild(el("span", "p-lead-tag", "ההתאמה הגבוהה ביותר"));
-      top.appendChild(el("span", "p-pct", r.pct + "%"));
-      box.appendChild(top);
-
-      var track = el("div", "p-track");
-      var fill = document.createElement("i");
-      track.appendChild(fill);
-      box.appendChild(track);
-      requestAnimationFrame(function () { fill.style.width = r.pct + "%"; });
-
-      box.appendChild(el("p", "p-lead-name", r.party.lead));
-
-      var b = breakdown(pi);
-      if (b.strong.length || b.weak.length) {
-        var d = el("details", "why");
-        var sum = el("summary", null, "למה");
-        d.appendChild(sum);
-        var body = el("div", "why-body");
-
-        if (b.strong.length) {
-          body.appendChild(el("h4", null, "נפגשים אתכם"));
-          var ul1 = document.createElement("ul");
-          b.strong.forEach(function (t) { ul1.appendChild(el("li", null, t)); });
-          body.appendChild(ul1);
+      var b=breakdown(r.i);
+      if(b.st.length||b.wk.length){
+        var d=el("details","why"); d.appendChild(el("summary",null,"מה קירב ומה הרחיק"));
+        var body=el("div","why-b");
+        if(b.st.length){
+          body.appendChild(el("h4",null,"נפגשים אתכם"));
+          var u1=document.createElement("ul");
+          b.st.forEach(function(x){u1.appendChild(el("li",null,x))}); body.appendChild(u1);
         }
-        if (b.weak.length) {
-          body.appendChild(el("h4", null, "רחוקים מכם"));
-          var ul2 = document.createElement("ul");
-          b.weak.forEach(function (t) { ul2.appendChild(el("li", null, t)); });
-          body.appendChild(ul2);
+        if(b.wk.length){
+          body.appendChild(el("h4",null,"רחוקים מכם"));
+          var u2=document.createElement("ul");
+          b.wk.forEach(function(x){u2.appendChild(el("li",null,x))}); body.appendChild(u2);
         }
-        d.appendChild(body);
-        box.appendChild(d);
+        d.appendChild(body); c.appendChild(d);
       }
-
-      resList.appendChild(box);
+      cards.appendChild(c);
     });
   }
 
-  calcBtn.addEventListener("click", function () {
-    render();
-    results.hidden = false;
-    results.scrollIntoView({ behavior: "smooth", block: "start" });
+  function finish(){
+    fillCards();
+    final.hidden=false;
+    final.scrollIntoView({behavior:RM?"auto":"smooth", block:"start"});
+  }
+
+  $("reset").addEventListener("click",function(){
+    ans.fill(null); wts.fill(false); shown={};
+    Object.keys(raf).forEach(function(k){cancelAnimationFrame(raf[k])}); raf={};
+    Object.keys(guard).forEach(function(k){clearTimeout(guard[k])}); guard={};
+    cur=0;
+    bars.textContent=""; final.hidden=true;
+    buildTrail(); render(); syncTrail(); paint();
+    window.scrollTo({top:0,behavior:RM?"auto":"smooth"});
   });
 
-  resetBtn.addEventListener("click", function () {
-    answers.fill(null);
-    weights.fill(false);
-    Array.prototype.forEach.call(quiz.querySelectorAll(".opt"), function (b) {
-      b.setAttribute("aria-pressed", "false");
-    });
-    Array.prototype.forEach.call(quiz.querySelectorAll(".weight input"), function (c) {
-      c.checked = false;
-    });
-    results.hidden = true;
-    refresh();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  document.addEventListener("keydown",function(e){
+    if(e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
+    if(e.key==="ArrowLeft") go(cur+1);
+    if(e.key==="ArrowRight") go(cur-1);
   });
 
-  refresh();
+  buildTrail(); render(); syncTrail(); paint();
 })();
 </script>
 
