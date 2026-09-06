@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="טפסים דיגיטליים לרכזת משפחתונים — ביקור, מעקב ליקויים, תגובה לדוח פיקוח ובקשת סגירה.">
+<title>תיק משפחתון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap">
+<style>
+:root{
+  --ink:#14201f; --ink-2:#4a5a58; --ink-3:#7c8b88;
+  --ground:#eef1ef; --surface:#ffffff; --surface-2:#f7f9f8;
+  --line:#d7dfdc; --line-2:#bfcbc7;
+  --accent:#0f5d54; --accent-ink:#ffffff; --accent-wash:#dfece9;
+  --ok:#2e7d32; --ok-wash:#e5f0e6;
+  --warn:#8f5a08; --warn-wash:#f6ecd9;
+  --crit:#a52a1f; --crit-wash:#f8e4e1;
+  --shadow:0 1px 2px rgba(20,32,31,.05), 0 8px 24px -16px rgba(20,32,31,.32);
+  --display:"Frank Ruhl Libre","Times New Roman",serif;
+  --body:"Assistant","Segoe UI",system-ui,sans-serif;
+  --r:10px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#e7edeb; --ink-2:#a2b1ad; --ink-3:#74847f;
+    --ground:#0f1716; --surface:#182220; --surface-2:#1e2a28;
+    --line:#2c3937; --line-2:#3b4a47;
+    --accent:#57b7a7; --accent-ink:#062320; --accent-wash:#1a2f2c;
+    --ok:#6fbf72; --ok-wash:#172a1a;
+    --warn:#d7a544; --warn-wash:#2e2716;
+    --crit:#e3806f; --crit-wash:#331d1a;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e7edeb; --ink-2:#a2b1ad; --ink-3:#74847f;
+  --ground:#0f1716; --surface:#182220; --surface-2:#1e2a28;
+  --line:#2c3937; --line-2:#3b4a47;
+  --accent:#57b7a7; --accent-ink:#062320; --accent-wash:#1a2f2c;
+  --ok:#6fbf72; --ok-wash:#172a1a;
+  --warn:#d7a544; --warn-wash:#2e2716;
+  --crit:#e3806f; --crit-wash:#331d1a;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  direction:rtl; margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.6;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3{font-family:var(--display); font-weight:700; margin:0; text-wrap:balance; line-height:1.25}
+p{margin:0}
+button,input,select,textarea{font:inherit; color:inherit}
+:focus-visible{outline:2.5px solid var(--accent); outline-offset:2px; border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- shell ---------- */
+.app{max-width:1080px; margin:0 auto; padding:0 16px 72px}
+.hdr{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; padding:26px 0 16px}
+.hdr h1{font-size:1.6rem; letter-spacing:-.01em}
+.hdr .org{color:var(--ink-2); font-size:.9rem}
+.hdr .spacer{flex:1 1 40px}
+.ghost{
+  background:transparent; border:1px solid var(--line-2); color:var(--ink-2);
+  border-radius:99px; padding:5px 13px; font-size:.83rem; cursor:pointer;
+}
+.ghost:hover{border-color:var(--accent); color:var(--accent)}
+
+.tabs{display:flex; gap:2px; overflow-x:auto; border-bottom:1px solid var(--line); margin-bottom:24px; scrollbar-width:thin}
+.tabs button{
+  background:none; border:0; border-bottom:2.5px solid transparent; margin-bottom:-1px;
+  padding:10px 14px; white-space:nowrap; cursor:pointer; color:var(--ink-2);
+  font-weight:600; font-size:.94rem;
+}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-current="true"]{color:var(--accent); border-bottom-color:var(--accent)}
+
+.banner{
+  display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center;
+  background:var(--accent-wash); border:1px solid var(--line);
+  border-radius:var(--r); padding:12px 15px; margin-bottom:22px; font-size:.88rem; color:var(--ink-2);
+}
+.banner strong{color:var(--ink)}
+.banner .spacer{flex:1 1 20px}
+
+/* ---------- blocks ---------- */
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow)}
+.panel + .panel{margin-top:20px}
+.panel > header{padding:16px 18px 0}
+.panel > header h2{font-size:1.12rem}
+.panel > header .sub{color:var(--ink-3); font-size:.85rem; margin-top:3px}
+.panel .body{padding:16px 18px 18px}
+.stack{display:flex; flex-direction:column; gap:16px}
+.section-title{
+  font-family:var(--body); font-size:.74rem; font-weight:700; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 10px;
+}
+
+/* ---------- stat strip ---------- */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; margin-bottom:20px}
+.stat{background:var(--surface); padding:14px 16px; display:flex; flex-direction:column; gap:2px}
+.stat .n{font-family:var(--display); font-size:2rem; font-weight:900; line-height:1; font-variant-numeric:tabular-nums}
+.stat .k{font-size:.8rem; color:var(--ink-3); font-weight:600}
+.stat.is-crit .n{color:var(--crit)}
+.stat.is-warn .n{color:var(--warn)}
+.stat.is-ok .n{color:var(--ok)}
+
+/* ---------- nursery rows ---------- */
+.rows{display:flex; flex-direction:column}
+.row{
+  display:grid; grid-template-columns:1fr auto auto; gap:6px 18px; align-items:center;
+  padding:13px 18px; border-top:1px solid var(--line);
+}
+.row:first-child{border-top:0}
+.row .name{font-weight:700}
+.row .meta{grid-column:1/-1; color:var(--ink-3); font-size:.82rem; font-variant-numeric:tabular-nums}
+.meter{display:flex; align-items:center; gap:7px; font-size:.82rem; font-weight:600; white-space:nowrap}
+.meter .pips{display:flex; gap:3px}
+.pip{width:16px; height:6px; border-radius:99px; background:var(--line-2)}
+.pip.on{background:currentColor}
+.meter.is-ok{color:var(--ok)} .meter.is-warn{color:var(--warn)} .meter.is-crit{color:var(--crit)}
+
+.pill{
+  display:inline-flex; align-items:center; gap:5px; border-radius:99px;
+  padding:2px 10px; font-size:.78rem; font-weight:700; white-space:nowrap;
+}
+.pill.ok{background:var(--ok-wash); color:var(--ok)}
+.pill.warn{background:var(--warn-wash); color:var(--warn)}
+.pill.crit{background:var(--crit-wash); color:var(--crit)}
+.pill.mute{background:var(--surface-2); color:var(--ink-3); border:1px solid var(--line)}
+
+/* ---------- defects ---------- */
+.defect{
+  display:grid; grid-template-columns:auto 1fr auto; gap:4px 13px; align-items:start;
+  padding:13px 16px 13px 13px; border-top:1px solid var(--line);
+}
+.defect:first-child{border-top:0}
+.stripe{width:4px; align-self:stretch; border-radius:99px; background:var(--line-2)}
+.stripe.crit{background:var(--crit)} .stripe.warn{background:var(--warn)} .stripe.ok{background:var(--ok)}
+.defect .txt{font-weight:600}
+.defect.done .txt{color:var(--ink-3); text-decoration:line-through; text-decoration-thickness:1px}
+.defect .sub{grid-column:2/-1; color:var(--ink-3); font-size:.82rem; display:flex; flex-wrap:wrap; gap:4px 12px; font-variant-numeric:tabular-nums}
+.defect .act{display:flex; gap:6px; align-items:center}
+
+/* ---------- forms ---------- */
+.field{display:flex; flex-direction:column; gap:5px}
+.field > label, .lbl{font-size:.83rem; font-weight:700; color:var(--ink-2)}
+.hint{font-size:.79rem; color:var(--ink-3)}
+input[type=text],input[type=date],input[type=time],input[type=number],select,textarea{
+  width:100%; background:var(--surface-2); border:1px solid var(--line-2);
+  border-radius:8px; padding:9px 11px; font-size:.95rem;
+}
+input:focus,select:focus,textarea:focus{background:var(--surface); border-color:var(--accent); outline:none; box-shadow:0 0 0 3px var(--accent-wash)}
+textarea{min-height:104px; resize:vertical; line-height:1.65}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--crit); background:var(--crit-wash)}
+.err{color:var(--crit); font-size:.79rem; font-weight:600}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px}
+.grid3{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px}
+
+.btn{
+  background:var(--accent); color:var(--accent-ink); border:0; border-radius:8px;
+  padding:10px 20px; font-weight:700; font-size:.92rem; cursor:pointer;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--surface-2); color:var(--ink); border:1px solid var(--line-2)}
+.btn.sec:hover{border-color:var(--accent); color:var(--accent); filter:none}
+.btn.sm{padding:5px 12px; font-size:.8rem; border-radius:7px}
+.btn.danger{background:transparent; color:var(--crit); border:1px solid var(--crit)}
+.actions{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+
+/* repeatable rows */
+.rep{display:flex; flex-direction:column; gap:10px}
+.rep-item{
+  display:grid; grid-template-columns:1fr 150px 155px auto; gap:9px; align-items:end;
+  padding:12px; background:var(--surface-2); border:1px solid var(--line); border-radius:9px;
+}
+.rep-item .x{
+  background:none; border:1px solid var(--line-2); color:var(--ink-3); border-radius:7px;
+  width:36px; height:38px; cursor:pointer; font-size:1.1rem; line-height:1;
+}
+.rep-item .x:hover{color:var(--crit); border-color:var(--crit)}
+@media (max-width:640px){ .rep-item{grid-template-columns:1fr 1fr; } .rep-item .f-txt{grid-column:1/-1} }
+
+/* signature */
+.sig{display:flex; flex-direction:column; gap:6px}
+.sig canvas{
+  width:100%; height:130px; background:var(--surface-2);
+  border:1px dashed var(--line-2); border-radius:9px; touch-action:none; cursor:crosshair;
+}
+.sig .row-b{display:flex; justify-content:space-between; align-items:center; gap:10px}
+
+/* output */
+.out{
+  background:var(--surface-2); border:1px solid var(--line); border-radius:9px;
+  padding:16px; white-space:pre-wrap; font-size:.87rem; line-height:1.75;
+  max-height:460px; overflow:auto; font-family:var(--body);
+}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:.88rem}
+th,td{text-align:right; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-size:.76rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3)}
+
+.steps{counter-reset:s; display:flex; flex-direction:column; gap:2px; margin:0; padding:0; list-style:none}
+.steps li{
+  counter-increment:s; display:grid; grid-template-columns:auto auto 1fr; gap:12px;
+  padding:12px 0; border-top:1px solid var(--line); align-items:start;
+}
+.steps li:first-child{border-top:0}
+.steps li::before{
+  content:counter(s); font-family:var(--display); font-weight:700; font-size:.85rem;
+  width:26px; height:26px; border-radius:99px; background:var(--accent-wash); color:var(--accent);
+  display:grid; place-items:center; margin-top:1px;
+}
+.steps .ttl{font-weight:700}
+.steps .d{color:var(--ink-3); font-size:.85rem}
+.chk{display:flex; gap:9px; align-items:flex-start; cursor:pointer}
+.steps li > input[type=checkbox]{width:19px; height:19px; margin:3px 0 0; accent-color:var(--accent); cursor:pointer}
+
+.empty{padding:26px 18px; text-align:center; color:var(--ink-3); font-size:.9rem}
+.foot{margin-top:34px; padding-top:18px; border-top:1px solid var(--line); color:var(--ink-3); font-size:.8rem; display:flex; flex-wrap:wrap; gap:6px 18px}
+
+#toast{
+  position:fixed; inset-block-end:20px; inset-inline-start:50%; transform:translateX(50%);
+  background:var(--ink); color:var(--ground); padding:10px 20px; border-radius:99px;
+  font-size:.87rem; font-weight:600; box-shadow:var(--shadow); z-index:50;
+}
+
+@media print{
+  body{background:#fff; color:#000}
+  .tabs,.hdr .ghost,.banner,.actions,.foot,#toast,.rep-item .x{display:none!important}
+  .panel{box-shadow:none; border-color:#999; break-inside:avoid}
+  .out{max-height:none; overflow:visible; border:0; padding:0; background:none}
+}
+</style>
+
+<div class="app">
+  <header class="hdr">
+    <h1>תיק משפחתון</h1>
+    <span class="org" id="orgLine"></span>
+    <span class="spacer"></span>
+    <button class="ghost" id="themeBtn" type="button">מצב תצוגה</button>
+    <button class="ghost" id="printBtn" type="button">הדפסה</button>
+  </header>
+
+  <nav class="tabs" id="tabs" aria-label="מסכי המערכת"></nav>
+  <main id="view"></main>
+
+  <div class="foot">
+    <span>הנתונים נשמרים במכשיר זה בלבד ואינם נשלחים לשום שרת.</span>
+    <span>המערכת אינה קולטת פרטים מזהים של ילדים.</span>
+    <span id="cnt"></span>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ storage ============ */
+var KEY="tik-mishpachton-v1", S=null;
+function load(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):null }catch(e){ return null } }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)) }catch(e){ toast("לא ניתן לשמור במכשיר זה — ייצאי את הנתונים לפני סגירה") } }
+function uid(){ return Math.random().toString(36).slice(2,9) }
+
+function rel(n){ var d=new Date(); d.setDate(d.getDate()+n);
+  return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10) }
+function seed(){
+  return {
+    org:"שם הארגון · מספר ארגון",
+    coordinator:"שם הרכזת",
+    demo:true,
+    nurseries:[
+      {id:"n1",name:"משפחתון א׳",symbol:"6100001",addr:"כתובת לדוגמה 1",phone:""},
+      {id:"n2",name:"משפחתון ב׳",symbol:"6100002",addr:"כתובת לדוגמה 2",phone:""},
+      {id:"n3",name:"משפחתון ג׳",symbol:"6100003",addr:"כתובת לדוגמה 3",phone:""}
+    ],
+    visits:[
+      {id:"v1",nid:"n2",date:rel(-9),reason:"ביקור שוטף",
+       findings:"ביקור לדוגמה. כאן מתעדים מה נצפה בפועל — עובדות, לא פרשנות.",
+       summary:"סיכום לדוגמה.",next:"",sigCare:"",sigCoord:"",locked:true},
+      {id:"v2",nid:"n2",date:rel(-2),reason:"ביקור חוזר לבדיקת תיקון ליקויים",
+       findings:"ביקור חוזר לדוגמה.",summary:"",next:"",sigCare:"",sigCoord:"",locked:true},
+      {id:"v3",nid:"n1",date:rel(-5),reason:"ביקור שוטף",
+       findings:"ביקור לדוגמה.",summary:"",next:"",sigCare:"",sigCoord:"",locked:true}
+    ],
+    defects:[
+      {id:"d1",nid:"",txt:"הקפדה על ביקורי רכזת פעמיים בחודש בכל משפחתון",owner:"הרכזת",due:rel(-40),status:"open",src:"דוח פיקוח",note:""},
+      {id:"d2",nid:"n1",txt:"חסר אישור רפואי שנתי למטפלת",owner:"",due:rel(-40),status:"open",src:"דוח פיקוח",note:""},
+      {id:"d3",nid:"n1",txt:"חסרות תעודות זהות ביומני הנוכחות",owner:"",due:rel(-40),status:"open",src:"דוח פיקוח",note:""},
+      {id:"d4",nid:"n1",txt:"להקפיד על ניקיון ואוורור החדר",owner:"",due:rel(-40),status:"done",src:"דוח פיקוח",note:"ניתנה הנחיה פרטנית; נבדק בביקור חוזר"},
+      {id:"d5",nid:"n3",txt:"שמירה על קשר עין עם כל הילדים לאורך כל שעות הפעילות",owner:"",due:rel(-40),status:"open",src:"דוח פיקוח",note:""},
+      {id:"d6",nid:"n3",txt:"הלנת תינוקות בלולים בזמן שינה בלבד",owner:"",due:rel(2),status:"open",src:"דוח פיקוח",note:""},
+      {id:"d7",nid:"n3",txt:"להקפיד על ניקיון",owner:"",due:rel(-40),status:"done",src:"דוח פיקוח",note:""},
+      {id:"d8",nid:"n3",txt:"החלפה לשטיח חלק",owner:"",due:rel(20),status:"open",src:"דוח פיקוח",note:""},
+      {id:"d9",nid:"n3",txt:"תוספת משחקי השחלה, הרכבה, בימבות ועגלות",owner:"",due:"",status:"open",src:"ביקור רכזת",note:""}
+    ],
+    inspection:{
+      num:"", date:"", sent:"", due:"",
+      inspector:"", email:"", district:"",
+      signer:"", role:"", phone:"", signerEmail:""
+    },
+    closures:[]
+  };
+}
+
+/* ============ dates ============ */
+function todayISO(){ var d=new Date(); return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10) }
+function il(iso){ if(!iso) return ""; var p=iso.split("-"); return p[2]+"/"+p[1]+"/"+p[0] }
+function dayDiff(iso){
+  if(!iso) return null;
+  var a=new Date(todayISO()+"T00:00:00"), b=new Date(iso+"T00:00:00");
+  return Math.round((b-a)/864e5);
+}
+function monthKey(iso){ return iso? iso.slice(0,7):"" }
+
+/* ============ derived ============ */
+function nurseryName(nid){
+  if(!nid) return "רמת הארגון והרכזת";
+  var n=S.nurseries.filter(function(x){return x.id===nid})[0];
+  return n? n.name : "—";
+}
+function visitsThisMonth(nid){
+  var m=todayISO().slice(0,7);
+  return S.visits.filter(function(v){ return v.nid===nid && monthKey(v.date)===m }).length;
+}
+function openDefects(nid){
+  return S.defects.filter(function(d){ return d.status==="open" && (nid===undefined || d.nid===nid) });
+}
+function urgency(d){
+  if(d.status==="done") return {k:"ok", label:"טופל"};
+  if(!d.due) return {k:"warn", label:"חסר תאריך יעד"};
+  var n=dayDiff(d.due);
+  if(n<0) return {k:"crit", label:"באיחור "+Math.abs(n)+" ימים"};
+  if(n===0) return {k:"crit", label:"היעד היום"};
+  if(n<=3) return {k:"warn", label:"נותרו "+n+" ימים"};
+  return {k:"", label:"יעד "+il(d.due)};
+}
+
+/* ============ dom helpers ============ */
+function el(tag,attrs,kids){
+  var e=document.createElement(tag);
+  if(attrs) for(var k in attrs){
+    if(k==="class") e.className=attrs[k];
+    else if(k==="html") e.innerHTML=attrs[k];
+    else if(k==="text") e.textContent=attrs[k];
+    else if(k.slice(0,2)==="on") e.addEventListener(k.slice(2),attrs[k]);
+    else if(attrs[k]!==null && attrs[k]!==undefined && attrs[k]!==false) e.setAttribute(k,attrs[k]);
+  }
+  (kids||[]).forEach(function(c){ if(c) e.appendChild(typeof c==="string"?document.createTextNode(c):c) });
+  return e;
+}
+var toastT;
+function toast(msg){
+  var old=document.getElementById("toast"); if(old) old.remove();
+  var t=el("div",{id:"toast",text:msg,role:"status"});
+  document.body.appendChild(t);
+  clearTimeout(toastT); toastT=setTimeout(function(){ t.remove() },2600);
+}
+function copyText(txt){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ toast("הועתק — אפשר להדביק במייל או ב-Word") },
+      function(){ toast("ההעתקה נחסמה. סמני את הטקסט והעתיקי ידנית") });
+  } else toast("סמני את הטקסט והעתיקי ידנית");
+}
+function panel(title,sub,bodyKids){
+  var h=el("header",{},[el("h2",{text:title})]);
+  if(sub) h.appendChild(el("p",{class:"sub",text:sub}));
+  return el("section",{class:"panel"},[h, el("div",{class:"body stack"},bodyKids)]);
+}
+function field(label,control,hint){
+  var k=[el("label",{text:label}),control];
+  if(hint) k.push(el("p",{class:"hint",text:hint}));
+  return el("div",{class:"field"},k);
+}
+function nurserySelect(value,allowOrg){
+  var s=el("select",{});
+  if(allowOrg) s.appendChild(el("option",{value:"",text:"רמת הארגון והרכזת"}));
+  else s.appendChild(el("option",{value:"",text:"— בחרי משפחתון —"}));
+  S.nurseries.forEach(function(n){
+    var o=el("option",{value:n.id,text:n.name+(n.symbol?" · "+n.symbol:"")});
+    if(n.id===value) o.selected=true;
+    s.appendChild(o);
+  });
+  return s;
+}
+
+/* ============ signature pad ============ */
+function sigPad(label,initial,onChange){
+  var wrap=el("div",{class:"sig"});
+  var cv=el("canvas",{"aria-label":label});
+  var bar=el("div",{class:"row-b"},[
+    el("span",{class:"lbl",text:label}),
+    el("button",{class:"btn sec sm",type:"button",text:"נקה",onclick:function(){ clear(); onChange("") }})
+  ]);
+  wrap.appendChild(bar); wrap.appendChild(cv);
+  var ctx,drawing=false,dirty=false;
+  function sizeUp(){
+    var r=cv.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+    cv.width=Math.max(1,Math.round(r.width*dpr)); cv.height=Math.max(1,Math.round(130*dpr));
+    ctx=cv.getContext("2d"); ctx.scale(dpr,dpr);
+    ctx.lineWidth=2; ctx.lineCap="round"; ctx.lineJoin="round";
+    ctx.strokeStyle=getComputedStyle(document.body).color;
+    if(initial){ var im=new Image(); im.onload=function(){ ctx.drawImage(im,0,0,r.width,130) }; im.src=initial; dirty=true; }
+  }
+  function clear(){ if(ctx) ctx.clearRect(0,0,cv.width,cv.height); dirty=false }
+  function pos(e){ var r=cv.getBoundingClientRect(); return [e.clientX-r.left, e.clientY-r.top] }
+  cv.addEventListener("pointerdown",function(e){
+    drawing=true; dirty=true; cv.setPointerCapture(e.pointerId);
+    var p=pos(e); ctx.beginPath(); ctx.moveTo(p[0],p[1]);
+  });
+  cv.addEventListener("pointermove",function(e){ if(!drawing) return; var p=pos(e); ctx.lineTo(p[0],p[1]); ctx.stroke() });
+  ["pointerup","pointercancel","pointerleave"].forEach(function(ev){
+    cv.addEventListener(ev,function(){ if(!drawing) return; drawing=false; onChange(dirty? cv.toDataURL("image/png"):"") });
+  });
+  setTimeout(sizeUp,0);
+  return wrap;
+}
+
+/* ============ views ============ */
+var VIEWS=[
+  {id:"board", label:"לוח בקרה"},
+  {id:"visit", label:"ביקור רכזת"},
+  {id:"defects", label:"ליקויים ומעקב"},
+  {id:"reply", label:"תגובה לפיקוח"},
+  {id:"closure", label:"בקשת סגירה"}
+];
+var cur="board";
+
+/* ---- board ---- */
+function viewBoard(){
+  var out=el("div",{});
+  var open=openDefects(), late=open.filter(function(d){ return d.due && dayDiff(d.due)<0 }),
+      noDue=open.filter(function(d){ return !d.due }),
+      behind=S.nurseries.filter(function(n){ return visitsThisMonth(n.id)<2 });
+
+  if(S.demo){
+    out.appendChild(el("div",{class:"banner"},[
+      el("span",{html:"<strong>הנתונים המוצגים הם דוגמה בלבד.</strong> נקי אותם והתחילי לתעד, או ייבאי קובץ גיבוי קיים. כל מה שתמלאי נשמר במכשיר שלך בלבד."}),
+      el("span",{class:"spacer"}),
+      el("button",{class:"btn sec sm",type:"button",text:"נקה והתחל מחדש",onclick:function(){
+        if(!confirm("לנקות את כל הנתונים ולהתחיל מדף ריק?")) return;
+        S=seed(); S.demo=false; S.visits=[]; S.defects=[]; save(); render();
+      }})
+    ]));
+  }
+
+  var stats=el("div",{class:"stats"},[
+    el("div",{class:"stat "+(open.length?"is-warn":"is-ok")},[el("span",{class:"n",text:String(open.length)}),el("span",{class:"k",text:"ליקויים פתוחים"})]),
+    el("div",{class:"stat "+(late.length?"is-crit":"is-ok")},[el("span",{class:"n",text:String(late.length)}),el("span",{class:"k",text:"חרגו מתאריך היעד"})]),
+    el("div",{class:"stat "+(noDue.length?"is-warn":"is-ok")},[el("span",{class:"n",text:String(noDue.length)}),el("span",{class:"k",text:"ללא תאריך יעד"})]),
+    el("div",{class:"stat "+(behind.length?"is-crit":"is-ok")},[el("span",{class:"n",text:behind.length+"/"+S.nurseries.length}),el("span",{class:"k",text:"מתחת ל‑2 ביקורים החודש"})])
+  ]);
+  out.appendChild(stats);
+
+  /* nurseries */
+  var rows=el("div",{class:"rows"});
+  S.nurseries.forEach(function(n){
+    var v=visitsThisMonth(n.id), o=openDefects(n.id).length;
+    var k=v>=2?"is-ok":(v===1?"is-warn":"is-crit");
+    var pips=el("span",{class:"pips"},[el("span",{class:"pip"+(v>=1?" on":"")}),el("span",{class:"pip"+(v>=2?" on":"")})]);
+    rows.appendChild(el("div",{class:"row"},[
+      el("div",{class:"name",text:n.name}),
+      el("div",{class:"meter "+k},[pips, el("span",{text:v+" מתוך 2 החודש"})]),
+      o? el("span",{class:"pill "+(openDefects(n.id).some(function(d){return d.due&&dayDiff(d.due)<0})?"crit":"warn"),text:o+" ליקויים"})
+       : el("span",{class:"pill ok",text:"אין ליקויים"}),
+      el("div",{class:"meta",text:[n.symbol?"סמל "+n.symbol:"סמל חסר", n.addr, n.phone].filter(Boolean).join(" · ")})
+    ]));
+  });
+  out.appendChild(panel("משפחתונים באחריות הרכזת","תדירות הביקורים נמדדת לחודש קלנדרי. משרד העבודה דורש שני ביקורים בחודש.",[rows]));
+
+  /* needs attention */
+  var urgent=open.filter(function(d){ return !d.due || dayDiff(d.due)<=3 })
+                 .sort(function(a,b){ return (a.due||"9999")<(b.due||"9999")?-1:1 });
+  var list=el("div",{});
+  if(!urgent.length) list.appendChild(el("p",{class:"empty",text:"אין ליקויים שדורשים טיפול מיידי."}));
+  urgent.forEach(function(d){ list.appendChild(defectRow(d)) });
+  out.appendChild(panel("דורש טיפול עכשיו","ליקויים שחרגו מהיעד, שהיעד שלהם בתוך שלושה ימים, או שלא נקבע להם תאריך יעד.",[list]));
+  return out;
+}
+
+function defectRow(d){
+  var u=urgency(d);
+  var meta=[nurseryName(d.nid), d.src, d.owner?("אחראי/ת: "+d.owner):"אחראי/ת לא הוגדר"];
+  if(d.note) meta.push(d.note);
+  return el("div",{class:"defect"+(d.status==="done"?" done":"")},[
+    el("span",{class:"stripe "+u.k}),
+    el("div",{class:"txt",text:d.txt}),
+    el("div",{class:"act"},[
+      el("span",{class:"pill "+(u.k||"mute"),text:u.label}),
+      el("button",{class:"btn sec sm",type:"button",text:d.status==="done"?"פתח":"סגור",onclick:function(){
+        d.status = d.status==="done"?"open":"done"; save(); render();
+      }})
+    ]),
+    el("div",{class:"sub"},meta.filter(Boolean).map(function(t){ return el("span",{text:t}) }))
+  ]);
+}
+
+/* ---- visit form ---- */
+var vf=null;
+function blankVisit(){ return {nid:"",date:todayISO(),reason:"ביקור שוטף",findings:"",items:[{txt:"",owner:"",due:""}],summary:"",next:"",sigCare:"",sigCoord:""} }
+function viewVisit(){
+  if(!vf) vf=blankVisit();
+  var errBox=el("div",{});
+
+  var dIn=el("input",{type:"date",value:vf.date,max:todayISO(),oninput:function(e){ vf.date=e.target.value }});
+  var nSel=nurserySelect(vf.nid,false); nSel.addEventListener("change",function(e){ vf.nid=e.target.value });
+  var rSel=el("select",{onchange:function(e){ vf.reason=e.target.value }});
+  ["ביקור שוטף","ביקור חוזר לבדיקת תיקון ליקויים","ביקור יזום","ביקור בעקבות אירוע חריג"].forEach(function(r){
+    var o=el("option",{value:r,text:r}); if(r===vf.reason) o.selected=true; rSel.appendChild(o);
+  });
+
+  var findings=el("textarea",{placeholder:"מה נצפה בפועל בביקור — עובדות, לא פרשנות.",oninput:function(e){ vf.findings=e.target.value }});
+  findings.value=vf.findings;
+  var summary=el("textarea",{placeholder:"מה סוכם עם המטפלת ומה ההמשך.",oninput:function(e){ vf.summary=e.target.value }});
+  summary.value=vf.summary;
+  var next=el("input",{type:"date",value:vf.next,min:todayISO(),oninput:function(e){ vf.next=e.target.value }});
+
+  var repWrap=el("div",{class:"rep"});
+  function drawRep(){
+    repWrap.innerHTML="";
+    vf.items.forEach(function(it,i){
+      var t=el("input",{type:"text",value:it.txt,placeholder:"ההנחיה שניתנה",oninput:function(e){ it.txt=e.target.value }});
+      var o=el("input",{type:"text",value:it.owner,placeholder:"שם",oninput:function(e){ it.owner=e.target.value }});
+      var dd=el("input",{type:"date",value:it.due,min:todayISO(),oninput:function(e){ it.due=e.target.value }});
+      repWrap.appendChild(el("div",{class:"rep-item"},[
+        el("div",{class:"field f-txt"},[el("label",{text:"הנחיה "+(i+1)}),t]),
+        el("div",{class:"field"},[el("label",{text:"אחראי/ת"}),o]),
+        el("div",{class:"field"},[el("label",{text:"תאריך יעד"}),dd]),
+        el("button",{class:"x",type:"button","aria-label":"מחיקת הנחיה",text:"×",onclick:function(){
+          vf.items.splice(i,1); if(!vf.items.length) vf.items.push({txt:"",owner:"",due:""}); drawRep();
+        }})
+      ]));
+    });
+  }
+  drawRep();
+
+  function submit(){
+    errBox.innerHTML="";
+    var errs=[];
+    if(!vf.nid) errs.push("יש לבחור משפחתון.");
+    if(!vf.date) errs.push("יש למלא תאריך ביקור.");
+    else if(vf.date>todayISO()) errs.push("תאריך הביקור מאוחר מהיום — לא ניתן לתעד ביקור עתידי.");
+    if(!vf.findings.trim()) errs.push("יש למלא את מהלך הביקור והממצאים.");
+    var real=vf.items.filter(function(i){ return i.txt.trim() });
+    real.forEach(function(i,k){ if(!i.due) errs.push("להנחיה „"+i.txt.trim()+"” חסר תאריך יעד."); });
+    if(errs.length){
+      errBox.appendChild(el("div",{class:"stack"},errs.map(function(t){ return el("p",{class:"err",text:t}) })));
+      errBox.scrollIntoView({behavior:"smooth",block:"nearest"});
+      return;
+    }
+    var vid=uid();
+    S.visits.push({id:vid,nid:vf.nid,date:vf.date,reason:vf.reason,findings:vf.findings,
+      summary:vf.summary,next:vf.next,sigCare:vf.sigCare,sigCoord:vf.sigCoord,locked:true});
+    real.forEach(function(i){
+      S.defects.push({id:uid(),nid:vf.nid,txt:i.txt.trim(),owner:i.owner.trim(),due:i.due,
+        status:"open",src:"ביקור רכזת "+il(vf.date),note:""});
+    });
+    save();
+    toast("הביקור נשמר · " + real.length + " ליקויים נפתחו במעקב");
+    vf=null; cur="defects"; render();
+  }
+
+  return el("div",{},[
+    panel("טופס ביקור רכזת","הטופס ננעל עם השמירה. כל הנחיה שתמלאי נפתחת אוטומטית כליקוי במעקב, ולכן חובה לקבוע לה תאריך יעד.",[
+      el("div",{class:"grid3"},[
+        field("משפחתון",nSel),
+        field("תאריך הביקור",dIn,"לא ניתן לבחור תאריך עתידי."),
+        field("סיבת הביקור",rSel)
+      ]),
+      field("מהלך הביקור וממצאים",findings),
+      el("div",{},[
+        el("p",{class:"section-title",text:"הנחיות שניתנו"}),
+        repWrap,
+        el("div",{class:"actions",style:"margin-top:10px"},[
+          el("button",{class:"btn sec sm",type:"button",text:"+ הוספת הנחיה",onclick:function(){ vf.items.push({txt:"",owner:"",due:""}); drawRep() }})
+        ])
+      ]),
+      field("סיכום והמשך טיפול",summary),
+      el("div",{class:"grid2"},[ field("תאריך ביקור חוזר",next) ]),
+      el("div",{class:"grid2"},[
+        sigPad("חתימת המטפלת",vf.sigCare,function(v){ vf.sigCare=v }),
+        sigPad("חתימת הרכזת",vf.sigCoord,function(v){ vf.sigCoord=v })
+      ]),
+      errBox,
+      el("div",{class:"actions"},[
+        el("button",{class:"btn",type:"button",text:"שמירת הביקור ופתיחת הליקויים",onclick:submit}),
+        el("button",{class:"btn sec",type:"button",text:"העתקה כטקסט",onclick:function(){ copyText(visitText(vf)) }}),
+        el("button",{class:"btn sec",type:"button",text:"ניקוי הטופס",onclick:function(){ vf=null; render() }})
+      ])
+    ]),
+    pastVisits()
+  ]);
+}
+function visitText(v){
+  var L=[];
+  L.push("דוח ביקור משפחתון");
+  L.push("");
+  L.push("משפחתון: "+nurseryName(v.nid));
+  L.push("תאריך הביקור: "+(il(v.date)||"—"));
+  L.push("שם הרכזת: "+(S.coordinator||"—"));
+  L.push("סיבת הביקור: "+v.reason);
+  L.push("");
+  L.push("מהלך הביקור וממצאים");
+  L.push(v.findings||"—");
+  L.push("");
+  L.push("הנחיות שניתנו");
+  var items=v.items||[];
+  if(!items.filter(function(i){return i.txt}).length) L.push("—");
+  items.filter(function(i){return i.txt}).forEach(function(i,k){
+    L.push((k+1)+". "+i.txt+"  |  אחראי/ת: "+(i.owner||"—")+"  |  תאריך יעד: "+(il(i.due)||"—"));
+  });
+  L.push("");
+  L.push("סיכום והמשך טיפול");
+  L.push(v.summary||"—");
+  if(v.next) L.push("ביקור חוזר: "+il(v.next));
+  L.push("");
+  L.push("חתימת המטפלת: ______________   חתימת הרכזת: ______________");
+  return L.join("\n");
+}
+function pastVisits(){
+  var body=el("div",{});
+  if(!S.visits.length){ body.appendChild(el("p",{class:"empty",text:"עדיין לא תועדו ביקורים."})); }
+  else{
+    var t=el("table",{},[el("thead",{},[el("tr",{},[
+      el("th",{text:"תאריך"}),el("th",{text:"משפחתון"}),el("th",{text:"סיבה"}),el("th",{text:"ממצאים"})])])]);
+    var tb=el("tbody",{});
+    S.visits.slice().sort(function(a,b){ return (b.date||"")<(a.date||"")?-1:1 }).forEach(function(v){
+      tb.appendChild(el("tr",{},[
+        el("td",{},[ v.date? el("span",{text:il(v.date)}) : el("span",{class:"pill warn",text:"תאריך חסר"}) ]),
+        el("td",{text:nurseryName(v.nid)}),
+        el("td",{text:v.reason||"—"}),
+        el("td",{text:(v.findings||"").slice(0,110)+((v.findings||"").length>110?"…":"")})
+      ]));
+      if(v.seedNote) tb.appendChild(el("tr",{},[el("td",{colspan:"4"},[el("span",{class:"pill warn",text:v.seedNote})])]));
+    });
+    t.appendChild(tb);
+    body.appendChild(el("div",{class:"tablewrap"},[t]));
+  }
+  return panel("ביקורים שתועדו",null,[body]);
+}
+
+/* ---- defects board ---- */
+var flt={nid:"all",status:"open"};
+function viewDefects(){
+  var nSel=el("select",{onchange:function(e){ flt.nid=e.target.value; render() }});
+  nSel.appendChild(el("option",{value:"all",text:"כל המשפחתונים"}));
+  nSel.appendChild(el("option",{value:"",text:"רמת הארגון והרכזת"}));
+  S.nurseries.forEach(function(n){ var o=el("option",{value:n.id,text:n.name}); if(n.id===flt.nid) o.selected=true; nSel.appendChild(o) });
+  if(flt.nid==="all") nSel.value="all"; else nSel.value=flt.nid;
+
+  var sSel=el("select",{onchange:function(e){ flt.status=e.target.value; render() }});
+  [["open","פתוחים"],["done","סגורים"],["all","הכול"]].forEach(function(p){
+    var o=el("option",{value:p[0],text:p[1]}); if(p[0]===flt.status) o.selected=true; sSel.appendChild(o);
+  });
+
+  var list=S.defects.filter(function(d){
+    if(flt.nid!=="all" && d.nid!==flt.nid) return false;
+    if(flt.status!=="all" && d.status!==flt.status) return false;
+    return true;
+  }).sort(function(a,b){ return (a.due||"9999-99-99")<(b.due||"9999-99-99")?-1:1 });
+
+  var box=el("div",{});
+  if(!list.length) box.appendChild(el("p",{class:"empty",text:"אין ליקויים בסינון הנוכחי."}));
+  list.forEach(function(d){ box.appendChild(defectEditRow(d)) });
+
+  var nd=S.defects.filter(function(d){ return d.status==="open" && !d.due });
+  var warn=nd.length? el("div",{class:"banner"},[el("span",{html:"<strong>"+nd.length+" ליקויים ללא תאריך יעד.</strong> ליקוי בלי תאריך יעד אינו ניתן לאכיפה ואינו עומד בדרישת משרד העבודה לדווח על טיפול במועד קצוב."})]) : null;
+
+  return el("div",{},[
+    warn,
+    panel("ליקויים ומעקב","לחיצה על תאריך היעד או על שם האחראי/ת מאפשרת עריכה ישירה.",[
+      el("div",{class:"grid2"},[ field("משפחתון",nSel), field("סטטוס",sSel) ]),
+      box,
+      el("div",{class:"actions"},[
+        el("button",{class:"btn sec",type:"button",text:"העתקת הרשימה כטקסט",onclick:function(){ copyText(defectsText(list)) }}),
+        el("button",{class:"btn sec",type:"button",text:"+ ליקוי ידני",onclick:function(){
+          S.defects.push({id:uid(),nid:flt.nid==="all"?"":flt.nid,txt:"ליקוי חדש",owner:"",due:"",status:"open",src:"הוספה ידנית",note:""});
+          save(); render();
+        }})
+      ])
+    ])
+  ]);
+}
+function defectEditRow(d){
+  var u=urgency(d);
+  var txt=el("input",{type:"text",value:d.txt,oninput:function(e){ d.txt=e.target.value; save() }});
+  var own=el("input",{type:"text",value:d.owner,placeholder:"אחראי/ת",oninput:function(e){ d.owner=e.target.value; save() }});
+  var due=el("input",{type:"date",value:d.due,oninput:function(e){ d.due=e.target.value; save(); render() }});
+  return el("div",{class:"defect"+(d.status==="done"?" done":"")},[
+    el("span",{class:"stripe "+u.k}),
+    el("div",{class:"stack",style:"gap:9px"},[
+      txt,
+      el("div",{class:"grid3"},[
+        el("div",{class:"field"},[el("label",{text:"אחראי/ת"}),own]),
+        el("div",{class:"field"},[el("label",{text:"תאריך יעד"}),due]),
+        el("div",{class:"field"},[el("label",{text:"מקור"}),el("p",{class:"hint",text:d.src+" · "+nurseryName(d.nid)})])
+      ])
+    ]),
+    el("div",{class:"act"},[
+      el("span",{class:"pill "+(u.k||"mute"),text:u.label}),
+      el("button",{class:"btn sec sm",type:"button",text:d.status==="done"?"פתח":"סגור",onclick:function(){ d.status=d.status==="done"?"open":"done"; save(); render() }}),
+      el("button",{class:"btn sec sm",type:"button","aria-label":"מחיקה",text:"×",onclick:function(){ if(confirm("למחוק את הליקוי?")){ S.defects=S.defects.filter(function(x){return x!==d}); save(); render() } }})
+    ])
+  ]);
+}
+function defectsText(list){
+  var L=["מעקב ליקויים — "+(S.org||""),""];
+  list.forEach(function(d,i){
+    L.push((i+1)+". "+d.txt);
+    L.push("   משפחתון: "+nurseryName(d.nid)+"  |  מקור: "+d.src);
+    L.push("   אחראי/ת: "+(d.owner||"—")+"  |  תאריך יעד: "+(il(d.due)||"לא נקבע")+"  |  סטטוס: "+(d.status==="done"?"טופל":"פתוח"));
+    if(d.note) L.push("   הערה: "+d.note);
+    L.push("");
+  });
+  return L.join("\n");
+}
+
+/* ---- inspection reply ---- */
+function viewReply(){
+  var I=S.inspection;
+  function bind(k,type){ return el("input",{type:type||"text",value:I[k]||"",oninput:function(e){ I[k]=e.target.value; save() }}) }
+  var outBox=el("pre",{class:"out",text:replyText()});
+
+  var byN={};
+  S.defects.filter(function(d){ return d.src.indexOf("דוח פיקוח")===0 }).forEach(function(d){
+    (byN[d.nid]=byN[d.nid]||[]).push(d);
+  });
+  var tbl=el("table",{},[el("thead",{},[el("tr",{},[
+    el("th",{text:"הממצא"}),el("th",{text:"שיוך"}),el("th",{text:"מה בוצע"}),el("th",{text:"סטטוס"})])])]);
+  var tb=el("tbody",{});
+  S.defects.filter(function(d){ return d.src.indexOf("דוח פיקוח")===0 }).forEach(function(d){
+    var note=el("input",{type:"text",value:d.note,placeholder:"הפעולה שבוצעה בפועל",oninput:function(e){
+      d.note=e.target.value; save(); outBox.textContent=replyText();
+    }});
+    tb.appendChild(el("tr",{},[
+      el("td",{text:d.txt}),
+      el("td",{text:nurseryName(d.nid)}),
+      el("td",{},[note]),
+      el("td",{},[el("span",{class:"pill "+(d.status==="done"?"ok":"warn"),text:d.status==="done"?"טופל":"בטיפול"})])
+    ]));
+  });
+  tbl.appendChild(tb);
+
+  var late = I.due && dayDiff(I.due)<0;
+  var lateBanner = late? el("div",{class:"banner"},[
+    el("span",{html:"<strong>תאריך היעד לדיווח חלף לפני "+Math.abs(dayDiff(I.due))+" ימים.</strong> המכתב שייווצר כולל פסקת התייחסות לאיחור — אין לשלוח תגובה מאוחרת בלי להתייחס אליו."})
+  ]) : null;
+
+  return el("div",{},[
+    lateBanner,
+    panel("פרטי דוח הפיקוח",null,[
+      el("div",{class:"grid3"},[
+        field("מספר הבקשה",bind("num")),
+        field("תאריך הביקור",bind("date","date")),
+        field("תאריך משלוח הדוח",bind("sent","date")),
+        field("תאריך היעד לדיווח",bind("due","date")),
+        field("שם המפקחת",bind("inspector")),
+        field("דוא\"ל המפקחת",bind("email"))
+      ]),
+      el("p",{class:"section-title",text:"פרטי החותם/ת מטעם הארגון"}),
+      el("div",{class:"grid3"},[
+        field("שם מלא",bind("signer")),
+        field("תפקיד",bind("role")),
+        field("טלפון",bind("phone")),
+        field("דוא\"ל",bind("signerEmail"))
+      ])
+    ]),
+    panel("ממצאי הדוח והטיפול בהם","הממצאים נמשכים מלוח הליקויים. מלאי כאן מה בוצע בפועל — הטקסט נכנס ישירות למכתב.",[
+      el("div",{class:"tablewrap"},[tbl])
+    ]),
+    panel("מכתב התגובה","נבנה אוטומטית מהשדות שמעל. העתיקי אותו ל-Word או למייל, השלימי מה שחסר ושלחי.",[
+      outBox,
+      el("div",{class:"actions"},[
+        el("button",{class:"btn",type:"button",text:"העתקת המכתב",onclick:function(){ copyText(replyText()) }}),
+        el("button",{class:"btn sec",type:"button",text:"רענון",onclick:function(){ outBox.textContent=replyText() }}),
+        el("button",{class:"btn sec",type:"button",text:"הדפסה",onclick:function(){ window.print() }})
+      ])
+    ])
+  ]);
+}
+function replyText(){
+  var I=S.inspection, L=[];
+  L.push("אל: "+(I.inspector||"—")+", מפקחת משפחתונים, מחוז "+(I.district||"—")+", משרד העבודה");
+  if(I.email) L.push("דוא\"ל: "+I.email);
+  L.push("מאת: "+(I.signer||"⟨שם החותם/ת⟩")+", "+(I.role||"⟨תפקיד⟩")+" — "+(S.org||""));
+  L.push("תאריך: "+il(todayISO()));
+  L.push("");
+  L.push("הנדון: תגובת הארגון לממצאי דוח פיקוח מס' "+(I.num||"—")+" מיום "+(il(I.date)||"—"));
+  L.push("");
+  L.push("הדוח שבנדון התקבל ונלמד על ידינו במלואו. להלן פירוט הטיפול בכל אחד מהממצאים,");
+  L.push("לרבות היישום הרוחבי על כלל המשפחתונים שבאחריות הרכזת, כנדרש בדוח.");
+  L.push("");
+  if(I.due && dayDiff(I.due)<0){
+    L.push("נבקש להתנצל על העיכוב במשלוח התגובה, שנבע מ⟨סיבה⟩. הטיפול בממצאים עצמם החל");
+    L.push("מיד עם קבלת הדוח, כמפורט להלן.");
+    L.push("");
+  }
+  var groups=[{nid:"",title:"א. ממצאים ברמת הארגון והרכזת"}];
+  S.nurseries.forEach(function(n,i){ groups.push({nid:n.id,title:String.fromCharCode(1489+i)+". משפחתון "+n.name+(n.symbol?" (סמל מסגרת "+n.symbol+")":"")}) });
+  groups.forEach(function(g){
+    var ds=S.defects.filter(function(d){ return d.nid===g.nid && d.src.indexOf("דוח פיקוח")===0 });
+    if(!ds.length) return;
+    L.push(g.title);
+    ds.forEach(function(d,i){
+      L.push("  "+(i+1)+". הממצא: "+d.txt);
+      L.push("     הפעולה שבוצעה: "+(d.note||"⟨להשלים⟩"));
+      L.push("     סטטוס: "+(d.status==="done"?"טופל":"בטיפול")+(d.due?"  |  תאריך יעד: "+il(d.due):""));
+    });
+    L.push("");
+  });
+  var clean=S.nurseries.filter(function(n){ return !S.defects.some(function(d){ return d.nid===n.id && d.src.indexOf("דוח פיקוח")===0 }) });
+  if(clean.length){
+    L.push("משפחתונים שבהם לא נרשמו ליקויים: "+clean.map(function(n){return n.name}).join(", ")+".");
+    L.push("ההתרשמות החיובית הועברה למטפלות כמשוב.");
+    L.push("");
+  }
+  L.push("יישום רוחבי על כלל המשפחתונים שבאחריות הרכזת");
+  L.push("בהתאם לדרישת הדוח להחיל את הטיפול בממצאים על כלל המשפחתונים, בוצע:");
+  L.push("  1. סבב בדיקת תיקים בכלל המשפחתונים — יומני נוכחות, אישורים רפואיים,");
+  L.push("     אישורי בטיחות, ביטוח צד ג' ואישורי משטרה. ⟨להשלים תאריך והיקף⟩");
+  L.push("  2. נקבע לוח ביקורי רכזת של פעמיים בחודש לכל משפחתון, עם תיעוד חתום בתיק המטפלת.");
+  L.push("  3. הנהלים בנושא קשר עין רציף והלנת תינוקות בלולים הובהרו לכלל המטפלות. ⟨תאריך⟩");
+  L.push("  4. ניקיון, אוורור והיגיינה נוספו כסעיף קבוע בטופס ביקור הרכזת.");
+  L.push("");
+  var open=S.defects.filter(function(d){ return d.src.indexOf("דוח פיקוח")===0 && d.status==="open" });
+  L.push("סיכום");
+  if(!open.length) L.push("כלל הליקויים שנרשמו בדוח תוקנו במלואם.");
+  else{
+    L.push("נכון למועד זה נותרו "+open.length+" ממצאים בטיפול:");
+    open.forEach(function(d){ L.push("  · "+d.txt+" — יעד לסגירה: "+(il(d.due)||"⟨להשלים⟩")) });
+  }
+  L.push("");
+  L.push("נשמח לעמוד לרשותך לכל הבהרה, ומזמינים אותך לביקור חוזר לאימות תיקון הליקויים.");
+  L.push("");
+  L.push("בכבוד רב,");
+  L.push((I.signer||"⟨שם מלא⟩"));
+  L.push((I.role||"⟨תפקיד⟩"));
+  L.push(S.org||"");
+  if(I.phone||I.signerEmail) L.push([I.phone,I.signerEmail].filter(Boolean).join(" · "));
+  return L.join("\n");
+}
+
+/* ---- closure request ---- */
+var cf=null;
+function blankClosure(){
+  return {nid:"",kind:"הפסקת פעילות זמנית",reason:"",from:todayISO(),fromTime:"",kids:"",
+    s1:false,s2:false,s3:false,s4:false,s5:false, approver:"",approvedOn:"",back:"",backOk:false};
+}
+function viewClosure(){
+  if(!cf) cf=blankClosure();
+  var nSel=nurserySelect(cf.nid,false); nSel.addEventListener("change",function(e){ cf.nid=e.target.value });
+  var kSel=el("select",{onchange:function(e){ cf.kind=e.target.value }});
+  ["הפסקת פעילות זמנית","סגירה ליום בודד","סגירה ממושכת","סגירת המשפחתון לצמיתות"].forEach(function(k){
+    var o=el("option",{value:k,text:k}); if(k===cf.kind) o.selected=true; kSel.appendChild(o);
+  });
+  var reason=el("textarea",{placeholder:"מה הסיבה להפסקת הפעילות — עובדתית וקצרה.",oninput:function(e){ cf.reason=e.target.value }});
+  reason.value=cf.reason;
+
+  var STEPS=[
+    ["s1","דיווח טלפוני מיידי לרכזת","עוד באותו יום, לפני שההורים מקבלים הודעה."],
+    ["s2","עדכון ההורים בתיאום עם הרכזת","כדי שהמסר להורים יהיה אחיד."],
+    ["s3","אישור בכתב מהגורם הממונה","מייל או הודעה מתועדת — להפסקה ולמשך שלה."],
+    ["s4","פתיחת דוח אירוע חריג","כשההפסקה נובעת מאירוע — ותיעודו בתיק המשפחתון."],
+    ["s5","אישור חזרה לפעילות","גם החזרה מחייבת אישור, לא רק ההפסקה."]
+  ];
+  var steps=el("ol",{class:"steps"});
+  STEPS.forEach(function(s){
+    var cb=el("input",{type:"checkbox",onchange:function(e){ cf[s[0]]=e.target.checked; refresh() }});
+    cb.checked=cf[s[0]];
+    steps.appendChild(el("li",{},[
+      cb,
+      el("label",{class:"chk"},[ el("span",{},[
+        el("span",{class:"ttl",text:s[1]}), el("br"), el("span",{class:"d",text:s[2]})
+      ]) ])
+    ]));
+    cb.id="step-"+s[0];
+    steps.lastChild.querySelector("label").setAttribute("for",cb.id);
+  });
+
+  var status=el("div",{});
+  function refresh(){
+    var done=STEPS.filter(function(s){ return cf[s[0]] }).length;
+    status.innerHTML="";
+    status.appendChild(el("span",{class:"pill "+(done===STEPS.length?"ok":(done?"warn":"crit")),
+      text:done+" מתוך "+STEPS.length+" שלבי הנוהל הושלמו"}));
+  }
+  refresh();
+
+  function submit(){
+    if(!cf.nid){ toast("יש לבחור משפחתון"); return }
+    if(!cf.reason.trim()){ toast("יש למלא סיבה"); return }
+    S.closures.push(JSON.parse(JSON.stringify(cf)));
+    if(!cf.s3){
+      S.defects.push({id:uid(),nid:cf.nid,txt:"קבלת אישור בכתב מגורם ממונה להפסקת הפעילות",
+        owner:S.coordinator||"",due:cf.from,status:"open",src:"בקשת סגירה",note:""});
+    }
+    save(); toast("הבקשה תועדה"); cf=null; render();
+  }
+
+  var prev=el("div",{});
+  if(!S.closures.length) prev.appendChild(el("p",{class:"empty",text:"לא תועדו בקשות סגירה."}));
+  else S.closures.slice().reverse().forEach(function(c){
+    prev.appendChild(el("div",{class:"row"},[
+      el("div",{class:"name",text:nurseryName(c.nid)}),
+      el("span",{class:"pill mute",text:c.kind}),
+      el("span",{class:"pill "+(c.s3?"ok":"crit"),text:c.s3?"אושר":"ללא אישור ממונה"}),
+      el("div",{class:"meta",text:"מתאריך "+(il(c.from)||"—")+(c.reason?" · "+c.reason.slice(0,90):"")})
+    ]));
+  });
+
+  return el("div",{},[
+    el("div",{class:"banner"},[el("span",{html:"<strong>הפסקת פעילות בשל סכנה בטיחותית היא שיקול נכון.</strong> מה שמחייב אישור הוא התהליך סביבה — דיווח, אישור ממונה ותיעוד. מטפלת אינה רשאית להחליט על הפסקת פעילות על דעת עצמה."})]),
+    panel("בקשת הפסקת פעילות משפחתון",null,[
+      el("div",{class:"grid3"},[
+        field("משפחתון",nSel),
+        field("סוג הבקשה",kSel),
+        field("מספר ילדים מושפעים",el("input",{type:"number",min:"0",value:cf.kids,oninput:function(e){ cf.kids=e.target.value }}))
+      ]),
+      field("הסיבה להפסקת הפעילות",reason),
+      el("div",{class:"grid3"},[
+        field("החל מתאריך",el("input",{type:"date",value:cf.from,oninput:function(e){ cf.from=e.target.value }})),
+        field("שעה",el("input",{type:"time",value:cf.fromTime,oninput:function(e){ cf.fromTime=e.target.value }})),
+        field("צפי חזרה לפעילות",el("input",{type:"date",value:cf.back,oninput:function(e){ cf.back=e.target.value }}))
+      ])
+    ]),
+    panel("שלבי הנוהל","סדר הפעולות מחייב. סמני כל שלב שהושלם — שלב שלא סומן נפתח כליקוי במעקב.",[
+      steps, status,
+      el("div",{class:"grid2"},[
+        field("הגורם הממונה המאשר",el("input",{type:"text",value:cf.approver,placeholder:"שם ותפקיד",oninput:function(e){ cf.approver=e.target.value }})),
+        field("תאריך האישור",el("input",{type:"date",value:cf.approvedOn,oninput:function(e){ cf.approvedOn=e.target.value }}))
+      ]),
+      el("div",{class:"actions"},[
+        el("button",{class:"btn",type:"button",text:"תיעוד הבקשה",onclick:submit}),
+        el("button",{class:"btn sec",type:"button",text:"העתקה כטקסט",onclick:function(){ copyText(closureText(cf)) }})
+      ])
+    ]),
+    panel("בקשות שתועדו",null,[prev])
+  ]);
+}
+function closureText(c){
+  var L=["בקשת הפסקת פעילות משפחתון",""];
+  L.push("משפחתון: "+nurseryName(c.nid));
+  L.push("סוג הבקשה: "+c.kind);
+  L.push("החל מתאריך: "+(il(c.from)||"—")+(c.fromTime?" בשעה "+c.fromTime:""));
+  if(c.back) L.push("צפי חזרה לפעילות: "+il(c.back));
+  if(c.kids) L.push("מספר ילדים מושפעים: "+c.kids);
+  L.push("");
+  L.push("הסיבה:");
+  L.push(c.reason||"—");
+  L.push("");
+  L.push("שלבי הנוהל:");
+  L.push("  ["+(c.s1?"V":" ")+"] דיווח טלפוני מיידי לרכזת");
+  L.push("  ["+(c.s2?"V":" ")+"] עדכון ההורים בתיאום עם הרכזת");
+  L.push("  ["+(c.s3?"V":" ")+"] אישור בכתב מהגורם הממונה");
+  L.push("  ["+(c.s4?"V":" ")+"] פתיחת דוח אירוע חריג");
+  L.push("  ["+(c.s5?"V":" ")+"] אישור חזרה לפעילות");
+  L.push("");
+  L.push("גורם ממונה מאשר: "+(c.approver||"⟨להשלים⟩")+(c.approvedOn?"  |  תאריך: "+il(c.approvedOn):""));
+  return L.join("\n");
+}
+
+/* ============ render ============ */
+function render(){
+  document.getElementById("orgLine").textContent = S.org + " · רכזת: " + S.coordinator;
+  var tabs=document.getElementById("tabs"); tabs.innerHTML="";
+  VIEWS.forEach(function(v){
+    var badge = v.id==="defects" ? openDefects().length : 0;
+    tabs.appendChild(el("button",{type:"button","aria-current":String(v.id===cur),
+      text: v.label + (badge? " ("+badge+")" : ""),
+      onclick:function(){ cur=v.id; render(); window.scrollTo({top:0,behavior:"smooth"}) }}));
+  });
+  var view=document.getElementById("view"); view.innerHTML="";
+  view.appendChild(
+    cur==="board"? viewBoard() :
+    cur==="visit"? viewVisit() :
+    cur==="defects"? viewDefects() :
+    cur==="reply"? viewReply() : viewClosure()
+  );
+  document.getElementById("cnt").textContent =
+    S.visits.length+" ביקורים · "+S.defects.length+" ליקויים · "+S.closures.length+" בקשות סגירה";
+}
+
+/* ============ boot ============ */
+S=load(); if(!S){ S=seed(); save(); }
+["nurseries","visits","defects","closures"].forEach(function(k){ if(!Array.isArray(S[k])) S[k]=[] });
+if(!S.inspection) S.inspection=seed().inspection;
+
+document.getElementById("printBtn").addEventListener("click",function(){ window.print() });
+document.getElementById("themeBtn").addEventListener("click",function(){
+  var r=document.documentElement, c=r.getAttribute("data-theme");
+  var next = c==="dark" ? "light" : (c==="light" ? null : "dark");
+  if(next) r.setAttribute("data-theme",next); else r.removeAttribute("data-theme");
+  toast(next==="dark"?"מצב כהה":(next==="light"?"מצב בהיר":"לפי הגדרות המכשיר"));
+});
+
+render();
+})();
+</script>
+
+<script>
+/* ===== תוספות לגרסה המקומית: הורדת קבצים אמיתית ===== */
+(function(){
+"use strict";
+var KEY="tik-mishpachton-v1";
+function stamp(){ var d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0") }
+function download(name, text, mime){
+  var b=new Blob(["﻿"+text],{type:(mime||"text/plain")+";charset=utf-8"});
+  var u=URL.createObjectURL(b), a=document.createElement("a");
+  a.href=u; a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(function(){ a.remove(); URL.revokeObjectURL(u) },0);
+}
+function say(m){
+  var t=document.getElementById("toast"); if(t) t.remove();
+  t=document.createElement("div"); t.id="toast"; t.textContent=m; t.setAttribute("role","status");
+  document.body.appendChild(t); setTimeout(function(){ t.remove() },2600);
+}
+
+var hdr=document.querySelector(".hdr"), print=document.getElementById("printBtn");
+
+var bBackup=document.createElement("button");
+bBackup.className="ghost"; bBackup.type="button"; bBackup.textContent="הורדת גיבוי";
+bBackup.addEventListener("click",function(){
+  var raw=""; try{ raw=localStorage.getItem(KEY)||"" }catch(e){}
+  if(!raw){ say("אין נתונים לגיבוי"); return }
+  download("תיק-משפחתון-גיבוי-"+stamp()+".json", raw, "application/json");
+  say("הגיבוי ירד לתיקיית ההורדות");
+});
+
+var inp=document.createElement("input");
+inp.type="file"; inp.accept=".json,application/json"; inp.hidden=true;
+inp.addEventListener("change",function(){
+  var f=inp.files&&inp.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var o=JSON.parse(String(r.result).replace(/^﻿/,""));
+      if(!o || !Array.isArray(o.nurseries)) throw new Error("bad");
+      if(!confirm("שחזור מגיבוי ידרוס את הנתונים הקיימים במכשיר. להמשיך?")) return;
+      localStorage.setItem(KEY, JSON.stringify(o));
+      location.reload();
+    }catch(e){ say("הקובץ אינו גיבוי תקין של תיק משפחתון") }
+  };
+  r.readAsText(f);
+  inp.value="";
+});
+
+var bRestore=document.createElement("button");
+bRestore.className="ghost"; bRestore.type="button"; bRestore.textContent="שחזור מגיבוי";
+bRestore.addEventListener("click",function(){ inp.click() });
+
+hdr.insertBefore(bBackup, print);
+hdr.insertBefore(bRestore, print);
+document.body.appendChild(inp);
+
+/* כל כפתור "העתקה" מקבל גם הורדה כקובץ טקסט */
+var LBL={"העתקה כטקסט":"הורדת הטופס","העתקת המכתב":"הורדת המכתב","העתקת הרשימה כטקסט":"הורדת הרשימה"};
+function attach(){
+  document.querySelectorAll("#view button").forEach(function(b){
+    if(b.dataset.dl) return;
+    var name=LBL[b.textContent.trim()];
+    if(!name) return;
+    b.dataset.dl="1";
+    var d=document.createElement("button");
+    d.className=b.className; d.type="button"; d.textContent=name;
+    d.addEventListener("click",function(){
+      var got="", cb=navigator.clipboard, orig=cb && cb.writeText, stubbed=false;
+      if(!cb){
+        try{ Object.defineProperty(navigator,"clipboard",{value:{},configurable:true}); cb=navigator.clipboard; stubbed=true }catch(e){}
+      }
+      if(cb){ cb.writeText=function(t){ got=t; return Promise.resolve() } }
+      b.click();
+      if(cb){ if(orig) cb.writeText=orig; else try{ delete cb.writeText }catch(e){} }
+      if(stubbed){ try{ delete navigator.clipboard }catch(e){} }
+      if(!got){ say("לא נמצא טקסט לייצוא"); return }
+      download(name.replace("הורדת ","")+" "+stamp()+".txt", got);
+      say("הקובץ ירד לתיקיית ההורדות");
+    });
+    b.parentNode.insertBefore(d, b.nextSibling);
+  });
+}
+attach();
+new MutationObserver(attach).observe(document.getElementById("view"),{childList:true,subtree:true});
+})();
+</script>
