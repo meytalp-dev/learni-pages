@@ -1,718 +1,514 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<meta name="description" content="דף מלווה למפגש Copilot לרכזות משפחתונים — ארבע משימות מעשיות, גבולות, בדיקות והתחייבות אישית.">
+<meta name="description" content="דף מלווה לרכזות משפחתונים — הנוסחה, סוכן דוח הביקור, מאגר פרומפטים והגבולות. הכול בהעתקה בלחיצה.">
 <title>דף מלווה · Copilot לרכזות משפחתונים</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;800;900&family=Assistant:wght@400;600;700;800&family=Karantina:wght@300;400;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#101d1c; --ink-2:#465654; --ink-3:#788784;
-  --ground:#ecefed; --surface:#ffffff; --surface-2:#f6f9f7;
-  --line:#d5ddda; --line-2:#bcc9c5;
-  --accent:#0d5750; --accent-ink:#ffffff; --accent-wash:#dcebe8;
-  --gold:#8a6410; --gold-wash:#f7efdd; --gold-line:#e0c98d;
-  --ok:#2c6e35; --ok-wash:#e3efe4;
-  --crit:#9d2b20; --crit-wash:#f8e5e2;
-  --shadow:0 1px 2px rgba(16,29,28,.05), 0 10px 28px -18px rgba(16,29,28,.34);
-  --display:"Frank Ruhl Libre","Times New Roman",serif;
-  --body:"Assistant","Segoe UI",system-ui,sans-serif;
-  color-scheme:light;
+:root {
+  --bg: #FBF6EC; --surface: #FFFDF8; --surface-2: #F7F1E4;
+  --ink: #20293A; --ink-soft: #374152; --muted: #6D7686;
+  --line-soft: rgba(32,41,58,.16); --line-softer: rgba(32,41,58,.08);
+  --teal: #33807E;     --teal-tint: #DCEBE9;
+  --sky: #4E92C2;      --sky-tint: #DEEBF5;
+  --sage: #5F8F5C;     --sage-tint: #DFEADB;
+  --lavender: #7E6DAE; --lavender-tint: #E7E1F2;
+  --peach: #C77A47;    --peach-tint: #F7E3D3;
+  --mustard: #A98A1F;  --mustard-tint: #F2E7C2;
+  --risk: #B05548;     --risk-tint: #F4DDD8;
+  --ok: #3E7D53;       --ok-tint: #DFEBDF;
+  --font-display: "Frank Ruhl Libre", Georgia, serif;
+  --font-body: "Assistant", "Segoe UI", system-ui, sans-serif;
+  --font-num: "Karantina", "Assistant", cursive;
+  --font-latin: "Fraunces", "Frank Ruhl Libre", serif;
+  --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(32,41,58,.05), 0 4px 14px rgba(32,41,58,.06);
+  --shadow-2: 0 2px 8px rgba(32,41,58,.07), 0 16px 38px rgba(32,41,58,.11);
+  --ease-out: cubic-bezier(.22,.8,.3,1);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --ink:#e6ecea; --ink-2:#a0afab; --ink-3:#72827e;
-    --ground:#0d1615; --surface:#17211f; --surface-2:#1d2927;
-    --line:#2b3735; --line-2:#3a4846;
-    --accent:#54b5a6; --accent-ink:#05221f; --accent-wash:#182e2b;
-    --gold:#d3a746; --gold-wash:#2c2615; --gold-line:#4a3f1d;
-    --ok:#6cbc70; --ok-wash:#16281a;
-    --crit:#e07e6d; --crit-wash:#321c19;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.7);
-    color-scheme:dark;
-  }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; direction: rtl; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
-:root[data-theme="dark"]{
-  --ink:#e6ecea; --ink-2:#a0afab; --ink-3:#72827e;
-  --ground:#0d1615; --surface:#17211f; --surface-2:#1d2927;
-  --line:#2b3735; --line-2:#3a4846;
-  --accent:#54b5a6; --accent-ink:#05221f; --accent-wash:#182e2b;
-  --gold:#d3a746; --gold-wash:#2c2615; --gold-line:#4a3f1d;
-  --ok:#6cbc70; --ok-wash:#16281a;
-  --crit:#e07e6d; --crit-wash:#321c19;
-  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.7);
-  color-scheme:dark;
+h1, h2, h3 { font-family: var(--font-display); font-weight: 900; line-height: 1.15; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+:focus-visible { outline: 3px solid var(--c, var(--teal)); outline-offset: 3px; border-radius: 6px; }
+.latin { font-family: var(--font-latin); font-weight: 600; }
+
+[data-color="teal"]     { --c: var(--teal);     --c-tint: var(--teal-tint); }
+[data-color="sky"]      { --c: var(--sky);      --c-tint: var(--sky-tint); }
+[data-color="sage"]     { --c: var(--sage);     --c-tint: var(--sage-tint); }
+[data-color="lavender"] { --c: var(--lavender); --c-tint: var(--lavender-tint); }
+[data-color="peach"]    { --c: var(--peach);    --c-tint: var(--peach-tint); }
+[data-color="mustard"]  { --c: var(--mustard);  --c-tint: var(--mustard-tint); }
+[data-color="risk"]     { --c: var(--risk);     --c-tint: var(--risk-tint); }
+
+/* ---------- רקע נייר ---------- */
+.paper-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.paper-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 50% 50%, rgba(32,41,58,.5) .5px, transparent .6px);
+  background-size: 3px 3px; opacity: .05;
 }
-*{box-sizing:border-box}
-body{direction:rtl; margin:0; background:var(--ground); color:var(--ink);
-  font-family:var(--body); font-size:16px; line-height:1.65; padding-bottom:60px}
-h1,h2,h3{font-family:var(--display); font-weight:700; margin:0; text-wrap:balance; line-height:1.25}
-p{margin:0}
-button,input,textarea{font:inherit; color:inherit}
-:focus-visible{outline:2.5px solid var(--accent); outline-offset:2px; border-radius:4px}
-@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+.blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .45; }
+.blob.b1 { width: 44vw; height: 44vw; background: var(--teal-tint); top: -16vw; right: -12vw; }
+.blob.b2 { width: 38vw; height: 38vw; background: var(--peach-tint); top: 55vh; left: -14vw; }
 
-.topbar{height:6px; background:linear-gradient(90deg,var(--accent),var(--gold))}
-.wrap{max-width:780px; margin:0 auto; padding:0 16px}
+.wrap { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 36px) 80px; }
 
-/* ---------- header ---------- */
-.hdr{padding:32px 0 4px}
-.eyebrow{font-size:.74rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); margin-bottom:9px}
-.hdr h1{font-size:2.15rem; letter-spacing:-.02em}
-.hdr h1 span{color:var(--accent)}
-.hdr .lede{color:var(--ink-2); margin-top:11px; max-width:60ch}
-.meet{display:flex; flex-wrap:wrap; gap:7px; margin-top:15px}
-.chip{font-size:.8rem; background:var(--surface); border:1px solid var(--line);
-  border-radius:99px; padding:4px 12px; color:var(--ink-2)}
-.chip b{color:var(--ink)}
-.tools{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
-.ghost{background:transparent; border:1px solid var(--line-2); color:var(--ink-2);
-  border-radius:99px; padding:6px 14px; font-size:.83rem; cursor:pointer; text-decoration:none}
-.ghost:hover{border-color:var(--accent); color:var(--accent)}
+/* ---------- כותרת ---------- */
+.hero { text-align: center; padding: clamp(36px, 8vh, 74px) 0 clamp(20px, 4vh, 36px); }
+.hero .eyebrow {
+  font-family: var(--font-num); font-weight: 400; letter-spacing: .1em; color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.3rem); display: flex; align-items: center; justify-content: center; gap: 14px;
+}
+.hero .eyebrow::before, .hero .eyebrow::after { content: ""; flex: 0 0 40px; height: 1px; background: var(--line-soft); }
+.hero h1 { font-size: clamp(2.3rem, 8vw, 4.2rem); margin-top: 12px; }
+.hero h1 .accent { color: var(--teal); }
+.hero .sub { margin-top: 14px; color: var(--ink-soft); font-size: clamp(1rem, 2.2vw, 1.25rem); }
+.hero .route { display: block; width: min(46%, 260px); margin: 18px auto 0; color: var(--teal); }
+.ring { transform-box: fill-box; transform-origin: center; animation: ringPulse 2.6s ease-out infinite; }
+@keyframes ringPulse { 0% { transform: scale(.55); opacity: .75; } 75%,100% { transform: scale(1.7); opacity: 0; } }
 
-/* ---------- sticky nav ---------- */
-.nav{position:sticky; top:0; z-index:20; margin-top:22px; padding:9px 0;
-  background:color-mix(in srgb, var(--ground) 88%, transparent);
-  backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
-.nav .inner{max-width:780px; margin:0 auto; padding:0 16px; display:flex; gap:6px; overflow-x:auto; scrollbar-width:thin}
-.nav a{display:flex; align-items:center; gap:7px; text-decoration:none; white-space:nowrap;
-  border:1px solid var(--line); background:var(--surface); border-radius:99px;
-  padding:4px 12px 4px 5px; font-size:.83rem; font-weight:600; color:var(--ink-2)}
-.nav a i{font-style:normal; font-family:var(--display); font-weight:900; font-size:.72rem;
-  background:var(--line); color:var(--ink-2); border-radius:50%; width:20px; height:20px;
-  display:grid; place-items:center; flex:none}
-.nav a.now{border-color:var(--accent); background:var(--accent-wash); color:var(--accent)}
-.nav a.now i{background:var(--accent); color:var(--accent-ink)}
+/* ---------- מקטע ---------- */
+.sec { margin-top: clamp(32px, 6vh, 56px); }
+.sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: clamp(14px, 2.4vh, 22px); }
+.sec-head .n {
+  font-family: var(--font-num); font-weight: 700; font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: .8; color: var(--c); flex: 0 0 auto;
+}
+.sec-head h2 { font-size: clamp(1.35rem, 3.4vw, 2.1rem); }
+.sec-head .note { color: var(--muted); font-size: clamp(.85rem, 1.4vw, .98rem); margin-top: 4px; }
 
-/* ---------- sections ---------- */
-section{background:var(--surface); border:1px solid var(--line); border-radius:14px;
-  padding:20px 20px 22px; margin-top:20px; box-shadow:var(--shadow); scroll-margin-top:62px}
-.sec-head{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px}
-.sec-head .num{font-family:var(--display); font-weight:900; font-size:.9rem; color:var(--accent-ink);
-  background:var(--accent); border-radius:50%; width:32px; height:32px; flex:none; display:grid; place-items:center}
-.sec-head .t{flex:1 1 200px; min-width:0}
-.sec-head h2{font-size:1.3rem}
-.sec-head h2 + small{display:block; color:var(--ink-3); font-size:.87rem; margin-top:2px; font-family:var(--body)}
-.time{font-size:.78rem; font-weight:700; background:var(--gold-wash); color:var(--gold);
-  border:1px solid var(--gold-line); border-radius:99px; padding:3px 11px; white-space:nowrap}
+/* ---------- הנוסחה ---------- */
+.formula-card {
+  background: var(--surface); border: 2px solid var(--mustard); border-radius: var(--r-lg);
+  padding: clamp(20px, 3.4vw, 34px); text-align: center; box-shadow: var(--shadow-2);
+}
+.formula { display: flex; align-items: center; justify-content: center; gap: clamp(5px, 1vw, 12px); flex-wrap: wrap; }
+.f-chip {
+  border: 2px solid var(--fc); color: var(--fc); border-radius: var(--r-pill);
+  padding: 7px clamp(12px, 2vw, 22px); font-weight: 800; font-size: clamp(.95rem, 2vw, 1.35rem); white-space: nowrap;
+  background: var(--surface);
+}
+.f-op { font-family: var(--font-body); font-size: clamp(1.2rem, 2.4vw, 1.8rem); color: var(--muted); font-weight: 700; }
+.f-res { background: var(--mustard); color: #fff; border-color: var(--mustard); }
+.f-legend { margin-top: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+@media (max-width: 640px) { .f-legend { grid-template-columns: repeat(2, 1fr); } }
+.f-legend div { font-size: clamp(.82rem, 1.5vw, .95rem); color: var(--muted); }
+.f-legend b { display: block; color: var(--ink); font-size: 1.05em; }
 
-/* ---------- callout boxes ---------- */
-.box{border-radius:10px; padding:14px 16px; margin-top:13px; font-size:.95rem; line-height:1.6}
-.box::before{display:block; font-size:.72rem; font-weight:700; letter-spacing:.1em;
-  text-transform:uppercase; margin-bottom:7px}
-.box.task{background:var(--accent-wash); border:1px solid var(--line); border-right:4px solid var(--accent)}
-.box.task::before{content:"המשימה עכשיו"; color:var(--accent)}
-.box.method{background:var(--gold-wash); border:1px solid var(--gold-line); border-right:4px solid var(--gold)}
-.box.method::before{content:"איך זה עובד"; color:var(--gold)}
-.box.warn{background:var(--crit-wash); border:1px solid var(--line); border-right:4px solid var(--crit)}
-.box.warn::before{content:"שימי לב"; color:var(--crit)}
-.box ol,.box ul{margin:6px 0 0; padding-inline-start:20px}
-.box li{margin-bottom:5px}
-.box b{color:var(--ink)}
+/* ---------- שלבים ---------- */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 700px) { .steps { grid-template-columns: 1fr; } }
+.step {
+  background: var(--surface); border: 1px solid var(--line-softer); border-radius: var(--r-md);
+  padding: 18px 16px; box-shadow: var(--shadow-1); text-align: center; position: relative;
+}
+.step .n2 { font-family: var(--font-num); font-weight: 700; font-size: 2.6rem; line-height: .8; color: var(--c); opacity: .3; position: absolute; top: 8px; inset-inline-end: 14px; }
+.step .ico { font-size: 1.9rem; display: block; }
+.step h3 { font-family: var(--font-body); font-weight: 800; font-size: 1.05rem; margin-top: 6px; }
+.step p { color: var(--muted); font-size: .92rem; margin-top: 4px; line-height: 1.45; }
 
-/* ---------- prompt ---------- */
-.pwrap{margin-top:13px; border:1px solid var(--line); border-radius:10px; overflow:hidden}
-.pwrap > header{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-  background:var(--surface-2); border-bottom:1px solid var(--line); padding:9px 13px}
-.pwrap > header b{font-size:.85rem; flex:1 1 120px}
-.copy{background:var(--accent); color:var(--accent-ink); border:0; border-radius:99px;
-  padding:5px 15px; font-size:.81rem; font-weight:700; cursor:pointer; white-space:nowrap}
-.copy:hover{filter:brightness(1.08)}
-.copy.done{background:var(--ok)}
-pre{margin:0; padding:14px; font-family:var(--body); font-size:.91rem; line-height:1.7;
-  white-space:pre-wrap; word-wrap:break-word; background:var(--surface)}
-pre .hl{background:var(--gold-wash); color:var(--gold); font-weight:700; border-radius:4px; padding:1px 5px}
-pre .fill{background:var(--accent-wash); color:var(--accent); font-weight:700; border-radius:4px; padding:1px 5px}
+/* ---------- כרטיס פרומפט ---------- */
+.prompt {
+  background: var(--surface); border: 1px solid var(--line-softer); border-radius: var(--r-md);
+  box-shadow: var(--shadow-1); overflow: hidden; margin-bottom: 12px;
+  border-inline-start: 5px solid var(--c);
+}
+.prompt-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px 8px; }
+.prompt-head .ico { font-size: 1.2rem; }
+.prompt-head h3 { font-family: var(--font-body); font-weight: 800; font-size: 1.05rem; flex: 1; }
+.copy {
+  background: var(--c-tint); color: var(--c); font-weight: 800; font-size: .82rem;
+  padding: 5px 14px; border-radius: var(--r-pill); white-space: nowrap;
+  transition: background .2s, color .2s, transform .15s var(--ease-out);
+}
+.copy:hover { transform: translateY(-1px); }
+.copy.done { background: var(--ok); color: #fff; }
+.prompt-body {
+  padding: 0 16px 14px; color: var(--ink-soft); font-size: .97rem; line-height: 1.65;
+  white-space: pre-line;
+}
+.prompt.big .prompt-body {
+  background: var(--surface-2); margin: 0 12px 12px; padding: 14px 16px;
+  border-radius: var(--r-sm); font-size: .93rem;
+}
 
-/* ---------- answer fields ---------- */
-.field{margin-top:13px}
-.field > label{display:block; font-size:.88rem; font-weight:600; margin-bottom:5px}
-.field > label small{display:block; font-weight:400; color:var(--ink-3); font-size:.85em; margin-top:1px}
-textarea,input[type=text]{width:100%; border:1px solid var(--line-2); border-radius:8px;
-  padding:9px 11px; background:var(--surface-2); line-height:1.6; resize:vertical}
-textarea{min-height:78px}
-input[type=text]{min-height:40px}
-.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px}
+/* ---------- רשימות ---------- */
+.numlist { display: grid; gap: 8px; }
+.numlist li { display: flex; align-items: baseline; gap: 12px; font-size: 1.02rem; }
+.numlist .n3 { font-family: var(--font-num); font-weight: 700; font-size: 1.6em; line-height: .8; color: var(--c); min-width: 1.1em; }
+.numlist span { color: var(--muted); font-size: .88em; }
 
-/* ---------- timer ---------- */
-.timerbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:13px}
-.timer{font-family:var(--display); font-weight:900; font-size:1.35rem; font-variant-numeric:tabular-nums;
-  background:var(--ink); color:var(--ground); border-radius:8px; padding:3px 14px; letter-spacing:.02em}
-.timer.low{background:var(--crit); color:#fff}
-.tbtn{background:transparent; border:1px solid var(--line-2); color:var(--ink-2);
-  border-radius:99px; padding:5px 14px; font-size:.82rem; cursor:pointer}
-.tbtn:hover{border-color:var(--accent); color:var(--accent)}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-pill);
+  padding: 6px 15px; font-weight: 700; font-size: .95rem; box-shadow: var(--shadow-1);
+}
 
-/* ---------- checklists ---------- */
-.checks{margin-top:6px; display:flex; flex-direction:column; gap:2px}
-.check{display:flex; gap:11px; align-items:flex-start; padding:11px 12px; border-radius:9px; cursor:pointer;
-  border:1px solid transparent}
-.check:hover{background:var(--surface-2)}
-.check input{margin:0; margin-top:4px; width:17px; height:17px; accent-color:var(--accent); flex:none}
-.check b{display:block; font-size:.97rem; font-weight:600}
-.check span{font-size:.88rem; color:var(--ink-2)}
-.check.on{background:var(--ok-wash); border-color:var(--ok)}
-.check.on b{text-decoration:line-through; text-decoration-color:var(--ink-3)}
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2.4vw, 26px); }
+@media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
 
-/* ---------- yes/no table ---------- */
-.gate{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:13px; margin-top:6px}
-.gate > div{border-radius:10px; padding:14px 16px; border:1px solid var(--line)}
-.gate .yes{background:var(--ok-wash); border-right:4px solid var(--ok)}
-.gate .no{background:var(--crit-wash); border-right:4px solid var(--crit)}
-.gate h4{font-family:var(--body); font-size:.76rem; font-weight:700; letter-spacing:.09em;
-  text-transform:uppercase; margin:0 0 8px}
-.gate .yes h4{color:var(--ok)} .gate .no h4{color:var(--crit)}
-.gate ul{margin:0; padding-inline-start:19px; font-size:.93rem; color:var(--ink-2)}
-.gate li{margin-bottom:4px}
-.gate p.k{font-size:.88rem; margin-top:9px; color:var(--ink)}
+/* ---------- תיבות ---------- */
+.box {
+  background: var(--surface); border: 1px solid var(--line-softer); border-radius: var(--r-md);
+  padding: 16px 18px; box-shadow: var(--shadow-1); border-inline-start: 5px solid var(--c);
+}
+.box h3 { font-family: var(--font-body); font-weight: 800; font-size: 1.05rem; }
+.box p, .box li { color: var(--muted); font-size: .95rem; line-height: 1.55; }
+.box li { padding: 3px 0; display: flex; gap: .5em; }
+.box li::before { content: "–"; color: var(--c); font-weight: 800; }
 
-/* ---------- commitment ---------- */
-.pick{display:grid; grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:9px; margin-top:6px}
-.pick button{background:var(--surface-2); border:1.5px solid var(--line-2); border-radius:10px;
-  padding:13px 12px; cursor:pointer; text-align:right; font-size:.94rem; font-weight:600; line-height:1.4}
-.pick button:hover{border-color:var(--accent)}
-.pick button.sel{background:var(--accent); color:var(--accent-ink); border-color:var(--accent)}
+.limits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 700px) { .limits { grid-template-columns: 1fr; } }
+.limit { background: var(--surface); border: 1px solid var(--line-softer); border-inline-start: 5px solid var(--risk); border-radius: var(--r-md); padding: 14px 16px; box-shadow: var(--shadow-1); display: flex; gap: 12px; }
+.limit .ico { font-size: 1.2rem; line-height: 1.4; }
+.limit h3 { font-family: var(--font-body); font-weight: 800; font-size: 1rem; }
+.limit p { color: var(--muted); font-size: .92rem; line-height: 1.45; margin-top: 2px; }
 
-.saveline{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px;
-  padding-top:14px; border-top:1px solid var(--line)}
-.saveline .spacer{flex:1}
-.saveline small{color:var(--ink-3); font-size:.83rem}
-.btn{background:var(--accent); color:var(--accent-ink); border:0; border-radius:99px;
-  padding:9px 22px; font-size:.9rem; font-weight:700; cursor:pointer}
-.btn.done{background:var(--ok)}
-.btn.sec{background:transparent; border:1px solid var(--line-2); color:var(--ink-2); font-weight:600}
-.btn.sec:hover{border-color:var(--accent); color:var(--accent)}
+.checks { display: grid; gap: 10px; }
+.check {
+  background: var(--surface); border: 1px solid var(--line-softer); border-radius: var(--r-md);
+  padding: 13px 16px; box-shadow: var(--shadow-1); display: flex; gap: 12px; align-items: baseline;
+}
+.check .mark { color: var(--ok); font-weight: 800; font-size: 1.1rem; }
+.check b { font-weight: 800; }
+.check span { color: var(--muted); }
 
-footer{max-width:780px; margin:44px auto 0; padding:18px 16px 0; border-top:1px solid var(--line);
-  font-size:.85rem; color:var(--ink-3)}
-footer a{color:var(--accent)}
+/* ---------- סיום ---------- */
+.finale {
+  margin-top: clamp(36px, 7vh, 64px); text-align: center;
+  background: var(--teal-tint); border-radius: var(--r-lg); padding: clamp(24px, 4vw, 40px);
+}
+.finale .line { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.3rem, 3.6vw, 2.1rem); line-height: 1.25; }
+.finale .sub { margin-top: 12px; color: var(--ink-soft); }
+.one-thing {
+  margin-top: 18px; background: var(--surface); border: 2px dashed var(--teal); border-radius: var(--r-md);
+  padding: 16px; text-align: right;
+}
+.one-thing b { display: block; margin-bottom: 8px; }
+.one-thing .rule-line { border-bottom: 1.5px dotted var(--line-soft); height: 30px; }
 
-.toast{position:fixed; bottom:18px; left:50%; transform:translateX(-50%) translateY(20px);
-  background:var(--ink); color:var(--ground); border-radius:99px; padding:9px 20px;
-  font-size:.88rem; opacity:0; pointer-events:none; transition:all .25s ease; z-index:50}
-.toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+.footer { margin-top: 30px; text-align: center; color: var(--muted); font-size: .88rem; }
 
-@media print{
-  body{background:#fff; padding-bottom:0}
-  .nav,.tools,.copy,.timerbar,.btn,.toast,.topbar{display:none}
-  section{break-inside:avoid; box-shadow:none; margin-top:14px}
-  textarea,input[type=text]{background:#fff}
+/* ---------- טוסט ---------- */
+.toast {
+  position: fixed; bottom: 22px; left: 50%; transform: translate(-50%, 20px);
+  background: var(--ink); color: #fff; padding: 10px 22px; border-radius: var(--r-pill);
+  font-weight: 700; font-size: .95rem; opacity: 0; pointer-events: none;
+  transition: opacity .25s, transform .25s var(--ease-out); z-index: 90;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- הדפסה ---------- */
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  .paper-bg, .copy, .toast, .hero .route { display: none !important; }
+  .wrap { max-width: none; padding: 0; }
+  .sec { margin-top: 18pt; break-inside: avoid; }
+  .prompt, .step, .box, .limit, .check, .formula-card { box-shadow: none; break-inside: avoid; }
+  .prompt.big .prompt-body { max-height: none; overflow: visible; }
+  .hero { padding: 0 0 12pt; }
+  .finale { background: none; border: 1.5pt solid #333; }
+  a[href]::after { content: ""; }
 }
 </style>
+</head>
+<body>
 
-<div class="topbar"></div>
+<div class="paper-bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div></div>
 
-<div class="wrap">
-<header class="hdr">
-  <div class="eyebrow">מפגש רכזות משפחתונים</div>
-  <h1>דף מלווה · <span>Copilot</span></h1>
-  <p class="lede">
-    הדף הזה הוא שולחן העבודה שלך במפגש. כל משימה כתובה כאן במלואה, עם הנוסח להעתקה
-    ומקום לרשום מה חזר. <b>הכול נשמר במכשיר שלך</b> — אפשר לסגור, לחזור, ולהמשיך מחר.
-  </p>
-  <div class="meet">
-    <span class="chip">⏱ <b>60 דקות</b></span>
-    <span class="chip">🧭 <b>4 משימות</b></span>
-    <span class="chip">💾 נשמר אצלך בלבד</span>
-  </div>
-  <div class="tools">
-    <button class="ghost" id="theme">מצב תצוגה</button>
-    <button class="ghost" onclick="window.print()">הדפסה</button>
-    <a class="ghost" href="copilot-promptim.html">ספריית הפרומפטים ←</a>
-    <a class="ghost" href="tik-mishpachton.html">תיק משפחתון ←</a>
-  </div>
-</header>
-</div>
-
-<nav class="nav"><div class="inner">
-  <a href="#s0"><i>0</i>לפני שמתחילים</a>
-  <a href="#s1"><i>1</i>הכלל</a>
-  <a href="#s2"><i>2</i>דוח ביקור</a>
-  <a href="#s3"><i>3</i>דוח פיקוח</a>
-  <a href="#s4"><i>4</i>בדיקת טון</a>
-  <a href="#s5"><i>5</i>מעקב ליקויים</a>
-  <a href="#s6"><i>6</i>הגבול</a>
-  <a href="#s7"><i>7</i>לפני שליחה</a>
-  <a href="#s8"><i>8</i>מחר בבוקר</a>
-</div></nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="route-h">
+    <path d="M112 7 C 84 7, 66 7, 10 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="1 7"/>
+    <circle cx="112" cy="7" r="4.6" fill="currentColor"/>
+    <circle class="ring" cx="112" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M16 2.4 L 7 7 L 16 11.6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</defs></svg>
 
 <div class="wrap">
 
-<!-- ===== 0 ===== -->
-<section id="s0">
-  <div class="sec-head">
-    <span class="num">0</span>
-    <div class="t"><h2>לפני שמתחילים</h2><small>שתי דקות, כדי שלא נאבד אותן באמצע</small></div>
-    <span class="time">2 דק'</span>
-  </div>
-  <div class="box task">
-    <ol>
-      <li>פתחי את Copilot במחשב — הכפתור בסרגל, או <b>m365.cloud.microsoft</b></li>
-      <li>פתחי <b>צ'אט חדש</b>. לא נמשיך שיחה ישנה</li>
-      <li>השאירי את הדף הזה פתוח בלשונית נפרדת — נחזור אליו בכל משימה</li>
-    </ol>
-  </div>
-  <div class="grid2">
-    <div class="field"><label>השם שלי</label><input type="text" id="f_name" placeholder="שם מלא"></div>
-    <div class="field"><label>כמה משפחתונים באחריותי</label><input type="text" id="f_count" placeholder="מספר"></div>
-  </div>
-  <div class="field">
-    <label>מה הכי גוזל לי זמן בשבוע<small>נחזור לזה בסוף ונראה אם משהו מכאן נפתר</small></label>
-    <textarea id="f_pain" placeholder="בכנות — מה הדבר שאת דוחה כי הוא לוקח יותר מדי זמן?"></textarea>
-  </div>
-</section>
+  <header class="hero">
+    <p class="eyebrow">דף מלווה · רכזות משפחתונים</p>
+    <h1><span class="latin accent">Copilot</span> — מה שנשאר איתך</h1>
+    <p class="sub">אחרי המפגש אין מה לזכור בעל־פה.<br>כל מה שצריך נמצא כאן, בהעתקה אחת.</p>
+    <svg class="route" viewBox="0 0 122 14" aria-hidden="true"><use href="#route-h"/></svg>
+  </header>
 
-<!-- ===== 1 ===== -->
-<section id="s1">
-  <div class="sec-head">
-    <span class="num">1</span>
-    <div class="t"><h2>הכלל</h2><small>אם תזכרי דבר אחד מהמפגש — שיהיה זה</small></div>
-    <span class="time">3 דק'</span>
-  </div>
-  <div class="box method">
-    <p style="font-family:var(--display); font-size:1.22rem; font-weight:700; line-height:1.4; color:var(--ink)">
-      כל מה ש־Copilot יודע על המשפחתונים שלך — את נתת לו.
-    </p>
-    <p style="margin-top:10px">
-      הוא לא היה בביקור, הוא לא קרא את הדוח, והוא לא מכיר אף מטפלת. ולכן:
-      <b>מביאים לו את הרישום עצמו, לא תיאור שלו.</b>
-    </p>
-    <p style="margin-top:10px">
-      "כתוב דוח ביקור" — הוא ימלא את החורים בעצמו, והתוצאה תישמע מצוין ותהיה שקרית.<br>
-      "הנה מה שרשמתי בביקור, כתוב מזה דוח" — התוצאה היא שלך, מנוסחת.
-    </p>
-  </div>
-  <div class="box warn">
-    הוא גם לא ילך לחפש כלום לבד — לא בתיבת המייל שלך ולא בקבצים של העירייה.
-    מה שתביאי לו, הוא יעבוד עליו מצוין. מה שלא תביאי, פשוט לא קיים מבחינתו.
-  </div>
-</section>
-
-<!-- ===== 2 ===== -->
-<section id="s2">
-  <div class="sec-head">
-    <span class="num">2</span>
-    <div class="t"><h2>משימה 1 · מהרישום שלך לדוח ביקור</h2><small>הדבר שגוזל הכי הרבה זמן, וההחזר הכי מהיר</small></div>
-    <span class="time">7 דק'</span>
-  </div>
-
-  <div class="box task">
-    <ol>
-      <li>העתיקי את הנוסח שלמטה והדביקי בצ'אט</li>
-      <li>מלאי את שם המטפלת, שם המשפחתון והתאריך — <b>הדוח הוא מסמך רשמי, בלעדיהם הוא לא שווה כלום</b></li>
-      <li>הוסיפי חמש־שש שורות מביקור אמיתי שעשית, כמו שרשמת אותן</li>
-      <li>קראי את מה שחזר, וחפשי <b>משפט אחד שאת לא כתבת</b></li>
-    </ol>
-  </div>
-
-  <div class="pwrap">
-    <header><b>הנוסח למשימה 1</b><button class="copy">העתקה</button></header>
-    <pre>אני רכזת משפחתונים. כתוב דוח ביקור מקצועי בעברית מהרישום שלי מהשטח,
-בגוף שלישי, בטון עובדתי ומכבד.
-
-פרטי הביקור:
-משפחתון: <span class="fill">[שם המשפחתון]</span>
-מטפלת: <span class="fill">[שם המטפלת]</span>
-תאריך הביקור: <span class="fill">[תאריך]</span>
-סיבת הביקור: <span class="fill">[ביקור שוטף / מעקב / תלונה]</span>
-
-כללים:
-<span class="hl">- אל תוסיף שום ממצא שלא כתוב אצלי. אם משהו חסר — כתוב "לא נבדק".</span>
-- אל תרכך ואל תחמיר. מה שרשמתי "לא תקין" נשאר לא תקין.
-- כל ליקוי בפסקה נפרדת, בניסוח שמאפשר לקבוע לו אחראי ותאריך יעד.
-- סיים בפסקת סיכום קצרה. אורך: עד 300 מילים.
-
-הרישום שלי מהביקור:
-<span class="fill">[כאן מדביקים את מה שרשמת]</span></pre>
-  </div>
-
-  <div class="timerbar">
-    <span class="timer" data-sec="240">04:00</span>
-    <button class="tbtn" data-t="start">התחלה</button>
-    <button class="tbtn" data-t="reset">איפוס</button>
-  </div>
-
-  <div class="field">
-    <label>המשפט שהוא כתב ואני לא<small>אם לא מצאת אף אחד — כתבי "לא מצאתי", גם זו תשובה</small></label>
-    <textarea id="f_t1" placeholder="הדביקי כאן את המשפט"></textarea>
-  </div>
-  <div class="box method">
-    זה בדיוק מה שהשורה המודגשת בנוסח מונעת. בלעדיה הוא ישלים מעצמו משפטים כמו
-    "הסביבה נמצאה מטפחת ובטוחה" — שאיש לא ראה ואת לא כתבת. בדוח שמגיע למפקחת, זה לא ניסוח יפה. זו בעיה.
-  </div>
-</section>
-
-<!-- ===== 3 ===== -->
-<section id="s3">
-  <div class="sec-head">
-    <span class="num">3</span>
-    <div class="t"><h2>משימה 2 · לשאול את דוח הפיקוח מה נדרש ממני</h2><small>המעבר מ־Copilot שכותב ל־Copilot שקורא</small></div>
-    <span class="time">8 דק'</span>
-  </div>
-
-  <div class="box task">
-    <ol>
-      <li>קחי דוח פיקוח שקיבלת ממשרד העבודה</li>
-      <li>נסי <b>להצמיד את קובץ ה־PDF</b> לצ'אט. לא מסתדר? פתחי אותו, סמני הכול, והדביקי את הטקסט — התוצאה כמעט זהה</li>
-      <li>הריצי את הנוסח</li>
-      <li>שאלי <b>שאלת המשך אחת משלך</b>. למשל: "איזה ממצא הכי דחוף ולמה?"</li>
-    </ol>
-  </div>
-
-  <div class="pwrap">
-    <header><b>הנוסח למשימה 2</b><button class="copy">העתקה</button></header>
-    <pre>מצורף דוח פיקוח של משרד העבודה שקיבלתי על משפחתון.
-
-עבור כל ממצא בדוח, בנה שורה בטבלה עם ארבע עמודות:
-1. הממצא כלשונו בדוח
-2. מה בדיוק נדרש ממני בפועל — פעולה אחת קונקרטית
-3. תאריך היעד לתיקון
-4. מה חסר לי כדי לענות עליו
-
-<span class="hl">אל תמציא תאריכים ואל תמציא מספרי סעיפים. אם תאריך לא מופיע — כתוב "לא צוין".</span>
-ממצא שלא ברור — סמן אותו כ"דורש בירור מול המפקחת".
-
-בסוף הטבלה: מה מבין הממצאים חוזר על עצמו ביותר ממשפחתון אחד.</pre>
-  </div>
-
-  <div class="timerbar">
-    <span class="timer" data-sec="300">05:00</span>
-    <button class="tbtn" data-t="start">התחלה</button>
-    <button class="tbtn" data-t="reset">איפוס</button>
-  </div>
-
-  <div class="field">
-    <label>שאלת ההמשך ששאלתי, ומה קיבלתי</label>
-    <textarea id="f_t2" placeholder="מה שאלת אחרי הטבלה הראשונה, ומה זה שינה?"></textarea>
-  </div>
-  <div class="box method">
-    שאלת ההמשך היא העיקר. Copilot הוא <b>שיחה, לא כפתור</b> — כמעט אף אחת לא מקבלת את מה
-    שהיא צריכה בניסיון הראשון, וזה בסדר גמור. מותר להגיד לו "לא, לא לזה התכוונתי".
-  </div>
-</section>
-
-<!-- ===== 4 ===== -->
-<section id="s4">
-  <div class="sec-head">
-    <span class="num">4</span>
-    <div class="t"><h2>משימה 3 · בדיקת טון לפני שליחה</h2><small>הוא לא כותב את המייל. הוא בודק אחרייך</small></div>
-    <span class="time">7 דק'</span>
-  </div>
-
-  <div class="box task">
-    <ol>
-      <li>מצאי מייל רגיש שכתבת בחודש האחרון — או כתבי אחד עכשיו, שלוש שורות</li>
-      <li>הריצי את הנוסח</li>
-      <li>קראי את ההערות ושאלי את עצמך: <b>הסכמתי איתו? על מה לא?</b></li>
-    </ol>
-  </div>
-
-  <div class="pwrap">
-    <header><b>הנוסח למשימה 3</b><button class="copy">העתקה</button></header>
-    <pre>כתבתי את המייל הבא למטפלת אחרי ביקור שבו נמצאו ליקויים. עוד לא שלחתי.
-
-<span class="hl">אל תכתוב אותו מחדש.</span> במקום זה:
-1. סמן משפטים שעלולים להתפרש כמאשימים, כמזלזלים או כמאיימים
-2. הסבר בשורה אחת למה
-3. הצע לכל אחד ניסוח חלופי ששומר על אותה דרישה בדיוק, בלי לרכך את התוכן
-
-אני רוצה שהמסר יישאר חד. אני רק לא רוצה שהוא ייפגע.
-
-המייל:
-<span class="fill">[כאן מדביקים את המייל שכתבת]</span></pre>
-  </div>
-
-  <div class="timerbar">
-    <span class="timer" data-sec="240">04:00</span>
-    <button class="tbtn" data-t="start">התחלה</button>
-    <button class="tbtn" data-t="reset">איפוס</button>
-  </div>
-
-  <div class="field">
-    <label>הערה אחת שקיבלתי ולא הסכמתי איתה</label>
-    <textarea id="f_t3" placeholder="לפעמים הוא ירכך יותר מדי — ואת צודקת והוא לא"></textarea>
-  </div>
-  <div class="box method">
-    זה ההיפוך של מה שרובנו עושות היום. המייל נשאר <b>שלך</b> — הקול, הדגשים, הסמכות.
-    הוא רק מצביע על מוקשים. מייל ש־Copilot כתב נשמע כמו Copilot, ומטפלת מרגישה את זה מיד.
-  </div>
-</section>
-
-<!-- ===== 5 ===== -->
-<section id="s5">
-  <div class="sec-head">
-    <span class="num">5</span>
-    <div class="t"><h2>משימה 4 · מרשימה מפוזרת לטבלת מעקב</h2><small>ליקוי בלי אחראי ובלי תאריך יעד לא ייסגר</small></div>
-    <span class="time">5 דק'</span>
-  </div>
-
-  <div class="box task">
-    רכזי את הליקויים הפתוחים שלך — מכמה ביקורים, כמו שהם רשומים אצלך —
-    והריצי את הנוסח. אחר כך העתיקי את הטבלה ל־<a href="tik-mishpachton.html">תיק משפחתון</a> או ל־Excel.
-  </div>
-
-  <div class="pwrap">
-    <header><b>הנוסח למשימה 4</b><button class="copy">העתקה</button></header>
-    <pre>המר את רשימת הליקויים הבאה לטבלה עם העמודות:
-הליקוי | המשפחתון | המטפלת | מקור | אחראי/ת | תאריך יעד | סטטוס
-
-<span class="hl">ליקוי שלא כתוב לו אחראי או תאריך — השאר את התא ריק. אל תשלים.</span>
-אחרי הטבלה, כתוב רשימה בכותרת "חסר יעד" עם כל אלה שחסר להם משהו.
-מיין לפי תאריך היעד, הקרוב ביותר למעלה.
-
-הרשימה:
-<span class="fill">[כאן מדביקים את הליקויים כמו שרשומים אצלך]</span></pre>
-  </div>
-
-  <div class="field">
-    <label>כמה ליקויים יצאו לי בלי תאריך יעד?</label>
-    <input type="text" id="f_t4" placeholder="המספר הזה בדרך כלל מפתיע">
-  </div>
-  <div class="box method">
-    Copilot טוב בלארגן — לא בלזכור. כל שיחה מתחילה מאפס, ולכן הטבלה חייבת לעבור
-    למקום שבו את עוקבת בפועל.
-  </div>
-</section>
-
-<!-- ===== 6 ===== -->
-<section id="s6">
-  <div class="sec-head">
-    <span class="num">6</span>
-    <div class="t"><h2>הגבול</h2><small>מה נכנס לצ'אט ומה לא</small></div>
-    <span class="time">5 דק'</span>
-  </div>
-  <div class="gate">
-    <div class="yes">
-      <h4>כן — בלי זה אין מסמך</h4>
-      <ul>
-        <li>שם המטפלת</li>
-        <li>שם המשפחתון</li>
-        <li>תאריכים, ממצאים, ליקויים</li>
-        <li>נהלים וחוזרים רשמיים</li>
-        <li>"ילד בן 3 בקבוצה"</li>
-      </ul>
-      <p class="k">אלה פרטים מקצועיים שמופיעים בכל טופס ממילא.</p>
+  <!-- ══════ 1 · הנוסחה ══════ -->
+  <section class="sec" data-color="mustard">
+    <div class="sec-head">
+      <span class="n">1</span>
+      <div><h2>הנוסחה — אם תזכרי דבר אחד</h2>
+      <p class="note">כמעט כל אכזבה מהכלי מתחילה בבקשה שחסר בה אחד מהארבעה.</p></div>
     </div>
-    <div class="no">
-      <h4>לא — אין להם תפקיד בדוח</h4>
-      <ul>
-        <li>שם של ילד או של הורה</li>
-        <li>תעודת זהות — של אף אחד</li>
-        <li>כתובת מדויקת או טלפון</li>
-        <li>מידע רפואי, טיפולי או רווחה</li>
-        <li>תמונות של ילדים</li>
-      </ul>
-      <p class="k">הממצא הוא אותו ממצא בדיוק גם בלעדיהם.</p>
+    <div class="formula-card">
+      <div class="formula">
+        <span class="f-chip" style="--fc:var(--sky)">תפקיד</span><span class="f-op">+</span>
+        <span class="f-chip" style="--fc:var(--sage)">משימה</span><span class="f-op">+</span>
+        <span class="f-chip" style="--fc:var(--peach)">מידע</span><span class="f-op">+</span>
+        <span class="f-chip" style="--fc:var(--lavender)">סגנון</span><span class="f-op">=</span>
+        <span class="f-chip f-res">תוצאה איכותית</span>
+      </div>
+      <div class="f-legend">
+        <div><b>תפקיד</b>מי הוא צריך להיות</div>
+        <div><b>משימה</b>מה בדיוק לעשות</div>
+        <div><b>מידע</b>מה ראית ומה ידוע</div>
+        <div><b>סגנון</b>איך שיישמע</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ 2 · לצרף קובץ ══════ -->
+  <section class="sec" data-color="peach">
+    <div class="sec-head">
+      <span class="n">2</span>
+      <div><h2>איך נותנים לו קובץ לקרוא</h2>
+      <p class="note">וורד, PDF, אקסל — או תמונה של דף שכתבת ביד.</p></div>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="n2">1</span><span class="ico">📎</span><h3>המהדק</h3><p>למטה בשורת הכתיבה, ליד המקום שבו כותבים</p></div>
+      <div class="step"><span class="n2">2</span><span class="ico">📄</span><h3>בוחרים קובץ</h3><p>מהמחשב או מ־OneDrive</p></div>
+      <div class="step"><span class="n2">3</span><span class="ico">💬</span><h3>אומרים מה לעשות</h3><p>"סכמי לי את זה" · "בני על סמך זה דוח ביקור"</p></div>
+    </div>
+  </section>
+
+  <!-- ══════ 3 · סוכן דוח ביקור ══════ -->
+  <section class="sec" data-color="sage">
+    <div class="sec-head">
+      <span class="n">3</span>
+      <div><h2>סוכן דוח הביקור</h2>
+      <p class="note">מצרפות את קובץ ההכנה לביקור של משרד העבודה, מדביקות את ההנחיה הזו — ומכאן והלאה שולחות רק מה שראיתן.</p></div>
+    </div>
+    <div class="prompt big">
+      <div class="prompt-head"><span class="ico">🤖</span><h3>ההנחיה המלאה — פעם אחת בתחילת השיחה</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">את רכזת פיקוח וליווי משפחתונים. עבדי לפי הקריטריונים שבמסמך שצירפתי.
+
+בכל ביקור שאשלח לך, החזירי דוח במבנה הקבוע הזה:
+1. מטרת הביקור
+2. חוזקות שנצפו
+3. תחומים לשיפור
+4. המלצות מקצועיות וישימות
+5. משימות מעקב
+6. ניסוח מייל מסכם למטפלת
+
+תחומי הבדיקה: סביבה חינוכית, סדר יום, פעילות חינוכית, בטיחות, תזונה, שינה, החתלה והיגיינה, אינטראקציה ותיווך.
+
+עקרונות הכתיבה:
+– תיאור עובדתי בלבד של הממצאים.
+– שפה מקצועית, מכבדת ומקדמת למידה.
+– להתחיל בחוזקות, ורק אחריהן תחומים לשיפור.
+– המלצות ממוקדות, ברורות וברות ביצוע.
+– משימות מעקב הניתנות למדידה.
+
+בכל ביקור אשלח לך: גילאי הילדים ומספרם, ממצאים בכל תחום, אירועים חריגים אם היו, נושאים שעלו בשיחה עם המטפלת, וטקסט חופשי של תצפית.
+
+חשוב: אל תמציאי ממצאים שלא דיווחתי עליהם. אם חסר לך מידע בתחום מסוים — ציין זאת במפורש במקום להשלים מהראש.</div>
+    </div>
+
+    <div class="two" style="margin-top:18px">
+      <div class="box" data-color="sage">
+        <h3>מה חוזר, כל פעם באותו מבנה</h3>
+        <ul class="numlist" style="margin-top:10px">
+          <li><span class="n3">1</span><div>מטרת הביקור</div></li>
+          <li><span class="n3">2</span><div>חוזקות שנצפו</div></li>
+          <li><span class="n3">3</span><div>תחומים לשיפור</div></li>
+          <li><span class="n3">4</span><div>המלצות ישימות</div></li>
+          <li><span class="n3">5</span><div>משימות מעקב <span>מדידות</span></div></li>
+          <li><span class="n3">6</span><div>מייל מסכם למטפלת</div></li>
+        </ul>
+      </div>
+      <div class="box" data-color="peach">
+        <h3>שמונת התחומים — רשימת תיוג לביקור</h3>
+        <div class="chips" style="margin-top:10px">
+          <span class="chip">סביבה חינוכית</span><span class="chip">סדר יום</span>
+          <span class="chip">פעילות חינוכית</span><span class="chip">בטיחות</span>
+          <span class="chip">תזונה</span><span class="chip">שינה</span>
+          <span class="chip">החתלה והיגיינה</span><span class="chip">תיווך ואינטראקציה</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ 4 · מאגר פרומפטים ══════ -->
+  <section class="sec" data-color="sky">
+    <div class="sec-head">
+      <span class="n">4</span>
+      <div><h2>מאגר הפרומפטים</h2>
+      <p class="note">להעתיק, להדביק, ולהוסיף אחרי כל אחד מהם את הפרטים שלך.</p></div>
+    </div>
+
+    <div class="prompt" data-color="sky">
+      <div class="prompt-head"><span class="ico">📝</span><h3>דוח ביקור מנקודות</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">כתוב דוח ביקור מקצועי במשפחתון על סמך הנקודות הבאות. סכם בשפה מקצועית ומכבדת, התחל בחוזקות. הנקודות: </div>
+    </div>
+
+    <div class="prompt" data-color="sky">
+      <div class="prompt-head"><span class="ico">✉️</span><h3>סיכום ביקור למייל למטפלת</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">סכם את הנקודות הבאות למייל קצר, חם ומכבד למטפלת. עד עשר שורות. הנקודות: </div>
+    </div>
+
+    <div class="prompt" data-color="sky">
+      <div class="prompt-head"><span class="ico">🛡️</span><h3>מייל מקצועי בנושא רגיש</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">נסח מייל מכבד ולא מאשים למטפלת בנושא הקפדה על נהלי בטיחות. שמור על טון מעצים, ציין תחילה את מה שעובד טוב. הפרטים: </div>
+    </div>
+
+    <div class="prompt" data-color="sage">
+      <div class="prompt-head"><span class="ico">👥</span><h3>ישיבת צוות</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">הכן סדר יום לישיבת צוות בת שעה בנושא ___ עבור מטפלות משפחתונים. חלק לזמנים, הוסף שאלה פותחת ושלוש נקודות לדיון, וסיים בשלוש משימות להמשך.</div>
+    </div>
+
+    <div class="prompt" data-color="sage">
+      <div class="prompt-head"><span class="ico">📊</span><h3>תוכן למצגת</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">הכן תוכן למצגת בת עשר שקופיות בנושא ___ עבור מטפלות משפחתונים. לכל שקופית: כותרת, שלוש נקודות קצרות, ודוגמה מהשטח. שפה פשוטה ומעשית.</div>
+    </div>
+
+    <div class="prompt" data-color="lavender">
+      <div class="prompt-head"><span class="ico">🎉</span><h3>ברכה לחג</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">כתוב ברכה חמה וקצרה למטפלות המשפחתונים לקראת ___. אישית, לא רשמית מדי, עד חמש שורות. הוסף משפט שמכיר בעבודה שלהן עם הפעוטות.</div>
+    </div>
+
+    <div class="prompt" data-color="peach">
+      <div class="prompt-head"><span class="ico">🤝</span><h3>תוכנית ליווי למטפלת חדשה</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">בנה תוכנית ליווי לחודש הקרוב למטפלת חדשה במשפחתון. חלק לשבועות, ולכל שבוע: מוקד אחד, מה לצפות בו בביקור, ומה לשוחח עליו.</div>
+    </div>
+
+    <div class="prompt" data-color="peach">
+      <div class="prompt-head"><span class="ico">💬</span><h3>שיחת משוב</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">הכן לי מבנה לשיחת משוב מקצועית עם מטפלת, בגישה מעצימה. כלול פתיחה, שתי נקודות חוזק, נקודה אחת לשיפור וניסוח מוצע לכל חלק. הנושא: </div>
+    </div>
+
+    <div class="prompt" data-color="mustard">
+      <div class="prompt-head"><span class="ico">📋</span><h3>טופס ביקור</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">צור טופס ביקור במשפחתון בטבלה, הכולל את התחומים: בטיחות, תברואה, תזונה, סביבה חינוכית ותיווך חינוכי. לכל תחום שלושה סעיפי בדיקה ועמודת הערות.</div>
+    </div>
+
+    <div class="prompt" data-color="mustard">
+      <div class="prompt-head"><span class="ico">📚</span><h3>סיכום מסמך ארוך</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">סכם את המסמך שצירפתי בחמש נקודות מרכזיות, והוסף בסוף רשימה של מה נדרש ממני לעשות בפועל.</div>
+    </div>
+
+    <div class="prompt" data-color="mustard">
+      <div class="prompt-head"><span class="ico">🗂️</span><h3>מרשימה מפוזרת לטבלה</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">ארגן את המידע הבא בטבלה מסודרת לפי נושא, פעולה נדרשת, אחראי ותאריך יעד. המידע: </div>
+    </div>
+
+    <div class="prompt" data-color="lavender">
+      <div class="prompt-head"><span class="ico">✨</span><h3>שיפור טקסט שכתבת</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">ערוך את הטקסט הבא והפוך אותו למקצועי ומכבד, בלי לשנות את התוכן. הטקסט: </div>
+    </div>
+
+    <div class="prompt" data-color="lavender">
+      <div class="prompt-head"><span class="ico">📅</span><h3>סיכום שנתי</h3><button class="copy">העתקה</button></div>
+      <div class="prompt-body">כתוב סיכום שנתי למשפחתון על סמך הנקודות הבאות. מבנה: תמונת מצב, התקדמות לאורך השנה, נקודות לשימור, יעדים לשנה הבאה. הנקודות: </div>
+    </div>
+  </section>
+
+  <!-- ══════ 5 · לתקן את התשובה ══════ -->
+  <section class="sec" data-color="teal">
+    <div class="sec-head">
+      <span class="n">5</span>
+      <div><h2>לא אהבת את מה שיצא? תגידי לו</h2>
+      <p class="note">לא צריך להתחיל מחדש. כותבות משפט אחד והוא מתקן.</p></div>
+    </div>
+    <div class="chips">
+      <span class="chip">קצר יותר</span><span class="chip">רשמי יותר</span>
+      <span class="chip">חם יותר</span><span class="chip">הדגש את החוזקות</span>
+      <span class="chip">נסח בעדינות</span><span class="chip">בלי מילים גבוהות</span>
+      <span class="chip">תן לי שלוש גרסאות</span><span class="chip">הוסף משימות מעקב</span>
+      <span class="chip">הפוך לטבלה</span><span class="chip">כתוב את זה כמייל</span>
+    </div>
+  </section>
+
+  <!-- ══════ 6 · הגבול ══════ -->
+  <section class="sec" data-color="risk">
+    <div class="sec-head">
+      <span class="n">6</span>
+      <div><h2>הגבול — ארבעה דברים שלא נשכח</h2></div>
+    </div>
+    <div class="limits">
+      <div class="limit"><span class="ico">❗</span><div><h3>הוא יכול לטעות</h3><p>ובביטחון גמור. תמיד קוראות לפני ששולחות.</p></div></div>
+      <div class="limit"><span class="ico">👁️</span><div><h3>הוא לא היה שם</h3><p>מה שלא סיפרת לו — הוא ישלים מהראש. אל תיתני לו.</p></div></div>
+      <div class="limit"><span class="ico">🔐</span><div><h3>בלי מידע אישי ורגיש</h3><p>לא שמות ילדים, לא ת"ז, לא מידע רפואי או משפחתי. במקום שם — "ילד בן שנתיים".</p></div></div>
+      <div class="limit"><span class="ico">✍️</span><div><h3>האחריות נשארת שלך</h3><p>מה שיוצא בשמך הוא שלך. הוא כלי עזר, לא שיקול דעת מקצועי.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ══════ 7 · לפני ששולחים ══════ -->
+  <section class="sec" data-color="ok" style="--c:var(--ok);--c-tint:var(--ok-tint)">
+    <div class="sec-head">
+      <span class="n">7</span>
+      <div><h2>שלושים שניות לפני ששולחים</h2></div>
+    </div>
+    <div class="checks">
+      <div class="check"><span class="mark">✓</span><div><b>כל עובדה שכתובה שם — באמת ראיתי אותה?</b> <span>אם יש משפט שאת לא זוכרת שסיפרת — מחקי אותו.</span></div></div>
+      <div class="check"><span class="mark">✓</span><div><b>אין כאן שם של ילד או פרט מזהה?</b> <span>גם אם הוא הוסיף לבד.</span></div></div>
+      <div class="check"><span class="mark">✓</span><div><b>זה נשמע כמוני?</b> <span>אם זה נשמע כמו מכתב מעורך דין — בקשי "פשוט יותר, בגובה העיניים".</span></div></div>
+    </div>
+  </section>
+
+  <div class="finale">
+    <p class="line"><span class="latin">Copilot</span> לא מחליף את המקצועיות שלנו.<br>הוא מחזיר לנו את הזמן לחזור אליה.</p>
+    <p class="sub">ככל שתתני לו יותר מידע, כך תקבלי תוצאה טובה יותר.</p>
+    <div class="one-thing">
+      <b>הדבר האחד שאני מתחילה איתו השבוע:</b>
+      <div class="rule-line"></div>
     </div>
   </div>
-  <div class="box method" style="margin-top:14px">
-    <b>המבחן המהיר:</b> לפני שאת מדביקה, שאלי — האם הפרט הזה משנה משהו בדוח?
-    שם המטפלת משנה: בלעדיו אי אפשר לדעת על מי מדובר. שם הילד לא משנה כלום.
-  </div>
-</section>
 
-<!-- ===== 7 ===== -->
-<section id="s7">
-  <div class="sec-head">
-    <span class="num">7</span>
-    <div class="t"><h2>שלוש בדיקות לפני ששולחים</h2><small>שלושים שניות שמונעות תקלה</small></div>
-    <span class="time">4 דק'</span>
-  </div>
-  <div class="checks">
-    <label class="check" data-k="c1"><input type="checkbox"><span>
-      <b>יש כאן ממצא שלא ראיתי במו עיניי?</b>
-      <span>המשפט הכי מסוכן בדוח הוא זה שנשמע נכון — אבל את לא כתבת אותו.</span></span></label>
-    <label class="check" data-k="c2"><input type="checkbox"><span>
-      <b>יש כאן תאריך, מספר או סעיף שלא בדקתי מול המקור?</b>
-      <span>Copilot ימציא "סעיף 4.2 לחוזר מנכ״ל" שלא קיים, ויכתוב את זה בביטחון מלא במכתב למשרד העבודה.</span></span></label>
-    <label class="check" data-k="c3"><input type="checkbox"><span>
-      <b>הייתי חותמת על זה בשמי?</b>
-      <span>ברגע ששלחת — זה שלך. האחריות המקצועית לא עוברת אליו. אף פעם.</span></span></label>
-  </div>
-</section>
-
-<!-- ===== 8 ===== -->
-<section id="s8">
-  <div class="sec-head">
-    <span class="num">8</span>
-    <div class="t"><h2>מחר בבוקר</h2><small>דבר אחד. לא ארבעה</small></div>
-    <span class="time">5 דק'</span>
-  </div>
-  <div class="box task">
-    בחרי משימה אחת שתעשי כבר מחר. את השאר — בעוד שבועיים.
-    ארבעה דברים חדשים ביום אחד לא שורדים אף שבוע.
-  </div>
-  <div class="pick" id="pick">
-    <button data-v="דוח ביקור מהרישום שלי">דוח ביקור<br><small style="font-weight:400">מהרישום שלי</small></button>
-    <button data-v="דוח פיקוח לטבלת משימות">דוח פיקוח<br><small style="font-weight:400">לטבלת משימות</small></button>
-    <button data-v="בדיקת טון לפני שליחה">בדיקת טון<br><small style="font-weight:400">לפני שליחה</small></button>
-    <button data-v="טבלת מעקב ליקויים">מעקב ליקויים<br><small style="font-weight:400">לטבלה מסודרת</small></button>
-  </div>
-  <div class="grid2">
-    <div class="field"><label>מתי בדיוק</label><input type="text" id="f_when" placeholder="יום ושעה — לא 'בקרוב'"></div>
-    <div class="field"><label>על איזה משפחתון</label><input type="text" id="f_where" placeholder="קונקרטי"></div>
-  </div>
-  <div class="field">
-    <label>ומה שגזל לי הכי הרבה זמן — נפתר?<small>חזרה למה שכתבת בסעיף 0</small></label>
-    <textarea id="f_close" placeholder="בכנות. אם לא — מה עוד חסר?"></textarea>
-  </div>
-
-  <div class="saveline">
-    <small id="stamp">נשמר אוטומטית במכשיר שלך</small>
-    <span class="spacer"></span>
-    <button class="btn sec" id="copyAll">העתקת הסיכום שלי</button>
-    <button class="btn sec" id="clear">מחיקת הכול</button>
-  </div>
-</section>
-
+  <p class="footer">הדרכת <span class="latin">Copilot</span> לרכזות משפחתונים · דף מלווה להדפסה ולשמירה</p>
 </div>
 
-<footer>
-  <p>
-    ערכת המפגש: <a href="copilot-hadracha.html">מצגת</a> ·
-    דף מלווה · <a href="copilot-promptim.html">ספריית פרומפטים</a> ·
-    <a href="copilot-seker.html">סקר מקדים</a>
-  </p>
-  <p style="margin-top:6px">
-    כל מה שנכתב בדף נשמר בדפדפן של המכשיר הזה בלבד ואינו נשלח לשום שרת.
-    כל השמות בדוגמאות בדויים.
-  </p>
-</footer>
-
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast">הועתק ✓</div>
 
 <script>
-(function(){
-  var KEY='cp-melave';
-  var texts=['f_name','f_count','f_pain','f_t1','f_t2','f_t3','f_t4','f_when','f_where','f_close'];
-  var checks=['c1','c2','c3'];
-  var st={};
-  try{ st=JSON.parse(localStorage.getItem(KEY)||'{}') }catch(e){ st={} }
-
-  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)) }catch(e){} }
-  function toast(m){ var t=document.getElementById('toast'); t.textContent=m; t.classList.add('on');
-    clearTimeout(t._x); t._x=setTimeout(function(){ t.classList.remove('on') },2000) }
-
-  /* text fields */
-  texts.forEach(function(id){
-    var el=document.getElementById(id); if(!el) return;
-    if(st[id]!=null) el.value=st[id];
-    el.addEventListener('input',function(){ st[id]=el.value; save() });
-  });
-
-  /* checkboxes */
-  document.querySelectorAll('.check').forEach(function(row){
-    var k=row.dataset.k, box=row.querySelector('input');
-    if(st[k]){ box.checked=true; row.classList.add('on') }
-    box.addEventListener('change',function(){
-      st[k]=box.checked; row.classList.toggle('on',box.checked); save();
-    });
-  });
-
-  /* commitment picker */
-  var pick=document.getElementById('pick');
-  function paintPick(){
-    pick.querySelectorAll('button').forEach(function(b){ b.classList.toggle('sel', b.dataset.v===st.pick) });
+(function () {
+  "use strict";
+  var toast = document.getElementById("toast"), toastT = null;
+  function ping(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { toast.classList.remove("show"); }, 1600);
   }
-  pick.addEventListener('click',function(e){
-    var b=e.target.closest('button'); if(!b) return;
-    st.pick = (st.pick===b.dataset.v) ? null : b.dataset.v;
-    paintPick(); save();
-  });
-  paintPick();
-
-  /* copy prompt buttons */
-  function copyText(txt,btn,label){
-    var ok=function(){
-      if(btn){ var o=btn.textContent; btn.textContent='הועתק ✓'; btn.classList.add('done');
-        setTimeout(function(){ btn.textContent=o; btn.classList.remove('done') },1600) }
-      toast(label||'הועתק');
-    };
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok,fb) } else fb();
-    function fb(){ var t=document.createElement('textarea'); t.value=txt; t.style.position='fixed'; t.style.top='-1000px';
-      document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); ok() }catch(e){ toast('ההעתקה נחסמה — סמני והעתיקי ידנית') }
-      document.body.removeChild(t) }
-  }
-  document.querySelectorAll('.pwrap .copy').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      copyText(btn.closest('.pwrap').querySelector('pre').innerText,btn,'הנוסח הועתק — הדביקי ב־Copilot');
+  document.querySelectorAll(".copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var body = btn.closest(".prompt").querySelector(".prompt-body");
+      var text = body.innerText.trim();
+      var done = function () {
+        btn.textContent = "הועתק ✓";
+        btn.classList.add("done");
+        ping("הועתק — עכשיו להדביק בצ'אט");
+        setTimeout(function () { btn.textContent = "העתקה"; btn.classList.remove("done"); }, 2200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+      function fallback() {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); done(); }
+        catch (e) { ping("לא הצלחתי להעתיק — סמני ידנית"); }
+        document.body.removeChild(ta);
+      }
     });
   });
-
-  /* timers */
-  document.querySelectorAll('.timerbar').forEach(function(bar){
-    var el=bar.querySelector('.timer'), total=parseInt(el.dataset.sec,10), left=total, iv=null;
-    function paint(){
-      var m=Math.floor(left/60), s=left%60;
-      el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-      el.classList.toggle('low', left<=30);
-    }
-    bar.querySelector('[data-t=start]').addEventListener('click',function(){
-      if(iv){ clearInterval(iv); iv=null; this.textContent='המשך'; return }
-      this.textContent='עצירה';
-      iv=setInterval(function(){
-        left--; paint();
-        if(left<=0){ clearInterval(iv); iv=null; bar.querySelector('[data-t=start]').textContent='התחלה'; toast('הזמן נגמר') }
-      },1000);
-    });
-    bar.querySelector('[data-t=reset]').addEventListener('click',function(){
-      if(iv){ clearInterval(iv); iv=null }
-      left=total; paint(); bar.querySelector('[data-t=start]').textContent='התחלה';
-    });
-    paint();
-  });
-
-  /* summary + clear */
-  document.getElementById('copyAll').addEventListener('click',function(){
-    var L=['דף מלווה · Copilot לרכזות משפחתונים',''];
-    L.push('שם: '+(st.f_name||'—')+'   משפחתונים באחריות: '+(st.f_count||'—'));
-    L.push('');
-    L.push('מה גוזל לי הכי הרבה זמן: '+(st.f_pain||'—'));
-    L.push('');
-    L.push('משימה 1 — משפט שהוא כתב ואני לא: '+(st.f_t1||'—'));
-    L.push('משימה 2 — שאלת ההמשך שלי: '+(st.f_t2||'—'));
-    L.push('משימה 3 — הערה שלא הסכמתי איתה: '+(st.f_t3||'—'));
-    L.push('משימה 4 — ליקויים בלי תאריך יעד: '+(st.f_t4||'—'));
-    L.push('');
-    L.push('מה אני עושה מחר: '+(st.pick||'—'));
-    L.push('מתי: '+(st.f_when||'—')+'   איפה: '+(st.f_where||'—'));
-    L.push('');
-    L.push('נפתר לי מה שגזל זמן? '+(st.f_close||'—'));
-    copyText(L.join('\n'),null,'הסיכום הועתק');
-  });
-
-  document.getElementById('clear').addEventListener('click',function(){
-    if(!confirm('למחוק את כל מה שכתבת בדף? אי אפשר לשחזר.')) return;
-    st={}; save();
-    texts.forEach(function(id){ var e=document.getElementById(id); if(e) e.value='' });
-    document.querySelectorAll('.check').forEach(function(r){ r.querySelector('input').checked=false; r.classList.remove('on') });
-    paintPick(); toast('נוקה');
-  });
-
-  /* theme */
-  var root=document.documentElement, th=null;
-  try{ th=localStorage.getItem('cp-theme') }catch(e){}
-  if(th) root.setAttribute('data-theme',th);
-  document.getElementById('theme').onclick=function(){
-    var cur=root.getAttribute('data-theme');
-    var isDark = cur ? cur==='dark' : window.matchMedia('(prefers-color-scheme:dark)').matches;
-    var next=isDark?'light':'dark';
-    root.setAttribute('data-theme',next);
-    try{ localStorage.setItem('cp-theme',next) }catch(e){}
-  };
-
-  /* scroll-spy nav */
-  var links=[].slice.call(document.querySelectorAll('.nav a'));
-  var secs=links.map(function(a){ return document.querySelector(a.getAttribute('href')) });
-  function spy(){
-    var y=window.scrollY+90, best=0;
-    secs.forEach(function(s,i){ if(s && s.offsetTop<=y) best=i });
-    links.forEach(function(a,i){ a.classList.toggle('now',i===best) });
-  }
-  window.addEventListener('scroll',spy,{passive:true}); spy();
 })();
 </script>
+</body>
 </html>
