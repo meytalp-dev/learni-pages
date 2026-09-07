@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="סקר מקדים לרכזות משפחתונים לפני הדרכת Copilot — נוסח מוכן ל־Microsoft Forms וקליטת התוצאות למצגת.">
+<title>סקר מקדים · Copilot לרכזות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap">
+<style>
+:root{
+  --ink:#101d1c; --ink-2:#465654; --ink-3:#788784;
+  --ground:#ecefed; --surface:#ffffff; --surface-2:#f6f9f7;
+  --line:#d5ddda; --line-2:#bcc9c5;
+  --accent:#0d5750; --accent-ink:#ffffff; --accent-wash:#dcebe8;
+  --gold:#8a6410; --gold-wash:#f7efdd;
+  --ok:#2c6e35; --crit:#9d2b20;
+  --shadow:0 1px 2px rgba(16,29,28,.05), 0 10px 28px -18px rgba(16,29,28,.34);
+  --display:"Frank Ruhl Libre","Times New Roman",serif;
+  --body:"Assistant","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#e6ecea; --ink-2:#a0afab; --ink-3:#72827e;
+    --ground:#0d1615; --surface:#17211f; --surface-2:#1d2927;
+    --line:#2b3735; --line-2:#3a4846;
+    --accent:#54b5a6; --accent-ink:#05221f; --accent-wash:#182e2b;
+    --gold:#d3a746; --gold-wash:#2c2615;
+    --ok:#6cbc70; --crit:#e07e6d;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e6ecea; --ink-2:#a0afab; --ink-3:#72827e;
+  --ground:#0d1615; --surface:#17211f; --surface-2:#1d2927;
+  --line:#2b3735; --line-2:#3a4846;
+  --accent:#54b5a6; --accent-ink:#05221f; --accent-wash:#182e2b;
+  --gold:#d3a746; --gold-wash:#2c2615;
+  --ok:#6cbc70; --crit:#e07e6d;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  direction:rtl; margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.65;
+}
+h1,h2,h3{font-family:var(--display); font-weight:700; margin:0; text-wrap:balance; line-height:1.25}
+p{margin:0}
+button,input,select,textarea{font:inherit; color:inherit}
+:focus-visible{outline:2.5px solid var(--accent); outline-offset:2px; border-radius:4px}
+
+.app{max-width:800px; margin:0 auto; padding:0 16px 80px}
+.hdr{padding:34px 0 6px}
+.eyebrow{font-size:.74rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); margin-bottom:8px}
+.hdr h1{font-size:2rem; letter-spacing:-.015em}
+.hdr .lede{color:var(--ink-2); margin-top:10px; max-width:62ch}
+.tools{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
+.ghost{background:transparent; border:1px solid var(--line-2); color:var(--ink-2);
+  border-radius:99px; padding:6px 14px; font-size:.83rem; cursor:pointer; text-decoration:none}
+.ghost:hover{border-color:var(--accent); color:var(--accent)}
+
+.steps{display:flex; gap:10px; margin:26px 0 0; flex-wrap:wrap}
+.step{flex:1 1 200px; background:var(--surface); border:1px solid var(--line);
+  border-radius:10px; padding:13px 15px; box-shadow:var(--shadow)}
+.step b{display:block; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:4px}
+.step span{font-size:.9rem; color:var(--ink-2)}
+
+section{margin-top:40px}
+.sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:14px; flex-wrap:wrap}
+.num{font-family:var(--display); font-weight:900; font-size:.82rem; color:var(--accent-ink);
+  background:var(--accent); border-radius:50%; width:26px; height:26px; flex:none;
+  display:grid; place-items:center; align-self:center}
+.sec-head h2{font-size:1.35rem; flex:1 1 200px}
+.sec-head .sub{flex:1 1 100%; color:var(--ink-2); font-size:.93rem; max-width:64ch}
+
+.card{background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  box-shadow:var(--shadow); overflow:hidden; margin-bottom:14px}
+.card > header{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:12px 16px; border-bottom:1px solid var(--line); background:var(--surface-2)}
+.card > header h3{font-family:var(--body); font-size:.98rem; font-weight:700; flex:1 1 180px}
+.copy{background:var(--accent); color:var(--accent-ink); border:0; border-radius:99px;
+  padding:6px 16px; font-size:.82rem; font-weight:700; cursor:pointer; white-space:nowrap}
+.copy:hover{filter:brightness(1.08)}
+.copy.done{background:var(--ok)}
+pre{margin:0; padding:15px 16px; font-family:var(--body); font-size:.93rem; line-height:1.7;
+  white-space:pre-wrap; word-wrap:break-word}
+.q-type{font-size:.76rem; color:var(--gold); background:var(--gold-wash);
+  border-radius:99px; padding:2px 10px; font-weight:700; white-space:nowrap}
+
+.why{background:var(--accent-wash); border:1px solid var(--line); border-right:4px solid var(--accent);
+  border-radius:10px; padding:13px 16px; font-size:.9rem; color:var(--ink-2); margin-top:6px}
+.why strong{color:var(--ink)}
+
+/* ---- results entry ---- */
+.res{background:var(--surface); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow); overflow:hidden}
+.res .rhead{padding:14px 16px; border-bottom:1px solid var(--line); background:var(--surface-2)}
+.res .rhead h3{font-family:var(--body); font-size:1rem; font-weight:700}
+.res .rhead p{font-size:.87rem; color:var(--ink-2); margin-top:4px}
+.rgrp{padding:14px 16px; border-top:1px solid var(--line)}
+.rgrp:first-of-type{border-top:0}
+.rgrp > b{display:block; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); margin-bottom:9px}
+.rrow{display:grid; grid-template-columns:1fr 76px; gap:10px; align-items:center; margin-bottom:7px}
+.rrow label{font-size:.93rem}
+.rrow input{width:100%; border:1px solid var(--line-2); border-radius:7px; padding:6px 9px;
+  background:var(--surface-2); text-align:center; font-variant-numeric:tabular-nums; font-weight:700}
+.rtotal{display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+  padding:14px 16px; border-top:1px solid var(--line); background:var(--surface-2)}
+.rtotal .n{font-family:var(--display); font-size:1.6rem; font-weight:900; color:var(--accent); font-variant-numeric:tabular-nums}
+.rtotal .spacer{flex:1}
+.save{background:var(--accent); color:var(--accent-ink); border:0; border-radius:99px;
+  padding:8px 20px; font-size:.88rem; font-weight:700; cursor:pointer}
+.save.done{background:var(--ok)}
+.saved-at{font-size:.83rem; color:var(--ink-3)}
+
+footer{margin-top:52px; padding-top:18px; border-top:1px solid var(--line); font-size:.85rem; color:var(--ink-3)}
+footer a{color:var(--accent)}
+@media print{ body{background:#fff} .tools,.copy,.save{display:none} .card,.res{box-shadow:none} }
+</style>
+
+<div class="app">
+
+<header class="hdr">
+  <div class="eyebrow">לפני ההדרכה · רכזות משפחתונים</div>
+  <h1>הסקר המקדים</h1>
+  <p class="lede">
+    שלוש שאלות שנשלחות לרכזות שבוע לפני המפגש. הן לא נועדו לאסוף מידע —
+    הן נועדו לפתוח את ההדרכה בתמונה של הקבוצה עצמה, במקום בהנחות שלנו עליה.
+  </p>
+  <div class="tools">
+    <button class="ghost" id="theme">מצב תצוגה</button>
+    <button class="ghost" onclick="window.print()">הדפסה</button>
+    <a class="ghost" href="copilot-hadracha.html">המצגת ←</a>
+    <a class="ghost" href="copilot-daf-melave.html">הדף המלווה ←</a>
+  </div>
+  <div class="steps">
+    <div class="step"><b>שלב א</b><span>מעתיקות את השאלות ל־Microsoft Forms</span></div>
+    <div class="step"><b>שלב ב</b><span>שולחות את הקישור שבוע לפני</span></div>
+    <div class="step"><b>שלב ג</b><span>מזינות כאן את התוצאות — והן מופיעות במצגת</span></div>
+  </div>
+</header>
+
+<!-- ===== 1 ===== -->
+<section>
+  <div class="sec-head">
+    <span class="num">1</span>
+    <h2>שלוש השאלות</h2>
+    <p class="sub">
+      מנוסחות כך שאי אפשר לענות עליהן "בסדר". כל אחת מוציאה משהו שאפשר להראות על המסך.
+      בכל כרטיס — הנוסח המדויק להעתקה ל־Forms.
+    </p>
+  </div>
+
+  <article class="card">
+    <header>
+      <h3>שאלה 1 · עד כמה את מכירה את Copilot?</h3>
+      <span class="q-type">בחירה יחידה</span>
+      <button class="copy">העתקה</button>
+    </header>
+    <pre>עד כמה את מכירה את Copilot?
+
+- לא שמעתי עליו עד שקיבלתי את המייל הזה
+- שמעתי, אבל לא פתחתי אותו מעולם
+- פתחתי פעם או פעמיים ולא חזרתי
+- אני משתמשת מדי פעם
+- אני משתמשת כמעט כל יום</pre>
+    <div class="why">
+      <strong>למה חמש דרגות ולא כן/לא:</strong> "פתחתי ולא חזרתי" היא התשובה הכי שימושית מכולן.
+      היא מזהה את מי שכבר ניסתה ונשרה — וזו בדיוק הקבוצה שההדרכה צריכה להחזיר.
+    </div>
+  </article>
+
+  <article class="card">
+    <header>
+      <h3>שאלה 2 · מה את מבקשת ממנו הכי הרבה?</h3>
+      <span class="q-type">בחירה מרובה</span>
+      <button class="copy">העתקה</button>
+    </header>
+    <pre>אם את כבר משתמשת — מה את מבקשת ממנו הכי הרבה? (אפשר לסמן יותר מאחד)
+
+- לנסח מייל
+- לשפר משהו שכתבתי
+- לכתוב דוח או סיכום
+- לסכם לי מסמך ארוך
+- לארגן מידע בטבלה או ברשימה
+- לחשוב איתי על משהו לפני שאני מחליטה
+- לא משתמשת עדיין
+- אחר: ______</pre>
+    <div class="why">
+      <strong>מה זה יראה:</strong> ככל הנראה "לנסח מייל" יוביל בפער גדול. זו לא בעיה —
+      זו נקודת הפתיחה של ההדרכה. שלוש האפשרויות התחתונות הן מה שכמעט אף אחת לא מסמנת,
+      וזה בדיוק מה שנלמד.
+    </div>
+  </article>
+
+  <article class="card">
+    <header>
+      <h3>שאלה 3 · ואם את לא משתמשת — מה עוצר?</h3>
+      <span class="q-type">בחירה מרובה</span>
+      <button class="copy">העתקה</button>
+    </header>
+    <pre>אם את לא משתמשת בו, או משתמשת מעט — מה עוצר אותך? (אפשר לסמן יותר מאחד)
+
+- אין לי זמן ללמוד עוד כלי
+- לא בטוחה שמותר להכניס לשם מידע על העבודה
+- ניסיתי, יצא לי טקסט גנרי, ויתרתי
+- אני לא יודעת מה בכלל לבקש ממנו
+- אני כותבת מהר יותר לבד
+- לא ידעתי שיש לי אותו
+- משהו אחר: ______</pre>
+    <div class="why">
+      <strong>השאלה החשובה מהשלוש.</strong> כל סיבה כאן מקבלת מענה אחר לגמרי בהדרכה:
+      "יצא גנרי" נפתר בכלל של השיעור. "לא בטוחה שמותר" נפתר בשקף הגבולות.
+      "לא יודעת מה לבקש" נפתר בדף המלווה. בלי השאלה הזאת את מנחשת במה להתמקד.
+    </div>
+  </article>
+</section>
+
+<!-- ===== 2 ===== -->
+<section>
+  <div class="sec-head">
+    <span class="num">2</span>
+    <h2>איך לשלוח</h2>
+    <p class="sub">Microsoft Forms — הוא כבר בחשבון שלכן, עובד בעברית, נפתח יפה בטלפון וסופר את התוצאות לבד.</p>
+  </div>
+  <article class="card">
+    <header><h3>נוסח המייל המלווה</h3><button class="copy">העתקה</button></header>
+    <pre>נושא: שלוש שאלות לפני המפגש על Copilot
+
+שלום,
+
+בשבוע הבא ניפגש לשעה על Copilot — הכלי שכבר יושב לכן במחשב.
+
+לפני זה אשמח שתענו על שלוש שאלות. זה לוקח דקה, אין תשובות נכונות,
+ואני לא בודקת אף אחת. אני רק רוצה לבנות את המפגש סביב מה שבאמת
+חסר לכן ולא סביב מה שאני מנחשת.
+
+התשובות יוצגו במפגש כתמונה של הקבוצה, בלי שמות.
+
+[קישור]
+
+תודה,</pre>
+    <div class="why">
+      <strong>"אני לא בודקת אף אחת" הוא המשפט שמייצר תשובות כנות.</strong> בלעדיו רכזת
+      שלא נגעה בכלי מעולם תסמן "משתמשת מדי פעם", והסקר יאבד את הערך שלו.
+      ב־Forms — כבו את איסוף השמות.
+    </div>
+  </article>
+</section>
+
+<!-- ===== 3 ===== -->
+<section>
+  <div class="sec-head">
+    <span class="num">3</span>
+    <h2>הזנת התוצאות</h2>
+    <p class="sub">
+      מזינות כאן את המספרים מ־Forms, לוחצות שמירה — והשקף השני במצגת יציג אותם.
+      הנתונים נשמרים בדפדפן של המכשיר הזה בלבד ולא נשלחים לשום מקום.
+    </p>
+  </div>
+
+  <div class="res">
+    <div class="rhead">
+      <h3>תוצאות הסקר</h3>
+      <p>אין צורך למלא הכול. שדה שיישאר ריק פשוט לא יופיע במצגת.</p>
+    </div>
+
+    <div class="rgrp">
+      <b>שאלה 1 · מידת ההיכרות</b>
+      <div class="rrow"><label>לא שמעתי עליו</label><input type="number" min="0" id="q1a" placeholder="0"></div>
+      <div class="rrow"><label>שמעתי, לא פתחתי</label><input type="number" min="0" id="q1b" placeholder="0"></div>
+      <div class="rrow"><label>פתחתי ולא חזרתי</label><input type="number" min="0" id="q1c" placeholder="0"></div>
+      <div class="rrow"><label>משתמשת מדי פעם</label><input type="number" min="0" id="q1d" placeholder="0"></div>
+      <div class="rrow"><label>משתמשת כמעט כל יום</label><input type="number" min="0" id="q1e" placeholder="0"></div>
+    </div>
+
+    <div class="rgrp">
+      <b>שאלה 2 · מה מבקשות ממנו</b>
+      <div class="rrow"><label>לנסח מייל</label><input type="number" min="0" id="q2a" placeholder="0"></div>
+      <div class="rrow"><label>לשפר משהו שכתבתי</label><input type="number" min="0" id="q2b" placeholder="0"></div>
+      <div class="rrow"><label>לכתוב דוח או סיכום</label><input type="number" min="0" id="q2c" placeholder="0"></div>
+      <div class="rrow"><label>לסכם מסמך ארוך</label><input type="number" min="0" id="q2d" placeholder="0"></div>
+      <div class="rrow"><label>לארגן בטבלה</label><input type="number" min="0" id="q2e" placeholder="0"></div>
+      <div class="rrow"><label>לחשוב איתי</label><input type="number" min="0" id="q2f" placeholder="0"></div>
+    </div>
+
+    <div class="rgrp">
+      <b>שאלה 3 · מה עוצר</b>
+      <div class="rrow"><label>אין זמן ללמוד כלי</label><input type="number" min="0" id="q3a" placeholder="0"></div>
+      <div class="rrow"><label>לא בטוחה שמותר</label><input type="number" min="0" id="q3b" placeholder="0"></div>
+      <div class="rrow"><label>יצא גנרי, ויתרתי</label><input type="number" min="0" id="q3c" placeholder="0"></div>
+      <div class="rrow"><label>לא יודעת מה לבקש</label><input type="number" min="0" id="q3d" placeholder="0"></div>
+      <div class="rrow"><label>מהר יותר לבד</label><input type="number" min="0" id="q3e" placeholder="0"></div>
+      <div class="rrow"><label>לא ידעתי שיש לי אותו</label><input type="number" min="0" id="q3f" placeholder="0"></div>
+    </div>
+
+    <div class="rgrp">
+      <b>כמה ענו בסך הכול</b>
+      <div class="rrow"><label>מספר המשיבות</label><input type="number" min="0" id="n" placeholder="0"></div>
+    </div>
+
+    <div class="rtotal">
+      <span class="n" id="sum">0</span>
+      <span class="saved-at" id="stamp">עדיין לא נשמר</span>
+      <span class="spacer"></span>
+      <button class="save" id="save">שמירה למצגת</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    ערכת ההדרכה: <a href="copilot-hadracha.html">מצגת</a> ·
+    <a href="copilot-daf-melave.html">דף מלווה</a> ·
+    <a href="copilot-promptim.html">ספריית פרומפטים</a> · סקר מקדים
+  </p>
+  <p style="margin-top:6px">התוצאות נשמרות במכשיר הזה בלבד. אין בדף נתונים אישיים של אף רכזת.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, saved=null;
+  try{ saved=localStorage.getItem('cp-theme') }catch(e){}
+  if(saved) root.setAttribute('data-theme',saved);
+  document.getElementById('theme').onclick=function(){
+    var cur=root.getAttribute('data-theme');
+    var isDark = cur ? cur==='dark' : window.matchMedia('(prefers-color-scheme:dark)').matches;
+    var next=isDark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('cp-theme',next) }catch(e){}
+  };
+
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var txt=btn.closest('.card').querySelector('pre').innerText;
+      var ok=function(){ var o=btn.textContent; btn.textContent='הועתק ✓'; btn.classList.add('done');
+        setTimeout(function(){ btn.textContent=o; btn.classList.remove('done') },1600) };
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok,fb) } else fb();
+      function fb(){ var t=document.createElement('textarea'); t.value=txt; t.style.position='fixed'; t.style.top='-1000px';
+        document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); ok() }catch(e){ btn.textContent='העתיקי ידנית' }
+        document.body.removeChild(t) }
+    });
+  });
+
+  /* ---- survey results, shared with the deck via localStorage ---- */
+  var KEY='cp-survey';
+  var ids=['q1a','q1b','q1c','q1d','q1e',
+           'q2a','q2b','q2c','q2d','q2e','q2f',
+           'q3a','q3b','q3c','q3d','q3e','q3f','n'];
+  var stamp=document.getElementById('stamp'), sumEl=document.getElementById('sum');
+
+  function readData(){
+    var o={};
+    ids.forEach(function(k){
+      var v=document.getElementById(k).value.trim();
+      if(v!=='') o[k]=Math.max(0,parseInt(v,10)||0);
+    });
+    return o;
+  }
+  function paintSum(){
+    var d=readData();
+    sumEl.textContent = d.n!=null ? d.n
+      : ((d.q1a||0)+(d.q1b||0)+(d.q1c||0)+(d.q1d||0)+(d.q1e||0));
+  }
+  try{
+    var prev=JSON.parse(localStorage.getItem(KEY)||'{}');
+    ids.forEach(function(k){ if(prev[k]!=null) document.getElementById(k).value=prev[k] });
+    if(prev._at) stamp.textContent='נשמר '+prev._at;
+  }catch(e){}
+  ids.forEach(function(k){ document.getElementById(k).addEventListener('input',paintSum) });
+  paintSum();
+
+  document.getElementById('save').onclick=function(){
+    var d=readData();
+    d._at=new Date().toLocaleString('he-IL',{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'});
+    try{
+      localStorage.setItem(KEY,JSON.stringify(d));
+      stamp.textContent='נשמר '+d._at;
+      var b=this; b.textContent='נשמר ✓'; b.classList.add('done');
+      setTimeout(function(){ b.textContent='שמירה למצגת'; b.classList.remove('done') },1800);
+    }catch(e){ stamp.textContent='השמירה נכשלה — בדקי שהדפדפן מרשה אחסון מקומי' }
+  };
+})();
+</script>
+</html>
