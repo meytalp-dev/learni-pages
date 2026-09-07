@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="מצגת הדרכה בת שעה לרכזות משפחתונים על Microsoft 365 Copilot — ארבעה שימושים, גבולות ובדיקות.">
+<title>Copilot לרכזות משפחתונים · מצגת הדרכה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap">
+<style>
+:root{
+  --ink:#14201f; --ink-2:#4a5a58; --ink-3:#7c8b88;
+  --ground:#eef1ef; --surface:#ffffff; --surface-2:#f7f9f8;
+  --line:#d7dfdc; --line-2:#bfcbc7;
+  --accent:#0f5d54; --accent-ink:#ffffff; --accent-wash:#dfece9;
+  --ok:#2e7d32; --ok-wash:#e5f0e6;
+  --warn:#8f5a08; --warn-wash:#f6ecd9;
+  --crit:#a52a1f; --crit-wash:#f8e4e1;
+  --display:"Frank Ruhl Libre","Times New Roman",serif;
+  --body:"Assistant","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#e7edeb; --ink-2:#a2b1ad; --ink-3:#74847f;
+    --ground:#0f1716; --surface:#182220; --surface-2:#1e2a28;
+    --line:#2c3937; --line-2:#3b4a47;
+    --accent:#57b7a7; --accent-ink:#062320; --accent-wash:#1a2f2c;
+    --ok:#6fbf72; --ok-wash:#172a1a;
+    --warn:#d7a544; --warn-wash:#2e2716;
+    --crit:#e3806f; --crit-wash:#331d1a;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e7edeb; --ink-2:#a2b1ad; --ink-3:#74847f;
+  --ground:#0f1716; --surface:#182220; --surface-2:#1e2a28;
+  --line:#2c3937; --line-2:#3b4a47;
+  --accent:#57b7a7; --accent-ink:#062320; --accent-wash:#1a2f2c;
+  --ok:#6fbf72; --ok-wash:#172a1a;
+  --warn:#d7a544; --warn-wash:#2e2716;
+  --crit:#e3806f; --crit-wash:#331d1a;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  direction:rtl; margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--body); overflow:hidden;
+}
+h1,h2,h3{font-family:var(--display); font-weight:700; margin:0; text-wrap:balance; line-height:1.2}
+p{margin:0}
+button{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--accent); outline-offset:3px; border-radius:4px}
+
+/* ---------- deck shell ---------- */
+.deck{position:fixed; inset:0; display:flex; flex-direction:column}
+.stage{flex:1; position:relative; overflow:hidden}
+.slide{
+  position:absolute; inset:0; display:none;
+  padding:clamp(28px,5vw,72px) clamp(24px,7vw,110px);
+  overflow-y:auto;
+}
+.slide[data-on]{display:flex; flex-direction:column; justify-content:center}
+.slide > * + *{margin-top:clamp(14px,2vh,26px)}
+
+/* type scale — fluid, built for projection */
+.kicker{
+  font-size:clamp(.72rem,1.1vw,.88rem); font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--accent);
+}
+.slide h2{font-size:clamp(1.7rem,4.4vw,3.2rem); letter-spacing:-.02em}
+.slide h3{font-size:clamp(1.15rem,2.2vw,1.65rem); font-family:var(--body); font-weight:700}
+.lede{font-size:clamp(1rem,1.8vw,1.4rem); color:var(--ink-2); max-width:56ch; line-height:1.55}
+.tiny{font-size:clamp(.82rem,1.2vw,1rem); color:var(--ink-3)}
+
+/* ---------- title slide ---------- */
+.title{justify-content:center; text-align:center; align-items:center}
+.title h1{font-size:clamp(2.2rem,7vw,5rem); letter-spacing:-.03em}
+.title .sub{font-size:clamp(1rem,2.2vw,1.6rem); color:var(--ink-2); max-width:44ch}
+.title .meta{
+  display:flex; gap:clamp(14px,3vw,36px); flex-wrap:wrap; justify-content:center;
+  font-size:clamp(.8rem,1.2vw,1rem); color:var(--ink-3);
+}
+.title .meta b{color:var(--accent); display:block; font-family:var(--display); font-size:1.5em}
+.mark{width:clamp(38px,5vw,58px); height:auto; color:var(--accent)}
+
+/* ---------- lists ---------- */
+ul.big{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:clamp(9px,1.6vh,16px)}
+ul.big li{
+  display:flex; gap:14px; align-items:flex-start;
+  font-size:clamp(1rem,1.8vw,1.4rem); line-height:1.45;
+}
+ul.big li::before{
+  content:""; flex:none; width:9px; height:9px; border-radius:50%;
+  background:var(--accent); margin-top:.55em;
+}
+ul.big li b{font-weight:700}
+ul.big li span{color:var(--ink-2); font-size:.86em; display:block; margin-top:2px}
+
+/* ---------- cards / grids ---------- */
+.grid{display:grid; gap:clamp(10px,1.6vw,18px)}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.box{
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  padding:clamp(14px,2vw,24px);
+}
+.box h3{margin-bottom:8px}
+.box p{font-size:clamp(.85rem,1.3vw,1.05rem); color:var(--ink-2); line-height:1.55}
+.box.on{background:var(--accent-wash); border-color:var(--accent)}
+.box.bad{background:var(--crit-wash); border-color:var(--crit)}
+.box.good{background:var(--ok-wash); border-color:var(--ok)}
+.box .tag{
+  font-size:.72rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  display:block; margin-bottom:7px;
+}
+.bad .tag{color:var(--crit)} .good .tag{color:var(--ok)} .on .tag{color:var(--accent)}
+
+/* ---------- statement ---------- */
+.statement{
+  background:var(--accent); color:var(--accent-ink);
+  border-radius:14px; padding:clamp(24px,4vw,48px); text-align:center;
+}
+.statement p{
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(1.4rem,3.6vw,2.7rem); line-height:1.3;
+}
+.statement .k{
+  font-family:var(--body); font-size:clamp(.72rem,1vw,.85rem); font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; opacity:.7; margin-bottom:14px;
+}
+.statement .sub{
+  font-family:var(--body); font-weight:400; opacity:.88;
+  font-size:clamp(.88rem,1.4vw,1.12rem); margin-top:16px; line-height:1.6;
+}
+
+/* ---------- prompt block ---------- */
+.prompt{
+  background:var(--surface); border:1px solid var(--line); border-right:4px solid var(--accent);
+  border-radius:10px; padding:clamp(14px,2vw,22px);
+  font-size:clamp(.82rem,1.25vw,1.02rem); line-height:1.65;
+  white-space:pre-wrap; font-family:var(--body); margin:0;
+  max-height:46vh; overflow-y:auto;
+}
+.prompt .hl{background:var(--warn-wash); color:var(--warn); font-weight:700; border-radius:4px; padding:1px 5px}
+.prompt .fill{background:var(--accent-wash); color:var(--accent); font-weight:700; border-radius:4px; padding:1px 5px}
+
+/* ---------- exercise ---------- */
+.ex{
+  background:var(--warn-wash); border:1px solid var(--line); border-right:4px solid var(--warn);
+  border-radius:12px; padding:clamp(16px,2.4vw,28px);
+}
+.ex .k{
+  font-size:clamp(.72rem,1vw,.85rem); font-weight:700; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--warn); margin-bottom:10px;
+}
+.ex ol{margin:0; padding-inline-start:22px; font-size:clamp(.95rem,1.6vw,1.25rem); line-height:1.6}
+.ex ol li{margin-bottom:7px}
+
+/* ---------- chrome ---------- */
+.bar{
+  flex:none; display:flex; align-items:center; gap:10px;
+  padding:8px clamp(14px,3vw,28px); border-top:1px solid var(--line);
+  background:var(--surface); font-size:.82rem; color:var(--ink-3);
+}
+.bar .spacer{flex:1}
+.bar button{
+  background:transparent; border:1px solid var(--line-2); color:var(--ink-2);
+  border-radius:99px; padding:4px 13px; font-size:.8rem; cursor:pointer;
+}
+.bar button:hover{border-color:var(--accent); color:var(--accent)}
+.bar button[aria-pressed="true"]{background:var(--accent); color:var(--accent-ink); border-color:var(--accent)}
+.count{font-variant-numeric:tabular-nums; font-weight:700; color:var(--ink-2)}
+.clock{font-variant-numeric:tabular-nums; color:var(--accent); font-weight:700}
+.prog{position:absolute; bottom:0; right:0; height:3px; background:var(--accent); transition:width .25s ease}
+
+/* ---------- presenter notes ---------- */
+.notes{
+  flex:none; display:none; background:var(--surface-2); border-top:1px solid var(--line);
+  padding:14px clamp(14px,3vw,28px); max-height:34vh; overflow-y:auto;
+  font-size:.92rem; line-height:1.6; color:var(--ink-2);
+}
+.notes[data-on]{display:block}
+.notes h4{
+  font-family:var(--body); font-size:.72rem; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--accent); margin:0 0 8px;
+}
+.notes p + p{margin-top:8px}
+.notes strong{color:var(--ink)}
+.notes .say{border-right:3px solid var(--accent); padding-right:12px; font-style:italic}
+.notes .watch{
+  background:var(--crit-wash); border-radius:8px; padding:9px 12px; margin-top:10px;
+  color:var(--ink);
+}
+
+@media print{
+  body{overflow:visible; background:#fff}
+  .deck{position:static}
+  .stage{overflow:visible}
+  .slide{position:static; display:flex!important; page-break-after:always;
+    min-height:auto; padding:24px 0; border-bottom:1px solid #ccc}
+  .bar{display:none}
+  .notes{display:block!important; max-height:none; background:#fff}
+  .prompt{max-height:none}
+}
+</style>
+
+<div class="deck">
+<div class="stage" id="stage">
+
+<!-- ===== 1 ===== -->
+<section class="slide title" data-min="0" data-on>
+  <svg class="mark" viewBox="0 0 100 100" aria-hidden="true" fill="currentColor">
+    <path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z"/>
+  </svg>
+  <h1>Copilot<br>לרכזות משפחתונים</h1>
+  <p class="sub">שעה אחת. ארבעה שימושים שתשתמשו בהם כבר מחר — ולא אחד יותר.</p>
+  <div class="meta">
+    <div><b>4</b>שימושים</div>
+    <div><b>60</b>דקות</div>
+    <div><b>0</b>ידע קודם נדרש</div>
+  </div>
+  <template class="note">
+    <h4>פתיחה · 0–2 דק'</h4>
+    <p class="say">"אני לא הולכת ללמד אתכן את כל Copilot. אני הולכת ללמד אתכן ארבעה דברים
+    שתעשו איתו כבר מחר בבוקר. אם בסוף השעה כל אחת תלך עם דבר אחד — הצלחנו."</p>
+    <p><strong>לפני שמתחילים:</strong> ודאי שכולן פתחו את Copilot במחשב שלהן. מי שלא —
+    לתת לה שכנה. אין טעם להתחיל לפני שכולן מולו.</p>
+    <div class="watch">בדקי בעצמך יום לפני: היכנסי לחשבון, פתחי צ'אט, נסי להצמיד PDF.
+    אם ההצמדה לא עובדת — בשקף 9 תשתמשי בגרסת ההדבקה במקום. שתיהן כתובות שם.</div>
+  </template>
+</section>
+
+<!-- ===== 2 ===== -->
+<section class="slide" data-min="2">
+  <div class="kicker">איפה אתן היום</div>
+  <h2>Copilot כבר פתוח אצלכן.<br>אתן משתמשות בו לדבר אחד.</h2>
+  <div class="grid g2">
+    <div class="box">
+      <span class="tag">מה אתן מבקשות ממנו</span>
+      <h3>"תכתוב לי מייל"</h3>
+      <p>מייל למטפלת. מייל להורים. מייל למשרד העבודה. תשובה לאמא. ברכה לחברה לעבודה.
+      זה כמעט כל השימוש — והוא שימוש טוב. הוא פשוט קטן.</p>
+    </div>
+    <div class="box on">
+      <span class="tag">מה מונח לידכן ולא נוגעים בו</span>
+      <h3>הקבצים עצמם</h3>
+      <p>דוח הפיקוח שהגיע ממשרד העבודה. הנוהל לקראת ביקור. טבלת המטפלות.
+      טבלת שכר הלימוד. כולם שם, במחשב, ואף אחת לא שואלת אותם כלום.</p>
+    </div>
+  </div>
+  <p class="lede">כל ההדרכה הזאת היא מעבר אחד: מ־Copilot <b>שכותב בשבילכן</b> ל־Copilot <b>שגם קורא בשבילכן</b>.</p>
+  <template class="note">
+    <h4>ההקשר · 2–6 דק'</h4>
+    <p>השקף הזה מבוסס על צילום מסך אמיתי מחשבון של רכזת: היסטוריית הצ'אטים שלה כמעט
+    כולה "רוצה לכתוב מייל ל...", ובאותו מסך בדיוק מונחים דוח פיקוח, נוהל וטבלת מטפלות
+    שהיא מעולם לא שאלה עליהם דבר.</p>
+    <p class="say">"מי כאן ביקשה מ־Copilot לכתוב מייל?" — כמעט כולן ירימו יד.
+    "מי ביקשה ממנו לקרוא לה מסמך ולהגיד מה נדרש ממנה?" — כמעט אף אחת. "זה הפער."</p>
+    <div class="watch">אל תציגי את צילום המסך המקורי בפני הקבוצה — יש בו שמות קבצים ושם של
+    רכזת. השקף הזה מספר את אותו סיפור בלי לחשוף אף אחת.</div>
+  </template>
+</section>
+
+<!-- ===== 3 ===== -->
+<section class="slide" data-min="6">
+  <div class="kicker">מה זה בעצם</div>
+  <h2>לא מנוע חיפוש. לא מומחה.<br>עוזר שקורא ומנסח מהר.</h2>
+  <div class="grid g3">
+    <div class="box good">
+      <span class="tag">בזה הוא טוב</span>
+      <p><b>לנסח</b> — לוקח נקודות ומוציא טקסט מסודר</p>
+      <p style="margin-top:8px"><b>לסכם</b> — לוקח מסמך ארוך ומוציא את העיקר</p>
+      <p style="margin-top:8px"><b>לארגן</b> — לוקח רשימה ומוציא טבלה</p>
+    </div>
+    <div class="box bad">
+      <span class="tag">בזה הוא לא</span>
+      <p><b>לדעת מה קרה בשטח</b> — הוא לא היה בביקור</p>
+      <p style="margin-top:8px"><b>לזכור</b> — כל שיחה מתחילה מאפס</p>
+      <p style="margin-top:8px"><b>להיות מקור</b> — הוא ממציא מספרים בביטחון מלא</p>
+    </div>
+    <div class="box">
+      <span class="tag">ולכן</span>
+      <p>הוא <b>לא מחליף</b> את שיקול הדעת המקצועי שלכן. הוא מקצר את הדרך מהראש שלכן
+      אל הנייר.</p>
+      <p style="margin-top:8px">האחריות על מה שנשלח נשארת אצלכן. תמיד.</p>
+    </div>
+  </div>
+  <template class="note">
+    <h4>מסגרת · 6–9 דק'</h4>
+    <p>שלוש דקות, לא יותר. הן לא צריכות להבין איך זה עובד — הן צריכות לדעת למה לצפות.</p>
+    <p class="say">"תחשבו עליו כמו על עוזר חדש שיודע לכתוב מצוין, קורא מהר, ואין לו
+    שמץ של מושג מה קורה במשפחתונים שלכן. כל מה שהוא יודע — אתן נותנות לו."</p>
+    <p><strong>"הוא ממציא מספרים"</strong> — אל תרככי את זה. זו הנקודה שתחזור בשקף 15,
+    והיא מה שמונע תקלה מול משרד העבודה.</p>
+  </template>
+</section>
+
+<!-- ===== 4 ===== -->
+<section class="slide" data-min="9">
+  <div class="kicker">ציפיות</div>
+  <h2>מה שראיתן ביוטיוב — לא יעבוד אצלכן</h2>
+  <div class="grid g2">
+    <div class="box bad">
+      <span class="tag">לא יעבוד ברישיון שלכן</span>
+      <ul class="big" style="font-size:.8em">
+        <li>"סכם לי את תיבת המייל"</li>
+        <li>"מה היה בישיבה אתמול ב־Teams"</li>
+        <li>"חפש בכל קבצי העירייה"</li>
+        <li>"מי כתב לי על המשפחתון הזה החודש"</li>
+      </ul>
+    </div>
+    <div class="box good">
+      <span class="tag">כן יעבוד — וזה הרבה</span>
+      <ul class="big" style="font-size:.8em">
+        <li>כל מה שאתן <b>מדביקות</b> לתוך הצ'אט</li>
+        <li>קובץ שאתן <b>מצמידות</b> לשיחה</li>
+        <li>ניסוח, סיכום, טבלה, בדיקת טון</li>
+        <li>עבודה על טקסט בתוך Word</li>
+      </ul>
+    </div>
+  </div>
+  <p class="lede">ההבדל פשוט: הוא לא יילך לחפש לבד. <b>מה שתביאו לו — הוא יעבוד עליו מצוין.</b></p>
+  <template class="note">
+    <h4>מניעת תסכול · 9–12 דק'</h4>
+    <p>השקף הכי חשוב בהדרכה, למרות שהוא נשמע טכני. בלעדיו, מישהי תנסה בבית
+    "סכם לי את המיילים", זה לא יעבוד, והיא תסיק ש־Copilot לא שווה כלום.</p>
+    <p><strong>הרקע:</strong> הרישיון שלכן הוא הרמה הבסיסית. היכולת לחפש לבד בתוך המיילים
+    והקבצים של הארגון היא תוספת בתשלום שאין לעירייה. זה לא תקלה — זה פשוט מה שיש.</p>
+    <p class="say">"אני אומרת לכן את זה עכשיו כדי שלא תתאכזבו בבית. הוא לא ילך לחפש
+    לבדו. אבל מה שתשימו לו על השולחן — הוא יעבוד עליו מעולה."</p>
+    <div class="watch">אם מישהי כן מצליחה לעשות אחד מהדברים בעמודה האדומה — מצוין,
+    אל תתווכחי. תגידי "אז יש לך יותר ממה שחשבנו" והמשיכי. הרישיונות משתנים מדי פעם.</div>
+  </template>
+</section>
+
+<!-- ===== 5 ===== -->
+<section class="slide" data-min="12">
+  <div class="statement">
+    <div class="k">הכלל היחיד להיום</div>
+    <p>אל תתארו לו את החומר.<br>הדביקו לו את החומר.</p>
+    <div class="sub">אם תזכרו רק דבר אחד מהשעה הזאת — שיהיה זה.</div>
+  </div>
+  <template class="note">
+    <h4>הכלל · 12–14 דק'</h4>
+    <p>שקף אחד, משפט אחד, ואז מיד לדוגמה בשקף הבא. אל תסבירי אותו — תראי אותו.</p>
+    <p class="say">"רוב האנשים כותבים ל־Copilot כאילו הוא יודע. הוא לא יודע.
+    כל מה שהוא יודע זה מה ששמתן בתיבה."</p>
+  </template>
+</section>
+
+<!-- ===== 6 ===== -->
+<section class="slide" data-min="14">
+  <div class="kicker">אותה בקשה, שתי דרכים</div>
+  <h2>ההבדל בין השתיים הוא כל ההבדל</h2>
+  <div class="grid g2">
+    <div class="box bad">
+      <span class="tag">מה שרובנו כותבים</span>
+      <p style="font-size:1.15em; color:var(--ink)">"כתוב לי דוח ביקור במשפחתון"</p>
+      <p style="margin-top:12px"><b>מה יחזור:</b> דוח יפהפה, מלא במשפטים כמו
+      "הסביבה נמצאה מטפחת ובטוחה" ו"הילדים נצפו רגועים ומשתפי פעולה" —
+      שאף אחד לא ראה, ואת לא כתבת.</p>
+    </div>
+    <div class="box good">
+      <span class="tag">מה שכדאי לכתוב</span>
+      <p style="font-size:1.15em; color:var(--ink)">"הנה שמונה השורות שרשמתי בביקור.
+      כתוב מהן דוח. אל תוסיף ממצא שלא כתוב אצלי."</p>
+      <p style="margin-top:12px"><b>מה יחזור:</b> הממצאים שלכן, מנוסחים מקצועית.
+      בלי המצאות. בלי הפתעות במכתב שיגיע למפקחת.</p>
+    </div>
+  </div>
+  <template class="note">
+    <h4>הדגמה חיה · 14–18 דק'</h4>
+    <p><strong>עשי את זה חי, לא בשקף.</strong> פתחי Copilot על המסך המוקרן והריצי את
+    שתי הבקשות אחת אחרי השנייה. זה הרגע שבו הן מבינות.</p>
+    <p><strong>נקודות לביקורת בפלט הראשון:</strong> תעצרי ותשאלי — "רגע, מאיפה הוא יודע
+    שהסביבה הייתה בטוחה? מי אמר לו את זה?" תני להן לענות.</p>
+    <div class="watch">הכיני מראש שמונה שורות גולמיות של ביקור על פתקית, כדי
+    שלא תמציאי מול הקהל. שורות גנריות בלבד — בלי שם משפחתון ובלי שם מטפלת.</div>
+  </template>
+</section>
+
+<!-- ===== 7 ===== -->
+<section class="slide" data-min="18">
+  <div class="kicker">שימוש 1 מתוך 4</div>
+  <h2>מנקודות גולמיות לדוח ביקור</h2>
+  <pre class="prompt">אני רכזת משפחתונים. להלן הנקודות הגולמיות שרשמתי במהלך ביקור.
+כתוב מהן דוח ביקור מקצועי בעברית, בגוף שלישי, בטון עובדתי ומכבד.
+
+כללים:
+<span class="hl">- אל תוסיף שום ממצא שלא כתוב אצלי. אם משהו חסר, כתוב "לא נבדק".</span>
+- אל תרכך ואל תחמיר. מה שכתבתי "לא תקין" נשאר לא תקין.
+- כל ליקוי בפסקה נפרדת, בניסוח שמאפשר לקבוע לו אחראי ותאריך יעד.
+- סיים בפסקת סיכום קצרה.  אורך: עד 300 מילים.
+
+הנקודות שלי:
+<span class="fill">[כאן מדביקים]</span></pre>
+  <p class="tiny">השורה המסומנת היא הכי חשובה בפרומפט. בלעדיה הוא ימלא את החורים בעצמו.</p>
+  <template class="note">
+    <h4>שימוש 1 · 18–21 דק'</h4>
+    <p>אל תקריאי את הפרומפט. הצביעי על השורה הצהובה והסבירי רק אותה.</p>
+    <p class="say">"כל שאר השורות זה נוחות. השורה הצהובה זו הגנה."</p>
+    <p><strong>אל תבקשי מהן להקליד את זה.</strong> הפרומפט נמצא בדף שהן מקבלות בסוף —
+    בהדרכה הן רק מעתיקות ומדביקות.</p>
+  </template>
+</section>
+
+<!-- ===== 8 ===== -->
+<section class="slide" data-min="21">
+  <div class="ex">
+    <div class="k">תרגול · 4 דקות · על המחשב שלכן</div>
+    <ol>
+      <li>פתחי צ'אט חדש ב־Copilot</li>
+      <li>הדביקי את הפרומפט מדף הפרומפטים</li>
+      <li>הוסיפי חמש־שש שורות מביקור אמיתי שעשית — <b>בלי שם המטפלת ובלי שם המשפחתון</b></li>
+      <li>קראי את מה שחזר, ומצאי משפט אחד שאת לא כתבת</li>
+    </ol>
+  </div>
+  <p class="lede">מצאתן משפט כזה? מצוין — בדיוק בשביל זה למדנו את הכלל.</p>
+  <template class="note">
+    <h4>תרגול 1 · 21–25 דק'</h4>
+    <p><strong>הסתובבי בחדר.</strong> אל תעמדי מקדימה. הבעיה השכיחה: הן כותבות שתי מילים
+    במקום שש שורות, ואז מקבלות זבל ומסיקות שהכלי לא טוב.</p>
+    <p><strong>שאלי בסוף:</strong> "מי מצאה משפט שהיא לא כתבה?" — ותני לשתיים להקריא.
+    זה שווה יותר מכל הסבר שלך.</p>
+    <div class="watch">מי שנתקעת — תני לה לעבוד עם השכנה. אל תעצרי את כל הקבוצה
+    בשביל אחת. אם יותר מחצי תקועות, זו בעיה טכנית ולא בעיה שלהן — עצרי ובררי.</div>
+  </template>
+</section>
+
+<!-- ===== 9 ===== -->
+<section class="slide" data-min="25">
+  <div class="kicker">שימוש 2 מתוך 4 · הכי שווה</div>
+  <h2>לשאול את דוח הפיקוח מה נדרש ממני</h2>
+  <pre class="prompt">מצורף דוח פיקוח של משרד העבודה שקיבלתי על משפחתון.
+
+עבור כל ממצא בדוח, בנה שורה בטבלה עם ארבע עמודות:
+1. הממצא כלשונו בדוח
+2. מה בדיוק נדרש ממני בפועל — פעולה אחת קונקרטית
+3. תאריך היעד לתיקון
+4. מה חסר לי כדי לענות עליו
+
+<span class="hl">אל תמציא תאריכים ואל תמציא סעיפים. אם תאריך לא מופיע — כתוב "לא צוין".</span>
+
+בסוף, כתוב רשימה נפרדת: מה חוזר על עצמו ביותר ממשפחתון אחד.</pre>
+  <div class="grid g2">
+    <div class="box"><span class="tag">דרך א</span><p>מצמידים את קובץ ה־PDF לצ'אט</p></div>
+    <div class="box"><span class="tag">דרך ב — עובדת תמיד</span><p>פותחים את ה־PDF, מסמנים הכול, מדביקים בצ'אט</p></div>
+  </div>
+  <template class="note">
+    <h4>שימוש 2 · 25–29 דק'</h4>
+    <p><strong>זה הרגע הכי חזק בהדרכה.</strong> כאן הן מבינות שזה לא עוד צ'אט.
+    דוח פיקוח הוא כאב אמיתי — פתאום הוא הופך לטבלה של משימות.</p>
+    <p><strong>אם ההצמדה לא עובדת — אל תילחמי בזה.</strong> עברי מיד לדרך ב'. אמרי:
+    "יש שתי דרכים, אני אראה לכן את זו שעובדת תמיד" — והקהל לא ידע שמשהו נכשל.</p>
+    <p class="say">"השורה האחרונה — 'מה חוזר על עצמו ביותר ממשפחתון אחד' — זו שורה
+    שהופכת דוח לתובנה. אם אותו ליקוי חוזר אצל ארבע מטפלות, זו לא בעיה של מטפלת.
+    זו בעיה של הדרכה."</p>
+    <div class="watch">הכיני מראש דוח פיקוח לדוגמה, מוסתר שמות. אל תפתחי דוח אמיתי
+    של מטפלת מול הקבוצה.</div>
+  </template>
+</section>
+
+<!-- ===== 10 ===== -->
+<section class="slide" data-min="29">
+  <div class="ex">
+    <div class="k">תרגול · 5 דקות</div>
+    <ol>
+      <li>קחי דוח פיקוח שקיבלת (או את הדוגמה שחילקתי)</li>
+      <li>הצמידי אותו — ואם לא מסתדר, הדביקי את הטקסט</li>
+      <li>הריצי את הפרומפט</li>
+      <li>שאלי שאלת המשך אחת משלך. למשל: <b>"איזה ממצא הכי דחוף ולמה?"</b></li>
+    </ol>
+  </div>
+  <p class="lede">שאלת ההמשך היא העיקר. אף אחת לא מקבלת את מה שהיא צריכה בניסיון הראשון —
+  <b>וזה בסדר גמור.</b></p>
+  <template class="note">
+    <h4>תרגול 2 · 29–34 דק'</h4>
+    <p><strong>המסר שצריך לעבור כאן:</strong> Copilot הוא שיחה, לא כפתור. הן רגילות
+    לגוגל — שואלים פעם אחת ומקבלים. כאן ממשיכים לדבר.</p>
+    <p>עודדי אותן להגיד לו "לא, לא לזה התכוונתי" ולראות מה קורה. זה משחרר.</p>
+  </template>
+</section>
+
+<!-- ===== 11 ===== -->
+<section class="slide" data-min="34">
+  <div class="kicker">שימוש 3 מתוך 4</div>
+  <h2>הוא לא כותב את המייל.<br>הוא בודק אחרייך.</h2>
+  <pre class="prompt">כתבתי את המייל הבא למטפלת אחרי ביקור שבו נמצאו ליקויים. עוד לא שלחתי.
+
+<span class="hl">אל תכתוב אותו מחדש.</span> במקום זה:
+1. סמן משפטים שעלולים להתפרש כמאשימים, כמזלזלים או כמאיימים
+2. הסבר בשורה אחת למה
+3. הצע לכל אחד ניסוח חלופי ששומר על אותה דרישה בדיוק, בלי לרכך את התוכן
+
+אני רוצה שהמסר יישאר חד. אני רק לא רוצה שהוא ייפגע.
+
+המייל:
+<span class="fill">[כאן מדביקים את המייל שכתבת]</span></pre>
+  <p class="tiny">המייל נשאר שלכן — הקול, הדגשים, הסמכות. הוא רק מצביע על מוקשים.</p>
+  <template class="note">
+    <h4>שימוש 3 · 34–38 דק'</h4>
+    <p><strong>הפוך ממה שהן עושות היום.</strong> היום הן מבקשות ממנו לכתוב. כאן הוא
+    בודק אחריהן. תדגישי את ההיפוך — זה מה שיזכרו.</p>
+    <p class="say">"מיילים שנכתבים על ידי Copilot נשמעים כמו Copilot. מטפלת מרגישה
+    את זה מיד. מייל שאתן כותבות ו־Copilot בודק — נשמע כמוכן, רק בלי המוקשים."</p>
+    <p><strong>הקשר רגשי:</strong> מייל אחרי ביקור לא טוב הוא אחד הדברים הכי לא נעימים
+    בתפקיד. השימוש הזה נוגע בכאב אמיתי, לא רק בחיסכון זמן.</p>
+  </template>
+</section>
+
+<!-- ===== 12 ===== -->
+<section class="slide" data-min="38">
+  <div class="ex">
+    <div class="k">תרגול · 4 דקות</div>
+    <ol>
+      <li>מצאי מייל רגיש שכתבת בחודש האחרון — או כתבי אחד עכשיו בשלוש שורות</li>
+      <li><b>הסירי ממנו שמות</b> לפני שאת מדביקה</li>
+      <li>הריצי את פרומפט בדיקת הטון</li>
+      <li>שאלי את עצמך: הסכמתי איתו? על מה לא?</li>
+    </ol>
+  </div>
+  <p class="lede">לא חייבים לקבל את דעתו. לפעמים הוא ירכך יותר מדי — <b>ואתן צודקות והוא לא.</b></p>
+  <template class="note">
+    <h4>תרגול 3 · 38–42 דק'</h4>
+    <p><strong>שלב 2 קריטי.</strong> הן ימהרו להדביק מייל אמיתי עם שם מטפלת. עצרי אותן
+    לפני, לא אחרי. זו גם ההקדמה הטבעית לשקף הבא.</p>
+    <p><strong>שאלת סיום מצוינת:</strong> "מי לא הסכימה עם ההערות שלו?" — מי שמרימה יד,
+    תני לה לפרט. זה מלמד את כל הקבוצה שמותר לחלוק עליו.</p>
+  </template>
+</section>
+
+<!-- ===== 13 ===== -->
+<section class="slide" data-min="42">
+  <div class="kicker">שימוש 4 מתוך 4</div>
+  <h2>מרשימה מפוזרת לטבלת מעקב</h2>
+  <pre class="prompt">המר את רשימת הליקויים הבאה לטבלה עם העמודות:
+הליקוי | המשפחתון | מקור | אחראי/ת | תאריך יעד | סטטוס
+
+<span class="hl">ליקוי שלא כתוב לו אחראי או תאריך — השאר את התא ריק. אל תשלים.</span>
+אחרי הטבלה, כתוב רשימה בכותרת "חסר יעד" עם כל אלה שחסר להם משהו.
+מיין לפי תאריך היעד, הקרוב ביותר למעלה.
+
+הרשימה:
+<span class="fill">[כאן מדביקים]</span></pre>
+  <p class="lede">ליקוי בלי אחראי ובלי תאריך יעד הוא ליקוי שלא ייסגר.
+  הפרומפט הזה מוציא לאור בדיוק את אלה.</p>
+  <template class="note">
+    <h4>שימוש 4 · 42–45 דק'</h4>
+    <p>קצר. אין תרגול נפרד — אין זמן, וזה השימוש הכי קל להבנה.</p>
+    <p><strong>חברי ל־תיק משפחתון</strong> אם הן משתמשות בו: את הטבלה מעתיקים לשם
+    וממשיכים לעקוב. Copilot טוב בלארגן, לא בלזכור — כל שיחה מתחילה מאפס.</p>
+  </template>
+</section>
+
+<!-- ===== 14 ===== -->
+<section class="slide" data-min="45">
+  <div class="statement" style="background:var(--crit)">
+    <div class="k">גבול אחד, קל לזכור</div>
+    <p>אם לא היית שולחת את זה בקבוצת<br>וואטסאפ של שלושים איש —<br>אל תדביקי את זה ל־Copilot.</p>
+  </div>
+  <div class="grid g2">
+    <div class="box bad">
+      <span class="tag">אף פעם</span>
+      <p>שם של ילד או הורה · תעודת זהות · כתובת · טלפון ·
+      מידע רפואי או רווחה · הליך משמעתי · תמונות של ילדים</p>
+    </div>
+    <div class="box good">
+      <span class="tag">אפשר בשקט</span>
+      <p>"ילד בן 3 בקבוצה" · "המטפלת" · ממצא מקצועי בלי מזהים ·
+      נהלים וחוזרים · מייל שהורדתן ממנו שמות</p>
+    </div>
+  </div>
+  <template class="note">
+    <h4>גבולות · 45–51 דק'</h4>
+    <p><strong>למה כלל הוואטסאפ ולא הנוסח הרשמי:</strong> "אין להעביר מידע רגיש ללא
+    הרשאות" — אף אחת לא יודעת ליישם את זה בשתיים בצהריים כשהיא ממהרת.
+    כלל הוואטסאפ אפשר להחזיק בראש.</p>
+    <p><strong>למה זה חשוב באמת:</strong> מה שמדביקים נשלח לשרת של מיקרוסופט.
+    גם אם זה מאובטח וגם אם זה חשבון עירוני — פרטי ילדים לא נוסעים לשם. נקודה.</p>
+    <p class="say">"אף אחת מכן לא תיפגע מזה שלא כתבה שם של ילד. אבל אם שם של ילד
+    ייצא החוצה — זו כותרת בעיתון ותיק אישי. פשוט אל תעשו את זה."</p>
+    <div class="watch">אם עולה השאלה "אבל זה חשבון של העירייה, זה מאובטח?" —
+    התשובה: "כן, ועדיין. הכלל הזה הוא לא על אבטחה, הוא על זה שאין שום סיבה
+    מקצועית לכתוב את השם. הממצא הוא אותו ממצא בלעדיו."</div>
+  </template>
+</section>
+
+<!-- ===== 15 ===== -->
+<section class="slide" data-min="51">
+  <div class="kicker">לפני כל שליחה</div>
+  <h2>שלושים שניות שמונעות תקלה</h2>
+  <ul class="big">
+    <li><b>יש כאן ממצא שלא ראיתי במו עיניי?</b>
+      <span>המשפט הכי מסוכן בדוח הוא זה שנשמע נכון — אבל את לא כתבת אותו.</span></li>
+    <li><b>יש כאן תאריך, מספר או סעיף שלא בדקתי מול המקור?</b>
+      <span>הוא ממציא מספרי סעיפים ותאריכים בביטחון מוחלט. כל מספר — מוודאים.</span></li>
+    <li><b>הייתי חותמת על זה בשמי?</b>
+      <span>ברגע ששלחת — זה שלך. האחריות המקצועית לא עוברת אליו. אף פעם.</span></li>
+  </ul>
+  <template class="note">
+    <h4>בדיקות · 51–55 דק'</h4>
+    <p>אמרי את זה לאט. זה השקף שמגן עליהן מקצועית, והוא גם מה שיאפשר לך להגיד להנהלה
+    שההדרכה הייתה אחראית.</p>
+    <p><strong>הבדיקה השנייה היא הפרקטית ביותר:</strong> Copilot ימציא "סעיף 4.2 לחוזר
+    מנכ״ל" שלא קיים, וייכתוב את זה במכתב למשרד העבודה. זה קורה. תגידי שזה קורה.</p>
+  </template>
+</section>
+
+<!-- ===== 16 ===== -->
+<section class="slide" data-min="55">
+  <div class="kicker">מחר בבוקר</div>
+  <h2>דבר אחד. לא ארבעה.</h2>
+  <div class="grid g2">
+    <div class="box on">
+      <h3>בחרי אחד — עכשיו, בקול</h3>
+      <p style="margin-top:10px">דוח ביקור מנקודות · דוח פיקוח לטבלה ·
+      בדיקת טון לפני שליחה · טבלת מעקב ליקויים</p>
+      <p style="margin-top:12px"><b>את זה תעשי מחר. את השאר — בעוד שבועיים.</b></p>
+    </div>
+    <div class="box">
+      <h3>מה שנשאר לכן</h3>
+      <p style="margin-top:10px">דף הפרומפטים — כל מה שראינו היום, מוכן להעתקה
+      בלחיצה אחת. שמרו אותו במועדפים.</p>
+      <p style="margin-top:12px"><b>אין צורך לזכור כלום.</b> צריך רק לזכור איפה הדף.</p>
+    </div>
+  </div>
+  <p class="lede">Copilot לא מחליף את המקצועיות שלכן.
+  הוא מקצר את הדרך מהראש שלכן אל הנייר — <b>ומחזיר לכן את הזמן למקום שבו הוא באמת נחוץ.</b></p>
+  <template class="note">
+    <h4>סיום · 55–60 דק'</h4>
+    <p><strong>אל תדלגי על ההתחייבות בקול.</strong> הקיפי את החדר ובקשי מכל אחת להגיד
+    מילה אחת: "דוח ביקור" / "פיקוח" / "טון" / "מעקב". מחקר על הדרכות מראה שזה
+    ההבדל בין הדרכה שנשכחת להדרכה שנדבקת — וזה לוקח שתי דקות.</p>
+    <p><strong>שלחי את הקישור לדף הפרומפטים במייל באותו יום</strong>, לא למחרת.</p>
+    <div class="watch">אל תשלחי סיכום ארוך של ההדרכה. שלחי שורה אחת + קישור.
+    סיכום ארוך לא נקרא.</div>
+  </template>
+</section>
+
+<div class="prog" id="prog"></div>
+</div>
+
+<div class="bar">
+  <button id="prev" aria-label="שקף קודם">›</button>
+  <span class="count"><span id="cur">1</span> / <span id="tot">16</span></span>
+  <button id="next" aria-label="שקף הבא">‹</button>
+  <span class="clock" id="clock">דקה 0</span>
+  <span class="spacer"></span>
+  <span class="tiny" style="opacity:.7">← → לניווט · N להערות</span>
+  <button id="notesBtn" aria-pressed="false">הערות מנחה</button>
+  <button id="theme">מצב תצוגה</button>
+  <button onclick="window.print()">הדפסה</button>
+</div>
+
+<div class="notes" id="notes"></div>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, notesOn=false;
+  var elCur=document.getElementById('cur'), elTot=document.getElementById('tot');
+  var elNotes=document.getElementById('notes'), elProg=document.getElementById('prog');
+  var elClock=document.getElementById('clock');
+  elTot.textContent=slides.length;
+
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){
+      if(k===i){ s.setAttribute('data-on',''); s.scrollTop=0 }
+      else s.removeAttribute('data-on');
+    });
+    elCur.textContent=i+1;
+    elProg.style.width=((i+1)/slides.length*100)+'%';
+    elClock.textContent='דקה '+(slides[i].dataset.min||0);
+    paintNotes();
+  }
+  function paintNotes(){
+    if(!notesOn){ elNotes.removeAttribute('data-on'); return }
+    var t=slides[i].querySelector('template.note');
+    elNotes.innerHTML = t ? t.innerHTML : '<h4>אין הערות לשקף זה</h4>';
+    elNotes.setAttribute('data-on','');
+    elNotes.scrollTop=0;
+  }
+  document.getElementById('next').onclick=function(){ show(i+1) };
+  document.getElementById('prev').onclick=function(){ show(i-1) };
+  document.getElementById('notesBtn').onclick=function(){
+    notesOn=!notesOn; this.setAttribute('aria-pressed',String(notesOn)); paintNotes();
+  };
+
+  document.addEventListener('keydown',function(e){
+    if(/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+    /* RTL: left arrow moves forward */
+    if(e.key==='ArrowLeft'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); show(i+1) }
+    else if(e.key==='ArrowRight'||e.key==='PageUp'||e.key==='Backspace'){ e.preventDefault(); show(i-1) }
+    else if(e.key==='Home'){ show(0) }
+    else if(e.key==='End'){ show(slides.length-1) }
+    else if(e.key==='n'||e.key==='N'||e.key==='נ'){ document.getElementById('notesBtn').click() }
+    else if(e.key==='f'||e.key==='F'||e.key==='כ'){
+      if(document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen().catch(function(){});
+    }
+  });
+
+  /* theme */
+  var root=document.documentElement, saved=null;
+  try{ saved=localStorage.getItem('cp-theme') }catch(e){}
+  if(saved) root.setAttribute('data-theme',saved);
+  document.getElementById('theme').onclick=function(){
+    var cur=root.getAttribute('data-theme');
+    var isDark = cur ? cur==='dark' : window.matchMedia('(prefers-color-scheme:dark)').matches;
+    var next=isDark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('cp-theme',next) }catch(e){}
+  };
+
+  show(0);
+})();
+</script>
+</html>
