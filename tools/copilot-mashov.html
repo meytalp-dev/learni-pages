@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="משוב על הדרכת Copilot לרכזות משפחתונים — שבע שאלות, שלוש דקות. בסוף: המצגת ומחולל הברכות.">
+<title>משוב על ההדרכה · Copilot לרכזות משפחתונים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800;900&family=Heebo:wght@300;400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   משוב על ההדרכה — באותה שפה של המצגת: "לילה זוהר".
+   רקע כהה, מפלי אור, כרטיסי זכוכית. כל שאלה בכרטיס משלה.
+   השליחה: POST לאפס סקריפט שכותב לגיליון (ראו apps-script/copilot-mashov.gs).
+   ============================================================ */
+:root{
+  --ink:#ffffff; --ink-2:rgba(255,255,255,.74); --ink-3:rgba(255,255,255,.5);
+  --night:#07060F;
+  --glass:rgba(255,255,255,.06); --glass-2:rgba(255,255,255,.1);
+  --edge:rgba(255,255,255,.14); --edge-2:rgba(255,255,255,.26);
+  --violet:#A78BFA; --cyan:#22D3EE; --amber:#FBBF24;
+  --rose:#FB7185;   --mint:#34D399; --pink:#F472B6;
+  --c:var(--violet); --c2:var(--pink);
+  --f-display:"Rubik","Heebo",system-ui,sans-serif;
+  --f-body:"Heebo","Assistant",system-ui,sans-serif;
+  --f-latin:"Space Grotesk","Rubik",sans-serif;
+  --r-s:12px; --r-m:20px; --r-pill:999px;
+  --ease:cubic-bezier(.22,.9,.28,1);
+  --spring:cubic-bezier(.34,1.42,.5,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100dvh; direction:rtl;
+  background:var(--night); color:var(--ink);
+  font-family:var(--f-body); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--f-display); font-weight:900; line-height:1.1; margin:0; letter-spacing:-.02em}
+p{margin:0}
+button,input,textarea{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--c); outline-offset:4px; border-radius:8px}
+.latin{font-family:var(--f-latin); font-weight:600}
+
+/* ---------- מפלי האור ---------- */
+.aurora{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none}
+.aurora i{position:absolute; display:block; border-radius:50%; filter:blur(110px); opacity:.45; mix-blend-mode:screen}
+.aurora i:nth-child(1){width:70vw;height:70vw;top:-26vw;right:-20vw; background:#6D28D9; animation:fl1 30s ease-in-out infinite}
+.aurora i:nth-child(2){width:60vw;height:60vw;bottom:-26vw;left:-20vw; background:#BE185D; animation:fl2 36s ease-in-out infinite}
+.aurora i:nth-child(3){width:46vw;height:46vw;top:38%;left:24%; background:#0E7490; animation:fl3 44s ease-in-out infinite; opacity:.35}
+@keyframes fl1{0%,100%{transform:none}50%{transform:translate(-7vw,7vh) scale(1.18)}}
+@keyframes fl2{0%,100%{transform:none}50%{transform:translate(8vw,-6vh) scale(1.12)}}
+@keyframes fl3{0%,100%{transform:none}50%{transform:translate(-11vw,-9vh) scale(1.3)}}
+.vignette{position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.5) 100%)}
+
+.wrap{position:relative; z-index:2; max-width:720px; margin:0 auto; padding:clamp(36px,7vh,72px) 16px 90px}
+
+/* ---------- פתיח ---------- */
+.kicker{display:inline-flex; align-items:center; gap:11px; font-size:.84rem; font-weight:700;
+  letter-spacing:.16em; color:var(--c); margin-bottom:14px}
+.kicker::before{content:""; width:8px;height:8px;border-radius:50%; background:var(--c);
+  box-shadow:0 0 0 4px rgba(167,139,250,.22), 0 0 22px var(--c)}
+.kicker::after{content:""; width:38px; height:1px; background:linear-gradient(to left,var(--c),transparent)}
+.hero h1{font-size:clamp(2.4rem,8.5vw,4.2rem); letter-spacing:-.035em}
+.glow{background:linear-gradient(105deg,var(--c) 0%,var(--c2) 60%,#fff 130%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent}
+.lead{font-size:clamp(1.05rem,2.6vw,1.3rem); color:var(--ink-2); font-weight:300; margin-top:16px; max-width:34em}
+.meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px}
+.pill{display:inline-flex; align-items:center; gap:7px; padding:7px 14px; border-radius:var(--r-pill);
+  background:var(--glass); border:1px solid var(--edge); font-size:.88rem; color:var(--ink-2)}
+.pill b{color:var(--ink)}
+
+/* ---------- התקדמות ---------- */
+.progress{position:sticky; top:0; z-index:5; margin:30px -16px 0; padding:12px 16px;
+  background:linear-gradient(to bottom, rgba(7,6,15,.92) 60%, rgba(7,6,15,0))}
+.bar{height:5px; border-radius:99px; background:rgba(255,255,255,.1); overflow:hidden}
+.bar i{display:block; height:100%; width:0; border-radius:99px;
+  background:linear-gradient(to left,var(--violet),var(--pink),var(--amber)); transition:width .5s var(--ease)}
+.progress small{display:block; margin-top:6px; font-size:.8rem; color:var(--ink-3)}
+
+/* ---------- כרטיסי השאלות ---------- */
+.q{
+  margin-top:18px; border:1px solid var(--edge); border-radius:var(--r-m);
+  background:var(--glass); padding:clamp(18px,4vw,28px);
+  backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+  position:relative; overflow:hidden; transition:border-color .3s;
+  min-width:0;
+}
+.q::before{content:""; position:absolute; inset:0 0 auto 0; height:1px;
+  background:linear-gradient(to left,transparent,rgba(255,255,255,.5),transparent)}
+.q.done{border-color:color-mix(in srgb, var(--c) 45%, transparent)}
+.q[data-color="violet"]{--c:var(--violet); --c2:#818CF8}
+.q[data-color="cyan"]  {--c:var(--cyan);   --c2:#38BDF8}
+.q[data-color="amber"] {--c:var(--amber);  --c2:#FB923C}
+.q[data-color="rose"]  {--c:var(--rose);   --c2:#F472B6}
+.q[data-color="mint"]  {--c:var(--mint);   --c2:#22D3EE}
+.q[data-color="pink"]  {--c:var(--pink);   --c2:#A78BFA}
+fieldset.q{margin-inline:0}
+.q legend, .q .qt{float:right; width:100%; padding:0; font-family:var(--f-display); font-weight:800;
+  font-size:clamp(1.12rem,3.2vw,1.35rem); line-height:1.35; letter-spacing:-.01em}
+.q legend + *, .q .qt + *{clear:both}
+.qn{display:inline-grid; place-items:center; width:30px; height:30px; margin-left:10px; vertical-align:2px;
+  border-radius:50%; font-family:var(--f-latin); font-size:.85rem; font-weight:700;
+  color:#0b0a18; background:var(--c); box-shadow:0 0 18px color-mix(in srgb, var(--c) 55%, transparent)}
+.hint{font-size:.9rem; color:var(--ink-3); margin-top:6px}
+.opt-tag{font-family:var(--f-body); font-weight:400; font-size:.82rem; color:var(--ink-3)}
+
+/* דירוג 1–5 */
+.scale{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:16px}
+.scale label{position:relative}
+.scale input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.scale span{display:grid; place-items:center; height:58px; border-radius:var(--r-s);
+  border:1px solid var(--edge-2); background:rgba(255,255,255,.04);
+  font-family:var(--f-latin); font-size:1.35rem; font-weight:700; color:var(--ink-2);
+  transition:transform .25s var(--spring), background .2s, border-color .2s, color .2s}
+.scale label:hover span{border-color:var(--c); color:var(--ink)}
+.scale input:checked + span{background:var(--c); border-color:var(--c); color:#0b0a18; transform:scale(1.06);
+  box-shadow:0 8px 26px -8px var(--c)}
+.scale input:focus-visible + span{outline:2px solid #fff; outline-offset:3px}
+.ends{display:flex; justify-content:space-between; margin-top:8px; font-size:.82rem; color:var(--ink-3)}
+
+/* צ'יפים — בחירה יחידה ומרובה */
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-top:16px}
+.chip{position:relative}
+.chip input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.chip span{display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:var(--r-pill);
+  border:1px solid var(--edge-2); background:rgba(255,255,255,.04); font-size:.95rem; color:var(--ink-2);
+  transition:background .2s, border-color .2s, color .2s}
+.chip span::before{content:""; width:14px; height:14px; flex:none; border-radius:4px; border:1.5px solid var(--ink-3);
+  transition:background .2s, border-color .2s}
+.chip input[type=radio] + span::before{border-radius:50%}
+.chip:hover span{border-color:var(--c); color:var(--ink)}
+.chip input:checked + span{background:color-mix(in srgb, var(--c) 22%, transparent); border-color:var(--c); color:var(--ink)}
+.chip input:checked + span::before{background:var(--c); border-color:var(--c);
+  box-shadow:inset 0 0 0 2.5px #15132a}
+.chip input:focus-visible + span{outline:2px solid #fff; outline-offset:3px}
+
+.stack{display:grid; gap:9px; margin-top:16px}
+.stack .chip span{display:flex; border-radius:var(--r-s); padding:13px 16px}
+
+textarea, input[type=text]{
+  width:100%; margin-top:14px; padding:13px 15px; border-radius:var(--r-s);
+  border:1px solid var(--edge-2); background:rgba(0,0,0,.28); color:var(--ink);
+  font-size:1rem; line-height:1.6; resize:vertical; transition:border-color .2s, background .2s}
+textarea{min-height:110px}
+textarea::placeholder, input::placeholder{color:var(--ink-3)}
+textarea:focus, input[type=text]:focus{outline:none; border-color:var(--c); background:rgba(0,0,0,.4)}
+.follow{display:none}
+.follow.on{display:block; animation:rise .35s var(--ease) both}
+.follow label{display:block; margin-top:14px; font-size:.92rem; color:var(--ink-2)}
+.follow label + input{margin-top:8px}
+@keyframes rise{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+
+.note{margin-top:14px; padding:12px 15px; border-radius:var(--r-s); font-size:.9rem; color:var(--ink-2);
+  background:rgba(255,255,255,.04); border-right:3px solid var(--c)}
+
+/* ---------- שליחה ---------- */
+.hp{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap}
+.send-row{margin-top:28px; display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center}
+.send{
+  display:inline-flex; align-items:center; gap:10px; padding:16px 38px; border:0; border-radius:var(--r-pill);
+  font-family:var(--f-display); font-weight:800; font-size:1.12rem; color:#0b0a18; cursor:pointer;
+  background:linear-gradient(105deg,var(--violet),var(--pink) 60%,var(--amber));
+  box-shadow:0 14px 40px -12px rgba(244,114,182,.7);
+  transition:transform .25s var(--spring), box-shadow .25s, opacity .2s}
+.send:hover{transform:translateY(-2px); box-shadow:0 20px 50px -12px rgba(244,114,182,.85)}
+.send[disabled]{opacity:.6; cursor:wait; transform:none}
+.msg{font-size:.92rem; color:var(--ink-2); min-height:1.4em}
+.msg.err{color:var(--rose)}
+.msg button{background:none; border:0; padding:0; color:var(--amber); text-decoration:underline; cursor:pointer}
+
+/* ---------- תודה + החומרים ---------- */
+.thanks{display:none; text-align:center; padding-top:10px}
+.thanks.on{display:block; animation:rise .6s var(--ease) both}
+.thanks .big{font-size:3.2rem; line-height:1}
+.thanks h2{font-size:clamp(2rem,7vw,3.2rem); margin-top:14px}
+.thanks .lead{margin-inline:auto}
+
+.kit{margin-top:44px}
+.kit > h2{font-size:clamp(1.3rem,4vw,1.7rem); text-align:center}
+.kit > p{text-align:center; color:var(--ink-3); margin-top:8px; font-size:.95rem}
+.kit-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-top:20px}
+.res{
+  display:block; text-decoration:none; color:inherit; padding:20px; border-radius:var(--r-m);
+  border:1px solid var(--edge); background:var(--glass); position:relative; overflow:hidden;
+  backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+  transition:transform .3s var(--spring), border-color .25s, background .25s}
+.res:hover{transform:translateY(-3px); border-color:var(--c); background:var(--glass-2)}
+.res[data-color="violet"]{--c:var(--violet)} .res[data-color="mint"]{--c:var(--mint)}
+.res[data-color="cyan"]{--c:var(--cyan)}     .res[data-color="amber"]{--c:var(--amber)}
+.res .ico{font-size:1.9rem; line-height:1; display:block}
+.res h3{font-size:1.12rem; font-weight:800; margin-top:12px}
+.res p{font-size:.9rem; color:var(--ink-2); margin-top:6px; line-height:1.5}
+.res .go{display:inline-block; margin-top:12px; font-size:.86rem; font-weight:700; color:var(--c)}
+
+footer{margin-top:56px; text-align:center; font-size:.84rem; color:var(--ink-3)}
+footer a{color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){
+  .aurora i{animation:none} *{transition:none!important; animation:none!important}
+}
+@media (max-width:420px){
+  .scale span{height:52px; font-size:1.2rem}
+  .chip span{padding:9px 13px; font-size:.92rem}
+}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<main class="wrap">
+
+  <header class="hero" id="hero">
+    <div class="kicker">COPILOT · רכזות משפחתונים</div>
+    <h1>איך היה לך<br><span class="glow">במפגש שלנו?</span></h1>
+    <p class="lead">
+      לפני כמה שבועות נפגשנו על Copilot. המשוב שלך הוא מה שיעזור לשפר את ההדרכה הבאה.
+      בסוף מחכים לך כל החומרים מהמפגש.
+    </p>
+    <div class="meta">
+      <span class="pill">⏱ <b>שלוש דקות</b></span>
+      <span class="pill">✍️ <b>שבע שאלות</b></span>
+      <span class="pill">🔒 אין צורך בשם</span>
+    </div>
+  </header>
+
+  <form id="form" novalidate>
+    <div class="progress" aria-hidden="true">
+      <div class="bar"><i id="bar"></i></div>
+      <small id="count">0 מתוך 7</small>
+    </div>
+
+    <!-- 1 -->
+    <fieldset class="q" data-color="violet" data-q="overall">
+      <legend><span class="qn">1</span>באופן כללי, איך הייתה ההדרכה בשבילך?</legend>
+      <div class="scale" role="radiogroup">
+        <label><input type="radio" name="overall" value="1" aria-label="1 — לא תרמה לי"><span>1</span></label>
+        <label><input type="radio" name="overall" value="2" aria-label="2"><span>2</span></label>
+        <label><input type="radio" name="overall" value="3" aria-label="3"><span>3</span></label>
+        <label><input type="radio" name="overall" value="4" aria-label="4"><span>4</span></label>
+        <label><input type="radio" name="overall" value="5" aria-label="5 — תרמה לי מאוד"><span>5</span></label>
+      </div>
+      <div class="ends"><span>לא תרמה לי</span><span>תרמה לי מאוד</span></div>
+    </fieldset>
+
+    <!-- 2 -->
+    <fieldset class="q" data-color="cyan" data-q="relevance">
+      <legend><span class="qn">2</span>עד כמה מה שלמדת רלוונטי לעבודה שלך כרכזת?</legend>
+      <div class="scale" role="radiogroup">
+        <label><input type="radio" name="relevance" value="1" aria-label="1 — בכלל לא"><span>1</span></label>
+        <label><input type="radio" name="relevance" value="2" aria-label="2"><span>2</span></label>
+        <label><input type="radio" name="relevance" value="3" aria-label="3"><span>3</span></label>
+        <label><input type="radio" name="relevance" value="4" aria-label="4"><span>4</span></label>
+        <label><input type="radio" name="relevance" value="5" aria-label="5 — מאוד"><span>5</span></label>
+      </div>
+      <div class="ends"><span>בכלל לא</span><span>מאוד</span></div>
+    </fieldset>
+
+    <!-- 3 -->
+    <div class="q" data-color="amber" data-q="best">
+      <label class="qt" for="best"><span class="qn">3</span>מה היה הדבר הכי שימושי שלקחת מההדרכה?</label>
+      <p class="hint">דבר אחד מספיק. למשל כלל, פרומפט או רגע מהסדנה.</p>
+      <textarea id="best" name="best" placeholder="הכי שימושי בשבילי היה…"></textarea>
+    </div>
+
+    <!-- 4 -->
+    <div class="q" data-color="rose" data-q="used">
+      <label class="qt" for="used"><span class="qn">4</span>השתמשת מאז במשהו שלמדת? אם כן — במה?</label>
+      <p class="hint">דוח ביקור, מייל להורים, סיכום פגישה, תוכנית ליווי… וגם "עוד לא" היא תשובה.</p>
+      <textarea id="used" name="used" placeholder="השבוע השתמשתי בו כדי…"></textarea>
+    </div>
+
+    <!-- 5 -->
+    <fieldset class="q" data-color="mint" data-q="style">
+      <legend><span class="qn">5</span>איך היה סגנון ההנחיה? <span class="opt-tag">(אפשר לסמן כמה)</span></legend>
+      <div class="chips">
+        <label class="chip"><input type="checkbox" name="style" value="ברור ומובן"><span>ברור ומובן</span></label>
+        <label class="chip"><input type="checkbox" name="style" value="מעשי, עם דוגמאות מהעבודה שלי"><span>מעשי, עם דוגמאות מהעבודה שלי</span></label>
+        <label class="chip"><input type="checkbox" name="style" value="בקצב נכון"><span>בקצב נכון</span></label>
+        <label class="chip"><input type="checkbox" name="style" value="היה מקום לשאלות"><span>היה מקום לשאלות</span></label>
+        <label class="chip"><input type="checkbox" name="style" value="מהיר מדי"><span>מהיר מדי</span></label>
+        <label class="chip"><input type="checkbox" name="style" value="תיאורטי מדי"><span>תיאורטי מדי</span></label>
+      </div>
+      <input type="text" name="styleOther" aria-label="משהו אחר על סגנון ההנחיה" placeholder="משהו אחר? (לא חובה)">
+    </fieldset>
+
+    <!-- 6 -->
+    <fieldset class="q" data-color="pink" data-q="recommend">
+      <legend><span class="qn">6</span>היית ממליצה על ההדרכה לרכזות אחרות או לצוותים אחרים?</legend>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="recommend" value="כן"><span>כן</span></label>
+        <label class="chip"><input type="radio" name="recommend" value="אולי"><span>אולי</span></label>
+        <label class="chip"><input type="radio" name="recommend" value="לא"><span>לא</span></label>
+      </div>
+      <textarea name="recommendWhy" aria-label="למה?" placeholder="למה? (לא חובה)" style="min-height:80px"></textarea>
+    </fieldset>
+
+    <!-- 7 -->
+    <fieldset class="q" data-color="violet" data-q="consent">
+      <legend><span class="qn">7</span>אפשר לצטט את מה שכתבת?</legend>
+      <p class="hint">בחירה שלך לגמרי. בלי אישור מפורש שום דבר לא יפורסם.</p>
+      <div class="stack">
+        <label class="chip"><input type="radio" name="consent" value="כן, עם שם ותפקיד"><span>כן, עם שם ותפקיד</span></label>
+        <label class="chip"><input type="radio" name="consent" value="כן, רק עם התפקיד"><span>כן, רק עם התפקיד ("רכזת משפחתונים")</span></label>
+        <label class="chip"><input type="radio" name="consent" value="לא לפרסם"><span>לא לפרסם</span></label>
+      </div>
+      <div class="follow" id="nameBox">
+        <label for="name">איך לכתוב את השם?</label>
+        <input type="text" id="name" name="name" autocomplete="name" placeholder="למשל: רותי כהן">
+      </div>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>לא למלא <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <div class="send-row">
+      <button type="submit" class="send" id="send">שליחת המשוב ←</button>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+
+  <section class="thanks" id="thanks" tabindex="-1">
+    <div class="big" aria-hidden="true">💜</div>
+    <h2><span class="glow">תודה רבה!</span></h2>
+    <p class="lead">המשוב התקבל. והנה, כמו שהבטחתי — כל מה שהיה במפגש, במקום אחד.</p>
+  </section>
+
+  <section class="kit" aria-labelledby="kit-h">
+    <h2 id="kit-h">החומרים מהמפגש</h2>
+    <p>שמרי את הדף הזה — הקישורים כאן תמיד.</p>
+    <div class="kit-grid">
+      <a class="res" data-color="violet" href="copilot-hadracha.html" target="_blank" rel="noopener">
+        <span class="ico">🎞️</span>
+        <h3>המצגת</h3>
+        <p>כל ההדרכה: הנוסחה בארבעה חלקים, צ'אט הדוחות, מה אפשר לבקש והגבולות.</p>
+        <span class="go">לפתיחת המצגת ←</span>
+      </a>
+      <a class="res" data-color="mint" href="https://lerani.co.il/brachot-mishpachtonim/" target="_blank" rel="noopener">
+        <span class="ico">🎉</span>
+        <h3>מחולל הברכות</h3>
+        <p>המחולל שבנינו בשבילכן: ברכות וכרטיסים לחגים, לימי הולדת ולשבת — מוכנים לשליחה בוואטסאפ.</p>
+        <span class="go">לפתיחת המחולל ←</span>
+      </a>
+      <a class="res" data-color="cyan" href="copilot-daf-melave.html" target="_blank" rel="noopener">
+        <span class="ico">📋</span>
+        <h3>הדף המלווה</h3>
+        <p>הנוסחה, צ'אט הדוחות ומאגר פרומפטים — הכול בהעתקה בלחיצה.</p>
+        <span class="go">לפתיחת הדף ←</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>ההדרכה והחומרים: מיטל פלג · <a href="https://impactos.co.il" target="_blank" rel="noopener">אימפקט.OS</a></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- כתובת האפס סקריפט (אחרי פריסה — להדביק כאן את כתובת ה-/exec) ---- */
+  var API = "https://script.google.com/macros/s/AKfycbyj_6r9H4SgsXHxtbVFnXlDdaapH3iu00WYIExRhKv9KUcyijHzM_L72vn_OfyZkxxg1A/exec";
+  /* בדיקה בלי לגעת בקובץ:  copilot-mashov.html?api=<כתובת ה-exec> */
+  try{
+    var q = new URLSearchParams(location.search).get("api");
+    if (q && /^https:\/\/script\.google\.com\//.test(q)) API = q;
+  }catch(e){}
+
+  var DRAFT = "cp-mashov-draft", SENT = "cp-mashov-sent";
+  var form = document.getElementById("form");
+  var msg = document.getElementById("msg");
+  var btn = document.getElementById("send");
+  var cards = [].slice.call(form.querySelectorAll(".q"));
+
+  /* ---- איסוף התשובות ---- */
+  function collect(){
+    var fd = new FormData(form);
+    return {
+      overall:      fd.get("overall") || "",
+      relevance:    fd.get("relevance") || "",
+      best:         (fd.get("best") || "").trim(),
+      used:         (fd.get("used") || "").trim(),
+      style:        fd.getAll("style").join(" · "),
+      styleOther:   (fd.get("styleOther") || "").trim(),
+      recommend:    fd.get("recommend") || "",
+      recommendWhy: (fd.get("recommendWhy") || "").trim(),
+      consent:      fd.get("consent") || "",
+      name:         fd.get("consent") === "כן, עם שם ותפקיד" ? (fd.get("name") || "").trim() : "",
+      website:      fd.get("website") || ""
+    };
+  }
+
+  /* ---- התקדמות + סימון כרטיס שנענה ---- */
+  function answered(card){
+    return [].some.call(card.querySelectorAll("input,textarea"), function(el){
+      if (el.name === "website") return false;
+      return (el.type === "radio" || el.type === "checkbox") ? el.checked : el.value.trim() !== "";
+    });
+  }
+  function paint(){
+    var n = 0;
+    cards.forEach(function(c){ var a = answered(c); c.classList.toggle("done", a); if (a) n++; });
+    document.getElementById("bar").style.width = (n / cards.length * 100) + "%";
+    document.getElementById("count").textContent = n + " מתוך " + cards.length;
+    var withName = form.querySelector('input[name=consent]:checked');
+    document.getElementById("nameBox").classList.toggle("on", !!withName && withName.value === "כן, עם שם ותפקיד");
+  }
+
+  /* ---- טיוטה בדפדפן, כדי ששום תשובה לא תלך לאיבוד ---- */
+  function saveDraft(){ try{ localStorage.setItem(DRAFT, JSON.stringify(collect())); }catch(e){} }
+  function loadDraft(){
+    var d; try{ d = JSON.parse(localStorage.getItem(DRAFT) || "null"); }catch(e){}
+    if (!d) return;
+    ["best","used","styleOther","recommendWhy","name"].forEach(function(k){
+      var el = form.elements[k]; if (el && d[k]) el.value = d[k];
+    });
+    ["overall","relevance","recommend","consent"].forEach(function(k){
+      if (!d[k]) return;
+      var el = form.querySelector('input[name="'+k+'"][value="'+d[k].replace(/"/g,'\\"')+'"]');
+      if (el) el.checked = true;
+    });
+    (d.style || "").split(" · ").forEach(function(v){
+      if (!v) return;
+      var el = form.querySelector('input[name="style"][value="'+v.replace(/"/g,'\\"')+'"]');
+      if (el) el.checked = true;
+    });
+  }
+
+  form.addEventListener("input", function(){ paint(); saveDraft(); msg.textContent = ""; msg.classList.remove("err"); });
+  form.addEventListener("change", function(){ paint(); saveDraft(); });
+
+  /* ---- שליחה ---- */
+  function asText(d){
+    return [
+      "1. איך הייתה ההדרכה: " + d.overall,
+      "2. רלוונטיות: " + d.relevance,
+      "3. הכי שימושי: " + d.best,
+      "4. השתמשתי מאז: " + d.used,
+      "5. סגנון: " + d.style + (d.styleOther ? " · " + d.styleOther : ""),
+      "6. ממליצה: " + d.recommend + (d.recommendWhy ? " — " + d.recommendWhy : ""),
+      "7. ציטוט: " + d.consent + (d.name ? " (" + d.name + ")" : "")
+    ].join("\n");
+  }
+  function fail(d){
+    msg.classList.add("err");
+    msg.innerHTML = 'לא הצלחנו לשלוח כרגע. התשובות שמורות בדפדפן — אפשר לנסות שוב בעוד רגע, או ' +
+                    '<button type="button" id="cpy">להעתיק אותן</button> ולשלוח למיטל בוואטסאפ.';
+    document.getElementById("cpy").onclick = function(){
+      var t = asText(d), b = this;
+      var ok = function(){ b.textContent = "הועתק ✓"; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function(){});
+    };
+  }
+  function done(){
+    try{ localStorage.removeItem(DRAFT); localStorage.setItem(SENT, new Date().toISOString()); }catch(e){}
+    form.hidden = true;                                  /* לא form.style — יש בטופס שדה בשם style */
+    document.getElementById("hero").style.display = "none";
+    var t = document.getElementById("thanks");
+    t.classList.add("on");
+    window.scrollTo({top:0, behavior:"smooth"});
+    t.focus({preventScroll:true});
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var d = collect();
+    if (d.website) return done();                       /* מלכודת לבוטים */
+    if (!d.overall && !d.relevance && !d.best && !d.used){
+      msg.classList.add("err");
+      msg.textContent = "כדאי לענות לפחות על אחת מארבע השאלות הראשונות לפני השליחה.";
+      return;
+    }
+    if (!d.consent){
+      msg.classList.add("err");
+      msg.textContent = "רגע אחרון — בשאלה 7: אפשר לצטט אותך, או לא?";
+      form.querySelector('[data-q="consent"]').scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
+    if (!API){ fail(d); return; }
+
+    d.sentAt = new Date().toISOString();
+    btn.disabled = true; btn.textContent = "שולחת…";
+    msg.classList.remove("err"); msg.textContent = "";
+    fetch(API, {
+      method:  "POST",
+      headers: {"Content-Type":"text/plain;charset=utf-8"},   /* טקסט רגיל — כדי לא לעורר preflight */
+      body:    JSON.stringify(d)
+    }).then(function(r){ return r.json(); })
+      .then(function(r){ if (r && r.ok) done(); else fail(d); })
+      .catch(function(){ fail(d); })
+      .then(function(){ btn.disabled = false; btn.textContent = "שליחת המשוב ←"; });
+  });
+
+  loadDraft();
+  paint();
+})();
+</script>
+</body>
+</html>
