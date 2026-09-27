@@ -16,12 +16,13 @@
    השליחה: POST לאפס סקריפט שכותב לגיליון (ראו apps-script/copilot-mashov.gs).
    ============================================================ */
 :root{
-  --ink:#ffffff; --ink-2:rgba(255,255,255,.74); --ink-3:rgba(255,255,255,.5);
-  --night:#07060F;
-  --glass:rgba(255,255,255,.06); --glass-2:rgba(255,255,255,.1);
-  --edge:rgba(255,255,255,.14); --edge-2:rgba(255,255,255,.26);
-  --violet:#A78BFA; --cyan:#22D3EE; --amber:#FBBF24;
-  --rose:#FB7185;   --mint:#34D399; --pink:#F472B6;
+  --ink:#1c1733; --ink-2:#4a4560; --ink-3:#6f6a85;
+  --night:#fbf8f4;
+  --glass:rgba(255,255,255,.78); --glass-2:#ffffff;
+  --edge:rgba(40,30,80,.1); --edge-2:rgba(40,30,80,.2);
+  --violet:#7C3AED; --cyan:#0E7490; --amber:#B45309;
+  --rose:#E11D48;   --mint:#047857; --pink:#DB2777;
+  --shadow:0 1px 2px rgba(40,30,80,.05), 0 14px 34px -20px rgba(40,30,80,.35);
   --c:var(--violet); --c2:var(--pink);
   --f-display:"Rubik","Heebo",system-ui,sans-serif;
   --f-body:"Heebo","Assistant",system-ui,sans-serif;
@@ -29,7 +30,7 @@
   --r-s:12px; --r-m:20px; --r-pill:999px;
   --ease:cubic-bezier(.22,.9,.28,1);
   --spring:cubic-bezier(.34,1.42,.5,1);
-  color-scheme:dark;
+  color-scheme:light;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -47,15 +48,14 @@ button,input,textarea{font:inherit; color:inherit}
 
 /* ---------- מפלי האור ---------- */
 .aurora{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none}
-.aurora i{position:absolute; display:block; border-radius:50%; filter:blur(110px); opacity:.45; mix-blend-mode:screen}
-.aurora i:nth-child(1){width:70vw;height:70vw;top:-26vw;right:-20vw; background:#6D28D9; animation:fl1 30s ease-in-out infinite}
-.aurora i:nth-child(2){width:60vw;height:60vw;bottom:-26vw;left:-20vw; background:#BE185D; animation:fl2 36s ease-in-out infinite}
-.aurora i:nth-child(3){width:46vw;height:46vw;top:38%;left:24%; background:#0E7490; animation:fl3 44s ease-in-out infinite; opacity:.35}
+.aurora i{position:absolute; display:block; border-radius:50%; filter:blur(100px); opacity:.55}
+.aurora i:nth-child(1){width:70vw;height:70vw;top:-26vw;right:-20vw; background:#C4B5FD; animation:fl1 30s ease-in-out infinite}
+.aurora i:nth-child(2){width:60vw;height:60vw;bottom:-26vw;left:-20vw; background:#FBCFE8; animation:fl2 36s ease-in-out infinite}
+.aurora i:nth-child(3){width:46vw;height:46vw;top:38%;left:24%; background:#A5F3FC; animation:fl3 44s ease-in-out infinite; opacity:.45}
 @keyframes fl1{0%,100%{transform:none}50%{transform:translate(-7vw,7vh) scale(1.18)}}
 @keyframes fl2{0%,100%{transform:none}50%{transform:translate(8vw,-6vh) scale(1.12)}}
 @keyframes fl3{0%,100%{transform:none}50%{transform:translate(-11vw,-9vh) scale(1.3)}}
-.vignette{position:fixed; inset:0; z-index:1; pointer-events:none;
-  background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.5) 100%)}
+.vignette{display:none}
 
 .wrap{position:relative; z-index:2; max-width:720px; margin:0 auto; padding:clamp(36px,7vh,72px) 16px 90px}
 
@@ -63,10 +63,10 @@ button,input,textarea{font:inherit; color:inherit}
 .kicker{display:inline-flex; align-items:center; gap:11px; font-size:.84rem; font-weight:700;
   letter-spacing:.16em; color:var(--c); margin-bottom:14px}
 .kicker::before{content:""; width:8px;height:8px;border-radius:50%; background:var(--c);
-  box-shadow:0 0 0 4px rgba(167,139,250,.22), 0 0 22px var(--c)}
+  box-shadow:0 0 0 4px rgba(124,58,237,.15)}
 .kicker::after{content:""; width:38px; height:1px; background:linear-gradient(to left,var(--c),transparent)}
 .hero h1{font-size:clamp(2.4rem,8.5vw,4.2rem); letter-spacing:-.035em}
-.glow{background:linear-gradient(105deg,var(--c) 0%,var(--c2) 60%,#fff 130%);
+.glow{background:linear-gradient(105deg,var(--c) 0%,var(--c2) 100%);
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent}
 .lead{font-size:clamp(1.05rem,2.6vw,1.3rem); color:var(--ink-2); font-weight:300; margin-top:16px; max-width:34em}
 .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px}
@@ -76,8 +76,8 @@ button,input,textarea{font:inherit; color:inherit}
 
 /* ---------- התקדמות ---------- */
 .progress{position:sticky; top:0; z-index:5; margin:30px -16px 0; padding:12px 16px;
-  background:linear-gradient(to bottom, rgba(7,6,15,.92) 60%, rgba(7,6,15,0))}
-.bar{height:5px; border-radius:99px; background:rgba(255,255,255,.1); overflow:hidden}
+  background:linear-gradient(to bottom, rgba(251,248,244,.94) 60%, rgba(251,248,244,0))}
+.bar{height:5px; border-radius:99px; background:rgba(40,30,80,.1); overflow:hidden}
 .bar i{display:block; height:100%; width:0; border-radius:99px;
   background:linear-gradient(to left,var(--violet),var(--pink),var(--amber)); transition:width .5s var(--ease)}
 .progress small{display:block; margin-top:6px; font-size:.8rem; color:var(--ink-3)}
@@ -87,12 +87,12 @@ button,input,textarea{font:inherit; color:inherit}
   margin-top:18px; border:1px solid var(--edge); border-radius:var(--r-m);
   background:var(--glass); padding:clamp(18px,4vw,28px);
   backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
-  position:relative; overflow:hidden; transition:border-color .3s;
+  position:relative; overflow:hidden; transition:border-color .3s; box-shadow:var(--shadow);
   min-width:0;
 }
 .q::before{content:""; position:absolute; inset:0 0 auto 0; height:1px;
-  background:linear-gradient(to left,transparent,rgba(255,255,255,.5),transparent)}
-.q.done{border-color:color-mix(in srgb, var(--c) 45%, transparent)}
+  background:linear-gradient(to left,transparent,rgba(255,255,255,.9),transparent)}
+.q.done{border-color:color-mix(in srgb, var(--c) 40%, transparent)}
 .q[data-color="violet"]{--c:var(--violet); --c2:#818CF8}
 .q[data-color="cyan"]  {--c:var(--cyan);   --c2:#38BDF8}
 .q[data-color="amber"] {--c:var(--amber);  --c2:#FB923C}
@@ -105,7 +105,7 @@ fieldset.q{margin-inline:0}
 .q legend + *, .q .qt + *{clear:both}
 .qn{display:inline-grid; place-items:center; width:30px; height:30px; margin-left:10px; vertical-align:2px;
   border-radius:50%; font-family:var(--f-latin); font-size:.85rem; font-weight:700;
-  color:#0b0a18; background:var(--c); box-shadow:0 0 18px color-mix(in srgb, var(--c) 55%, transparent)}
+  color:#fff; background:var(--c); box-shadow:0 4px 14px -4px color-mix(in srgb, var(--c) 70%, transparent)}
 .hint{font-size:.9rem; color:var(--ink-3); margin-top:6px}
 .opt-tag{font-family:var(--f-body); font-weight:400; font-size:.82rem; color:var(--ink-3)}
 
@@ -114,13 +114,13 @@ fieldset.q{margin-inline:0}
 .scale label{position:relative}
 .scale input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
 .scale span{display:grid; place-items:center; height:58px; border-radius:var(--r-s);
-  border:1px solid var(--edge-2); background:rgba(255,255,255,.04);
+  border:1px solid var(--edge-2); background:#fff;
   font-family:var(--f-latin); font-size:1.35rem; font-weight:700; color:var(--ink-2);
   transition:transform .25s var(--spring), background .2s, border-color .2s, color .2s}
 .scale label:hover span{border-color:var(--c); color:var(--ink)}
-.scale input:checked + span{background:var(--c); border-color:var(--c); color:#0b0a18; transform:scale(1.06);
+.scale input:checked + span{background:var(--c); border-color:var(--c); color:#fff; transform:scale(1.06);
   box-shadow:0 8px 26px -8px var(--c)}
-.scale input:focus-visible + span{outline:2px solid #fff; outline-offset:3px}
+.scale input:focus-visible + span{outline:2px solid var(--ink); outline-offset:3px}
 .ends{display:flex; justify-content:space-between; margin-top:8px; font-size:.82rem; color:var(--ink-3)}
 
 /* צ'יפים — בחירה יחידה ומרובה */
@@ -128,27 +128,27 @@ fieldset.q{margin-inline:0}
 .chip{position:relative}
 .chip input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
 .chip span{display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:var(--r-pill);
-  border:1px solid var(--edge-2); background:rgba(255,255,255,.04); font-size:.95rem; color:var(--ink-2);
+  border:1px solid var(--edge-2); background:#fff; font-size:.95rem; color:var(--ink-2);
   transition:background .2s, border-color .2s, color .2s}
 .chip span::before{content:""; width:14px; height:14px; flex:none; border-radius:4px; border:1.5px solid var(--ink-3);
   transition:background .2s, border-color .2s}
 .chip input[type=radio] + span::before{border-radius:50%}
 .chip:hover span{border-color:var(--c); color:var(--ink)}
-.chip input:checked + span{background:color-mix(in srgb, var(--c) 22%, transparent); border-color:var(--c); color:var(--ink)}
+.chip input:checked + span{background:color-mix(in srgb, var(--c) 12%, #fff); border-color:var(--c); color:var(--ink)}
 .chip input:checked + span::before{background:var(--c); border-color:var(--c);
-  box-shadow:inset 0 0 0 2.5px #15132a}
-.chip input:focus-visible + span{outline:2px solid #fff; outline-offset:3px}
+  box-shadow:inset 0 0 0 2.5px #fff}
+.chip input:focus-visible + span{outline:2px solid var(--ink); outline-offset:3px}
 
 .stack{display:grid; gap:9px; margin-top:16px}
 .stack .chip span{display:flex; border-radius:var(--r-s); padding:13px 16px}
 
 textarea, input[type=text]{
   width:100%; margin-top:14px; padding:13px 15px; border-radius:var(--r-s);
-  border:1px solid var(--edge-2); background:rgba(0,0,0,.28); color:var(--ink);
+  border:1px solid var(--edge-2); background:#fff; color:var(--ink);
   font-size:1rem; line-height:1.6; resize:vertical; transition:border-color .2s, background .2s}
 textarea{min-height:110px}
 textarea::placeholder, input::placeholder{color:var(--ink-3)}
-textarea:focus, input[type=text]:focus{outline:none; border-color:var(--c); background:rgba(0,0,0,.4)}
+textarea:focus, input[type=text]:focus{outline:none; border-color:var(--c); background:#fff; box-shadow:0 0 0 3px color-mix(in srgb, var(--c) 15%, transparent)}
 .follow{display:none}
 .follow.on{display:block; animation:rise .35s var(--ease) both}
 .follow label{display:block; margin-top:14px; font-size:.92rem; color:var(--ink-2)}
@@ -156,14 +156,14 @@ textarea:focus, input[type=text]:focus{outline:none; border-color:var(--c); back
 @keyframes rise{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
 
 .note{margin-top:14px; padding:12px 15px; border-radius:var(--r-s); font-size:.9rem; color:var(--ink-2);
-  background:rgba(255,255,255,.04); border-right:3px solid var(--c)}
+  background:color-mix(in srgb, var(--c) 7%, #fff); border-right:3px solid var(--c)}
 
 /* ---------- שליחה ---------- */
 .hp{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap}
 .send-row{margin-top:28px; display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center}
 .send{
   display:inline-flex; align-items:center; gap:10px; padding:16px 38px; border:0; border-radius:var(--r-pill);
-  font-family:var(--f-display); font-weight:800; font-size:1.12rem; color:#0b0a18; cursor:pointer;
+  font-family:var(--f-display); font-weight:800; font-size:1.12rem; color:#fff; cursor:pointer;
   background:linear-gradient(105deg,var(--violet),var(--pink) 60%,var(--amber));
   box-shadow:0 14px 40px -12px rgba(244,114,182,.7);
   transition:transform .25s var(--spring), box-shadow .25s, opacity .2s}
@@ -186,7 +186,7 @@ textarea:focus, input[type=text]:focus{outline:none; border-color:var(--c); back
 .kit-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-top:20px}
 .res{
   display:block; text-decoration:none; color:inherit; padding:20px; border-radius:var(--r-m);
-  border:1px solid var(--edge); background:var(--glass); position:relative; overflow:hidden;
+  border:1px solid var(--edge); background:var(--glass); position:relative; overflow:hidden; box-shadow:var(--shadow);
   backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
   transition:transform .3s var(--spring), border-color .25s, background .25s}
 .res:hover{transform:translateY(-3px); border-color:var(--c); background:var(--glass-2)}
